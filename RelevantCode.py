@@ -1,7 +1,25 @@
+
 '''
-Created on Nov 25, 2023
+Created on Jul 4, 2022
 
 @author: chelseanieves
+
+
+'''
+from flask_login import UserMixin
+from . import db
+
+class User(db.Model, UserMixin):
+    '''Purpose: Creates and manages User database model'''
+    '''defines database schema'''
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(50), unique=True) # unique to prevent duplicate email entries
+    password = db.Column(db.String(50))
+    first_name = db.Column(db.String(50))
+_______________________________
+
+'''
+@author 
 '''
 
 import logging
@@ -102,19 +120,4 @@ def validate_pass(password1, password2):
         flash("Error: Something went wrong. Unable to complete action.", category = "error")
         return False
 
-'''
-Created on Jul 4, 2022
 
-@author: chelseanieves
-
-Purpose: Creates and manages User database model
-'''
-from flask_login import UserMixin
-from . import db
-
-class User(db.Model, UserMixin):
-    '''defines database schema'''
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), unique=True) # unique to prevent duplicate email entries
-    password = db.Column(db.String(50))
-    first_name = db.Column(db.String(50))
