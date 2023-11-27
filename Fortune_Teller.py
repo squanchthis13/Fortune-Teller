@@ -10,6 +10,8 @@ import random
 import fileinput
 from tkinter import *
 from tkinter.ttk import *
+import tkinter as tk
+
 
 
 def main():
@@ -33,15 +35,20 @@ def main():
     exit.add_command(label='Exit Program', command=root.destroy)
 
     # add label to the root window
-    lbl = Label(root, text='Welcome to the Fortune Teller Game!')
-    lbl = Label(root, text='Reveal what your future holds!')
+    lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
+    lbl2 = Label(root, text='Reveal what your future holds!')
     # ask user if they want to play as a guest
-    lbl = Label(root, text='Would you like to login?')
-    lbl.pack()
-    # add buttons for user to select yes or no
-    btn = Button(root, text='Yes', bd='5', command=lambda: login())
-    btn = Button(root, text='No', bd='5', command=lambda: guest_menu())
+    lbl3 = Label(root, text='Would you like to login?')
+    lbl1.pack()
+    lbl2.pack()
+    lbl3.pack()
 
+    # add buttons for user to select yes or no
+    btn_login_yes = tk.Button(root, text='Yes', bd='5', command=lambda: login())
+    btn_login_no = tk.Button(root, text='No', bd='5', command=lambda: guest_menu())
+
+    btn_login_yes.pack()
+    btn_login_no.pack()
     # display menu
     root.config(menu=menubar)
     root.mainloop()
@@ -50,18 +57,21 @@ def main():
 def login():
     """This function is used for returning users"""
 
+# 11/27/23
+# Error: cannot use geometry manager pack inside .!frame which already has slaves managed by grid
 
 def guest_menu():
     # Create a guest menu window
     guest = Tk()
     guest.geometry('300x200')
     guest.title('Guest Form')
-    lbl = Label(guest, text='Would you like to play as a guest?')
-    lbl.pack()
+    lbl_guest = Label(guest, text='Would you like to play as a guest?')
+    lbl_guest.pack()
     # add buttons for the user to select their answer
-    btn = Button(guest, text='Yes', bd='5', command=lambda: fortune_menu())
-    btn = Button(guest, text='No', bd='5', command=lambda: registration())
-
+    btn_fortune_menu = tk.Button(guest, text='Yes', bd='5', command=lambda: fortune_menu())
+    btn_register = tk.Button(guest, text='No', bd='5', command=lambda: registration())
+    btn_fortune_menu.pack()
+    btn_register.pack()
     # display window
     guest.mainloop()
 
@@ -92,6 +102,8 @@ def registration():
         # grid geometry manager
         label.grid(row=idx, column=0, sticky='e')
         entry.grid(row=idx, column=1)
+        # pack label to scene
+        label.pack()
 
     # create new frame to contain submit and clear button
     frm_buttons = Frame()
@@ -146,6 +158,13 @@ def fortune_menu():
     btn_general = Button(fortune, text='General', command=lambda: general_fortune())
     btn_random = Button(fortune, text='Random', command=lambda: random_fortune())
 
+    lbl.pack()
+    btn_love.pack()
+    btn_career.pack()
+    btn_health.pack()
+    btn_general.pack()
+    btn_random.pack()
+
 
 def love_fortune():
     with open("love_fortune.txt", "r") as file:
@@ -186,3 +205,8 @@ def random_fortune():
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from any of the .txt files
         print(random.choice(fortune))
+
+
+# Press the green button in the gutter to run the script.
+if __name__ == '__main__':
+    main()
