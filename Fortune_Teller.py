@@ -102,8 +102,6 @@ def registration():
         # grid geometry manager
         label.grid(row=idx, column=0, sticky='e')
         entry.grid(row=idx, column=1)
-        # pack label to scene
-        label.pack()
 
     # create new frame to contain submit and clear button
     frm_buttons = Frame()
