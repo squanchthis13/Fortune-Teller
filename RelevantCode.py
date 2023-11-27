@@ -11,75 +11,66 @@ from os import path
 import sqlite3
 import hashlib
 import uuid
+import string
+import tkinter as tk
 
 # create logger name and object
 logger = logging.getLogger(__name__)
 LOG_NAME = "./log.txt"
+SPECIAL_CHAR = string.punctuation
+COMMON_PASS = 'filepath/'
 
 #REFERENCE https://docs.python.org/3/library/sqlite3.html
 
 #First, we need to create a new database and open a database connection to allow sqlite3 to work
-#with it. Call sqlite3.connect() to create a connection to the database tutorial.db in the current
+#with it. Call sqlite3.connect() to create a connection to the database tutorial.db in the CURrent
 #working directory, implicitly creating it if it does not exist
 DB_NAME = "Test.db"
-con = sqlite3.connect(DB_NAME)
+CON = sqlite3.connect(DB_NAME)
 #In order to execute SQL statements and fetch results from SQL queries, we will need to use a 
 #database cursor. Call con.cursor() to create the Cursor:
-cur = con.cursor() 
-
-cur.execute("CREATE TABLE user(userid, username, password, salt)")
-
-data = [
-    (1, "test user", "hashed password", "salt stored to be able to reauth user"),
-    (2, "test user 2", "pass", "salt"),
-]
-
-cur.executemany("INSERT INTO user VALUES (?, ?, ?)", data)
-con.commit() #Commit the transaction
-
-#view table data
-for row in cur.execute("SELECT username FROM user ORDER BY userid"):
-    print(row)
+CUR = CON.cursor() 
 
 # REFERENCE https://www.geeksforgeeks.org/how-to-get-the-tkinter-label-text/#
-import tkinter as tk
+#Placeholder -- CAN BE DELETED
 master = tk.Tk()
 master.configure(bg='light grey') 
 l = tk.Label(master,
             text="Placeholder label for sign up func")
 
+
+def create_table():
+    CUR.execute("CREATE TABLE table(username VARCHAR UNIQUE, password VARCHAR, salt)")
+    CON.commit()
+    
 def sign_up():
-    ''' Accepts input from tkinter labels
+    '''Accepts input from tkinter labels
     Validates username does not already exist in DB
     Confirms desired password matches password confirmation field
-    Commits user data to db if valid''''
+    Commits user data to db if valid'''
+    uname = l.cget("text")
+    #Desired password
+    pass1 = l.cget("text")
+    #Confirm password
+    pass2 = l.cget("text")
+    # query database by username to determine if  user is already registered
+    res = CUR.execute("SELECT username FROM sqlite_master WHERE username='uname'")
+    data = res.fetchall()
     
-        uname = c.get("text")
-        #Desired password
-        pass1 = c.get("text")
-        #Confirm password
-        pass2 = c.get("text")
-        # query database by username to determine if  user is already registered
-        res = cur.execute("SELECT username FROM sqlite_master WHERE username='uname'")
-
-        if res.fetchone() is None == False:
-            #If username is found in the db
-            print("Invalid username or password, please try again")
-        elif uname == "" or pass1 == "" or pass2 == "":
-            #Fields cannot be left blank
-            print("Field cannot be left blank.")
-        elif validate_pass(password1, password2) is True:
-            #Username not already in DB
-            #Desired pass and confirmation pass match
-            #Fields are not left blank
-            password = generate_password_hash(pass1, method= "sha256")
-            salt = uuid.uuid4().hex
-            hashed_pass = hashlib.sha512(password+salt).hexdigest()
-            data = [
-                (1, uname, hashed_password, salt),
-                ]
-            cur.executemany("INSERT INTO user VALUES (?, ?, ?)", data)
-            con.commit() #Commit the transaction
+    if len(data) != 0:
+        #If username is found in the db
+        print("Invalid username or password, please try again")
+    elif uname == "" or pass1 == "" or pass2 == "":
+        #Fields cannot be left blank
+        print("Field cannot be left blank.")
+    elif validate_pass(pass1, pass2) is True:
+        #Username not already in DB
+        #Desired pass and confirmation pass match
+        #Fields are not left blank
+        salt = uuid.uuid4().hex
+        hashed_pass = hashlib.sha512(pass1+salt).hexdigest()
+        CUR.execute("INSERT INTO user VALUES (?, ?, ?)", (uname, hashed_pass, salt))
+        CON.commit() #Commit the transaction
 
 def validate_pass(password1, password2):
     '''Validates user's desired password is not found in list of common passphrases.
@@ -87,28 +78,29 @@ def validate_pass(password1, password2):
     1 special char)
     Returns true if user's password meets requirements.'''
     try:
-        with open(f'{COMMON_PASS}') as f:
+        with open(f'{COMMON_PASS}', encoding='UTF-8') as f:
             contents = f.read()
             if password1 in contents:
-                flash("Error: Found in list of common passwords. Please try again.",
-                      category = "error")
+                #if password found in list of common passwords
+                print("Error: Found in list of common passwords. Please try again.")
             elif len(password1) < 12:
-                flash("Invalid length: Password must be greater than 12 characters.",
-                      category = "error")
+                #if password length is not 12 char
+                print("Invalid length: Password must be greater than 12 characters.")
             elif not any(char.isdigit() for char in password1):
-                flash("Error: Password must contain at least one numerical character.",
-                      category = "error")
+                #if password does not contain at least one numerical char
+                print("Error: Password must contain at least one numerical character.")
             elif not any(char.islower() for char in password1):
-                flash("Error: Password must contain at least one lowercase character.",
-                      category = "error")
+                #if password does not contain at least one lowercase char
+                print("Error: Password must contain at least one lowercase character.")
             elif not any(char.isupper() for char in password1):
-                flash("Error: Password must contain at least one uppercase character.",
-                      category = "error")
+                #if password does not contain at least one uppercase char
+                print("Error: Password must contain at least one uppercase character.")
             elif not any(char in SPECIAL_CHAR for char in password1):
-                flash("Error: Password must contain at least one special character.",
-                      category = "error")
+                #if password does not contain at least one special char
+                print("Error: Password must contain at least one special character.")
             elif password1 != password2:
-                flash("Error: Passwords do not match.", category = "error")
+                #if desired password does not match confirmation field
+                print("Error: Passwords do not match.")
             else:
                 #Password is valid
                 return True
@@ -117,7 +109,22 @@ def validate_pass(password1, password2):
         return False
 
 def auth_user():
+    uname = l.cget("text")
+    password = l.cget("text")
     
+    #VALIDATE INPUT
+    #if input is valid, query db
+    #query salt from db
+    salt = CUR.execute('SELECT salt FROM table WHERE username = ?')
+    
+    #hash and salt supplied pass for comparison
+    hashed_pass = hashlib.sha512(password+salt).hexdigest()
+    
+    #query db for username and pass matching uname and hashed_pass
+    CUR.execute('SELECT * FROM table WHERE username = ? AND Password = ?', (uname, hashed_pass))
+    res = CUR.fetchone() #will return NONE if no result
+    CON.commit()
+    print(res)
 
 def create_logger():
     '''Create and modify logger'''
@@ -138,6 +145,6 @@ def create_logger():
     handler.setFormatter(formatter)
     # apply filter to handler
     handler.addFilter(logger)
-
-
-
+    
+CUR.close()
+CON.close()
