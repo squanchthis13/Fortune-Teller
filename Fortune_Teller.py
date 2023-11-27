@@ -4,72 +4,147 @@ Valerie Rudich, and Hoi Lam Wong
 University of Maryland Global Campus
 CMSC 495-7382: Capstone in Computer Science
 Professor David Castillo
-November 17, 2023"""
+November 26, 2023"""
 
-import sys
 import random
-import time
 import fileinput
+from tkinter import *
+from tkinter.ttk import *
 
 
 def main():
     """Display Main Menu and Welcome Message"""
-    print('Welcome to the Fortune Teller Game!')
-    print('Reveal what your future holds!')
-    # call main menu for user selection
-    main_menu()
+    # create root window
+    root = Tk()
+    # root window and title dimensions
+    root.title('Fortune Teller')
+    # geometry of the box (width x height)
+    root.geometry('350x200')
+
+    # add menu bar to allow user to view rules or exit
+    menubar = Menu(root)
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+    # add Exit menu and commands
+    exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=exit)
+    exit.add_command(label='Exit Program', command=root.destroy)
+
+    # add label to the root window
+    lbl = Label(root, text='Welcome to the Fortune Teller Game!')
+    lbl = Label(root, text='Reveal what your future holds!')
+    # ask user if they want to play as a guest
+    lbl = Label(root, text='Would you like to login?')
+    lbl.pack()
+    # add buttons for user to select yes or no
+    btn = Button(root, text='Yes', bd='5', command=lambda: login())
+    btn = Button(root, text='No', bd='5', command=lambda: guest_menu())
+
+    # display menu
+    root.config(menu=menubar)
+    root.mainloop()
 
 
-def main_menu():
-    """Display the Main Menu for user selection."""
-    print('\nPlease select from the following menu: ')
-    print('\n 1. Rules')
-    print('\n 2. Choose a Fortune')
-    print('\n 0. Exit the Program')
-    user_selection = input('Enter Selection Here: ')
-    if user_selection == 1:
-        display_rules()
-    elif user_selection == 2:
-        fortune_menu()
-    elif user_selection == 0:
-        print('Thank you for using the fortune teller game!')
-        print('\nGoodbye!')
-        sys.exit()
-    else:
-        print('Error! Invalid Selection!)')
-        print('\nPlease enter a number between 0-2!')
-        user_selection = input('\nEnter Selection Here: ')
+def login():
+    """This function is used for returning users"""
+
+
+def guest_menu():
+    # Create a guest menu window
+    guest = Tk()
+    guest.geometry('300x200')
+    guest.title('Guest Form')
+    lbl = Label(guest, text='Would you like to play as a guest?')
+    lbl.pack()
+    # add buttons for the user to select their answer
+    btn = Button(guest, text='Yes', bd='5', command=lambda: fortune_menu())
+    btn = Button(guest, text='No', bd='5', command=lambda: registration())
+
+    # display window
+    guest.mainloop()
+
+
+def registration():
+    # have the user register as a login user
+    reg = Tk()
+    reg.geometry('300x200')
+    reg.title('Registration Form')
+    # create new frame to contain the labels and entry boxes
+    frm_form = Frame(relief=SUNKEN, borderwidth=3)
+    frm_form.pack()
+
+    # List the field labels
+    labels = [
+        "First Name"
+        "Last Name"
+        "Username"
+        "Password"
+        "e-mail"
+    ]
+    # loop for the different labels
+    for idx, text in enumerate(labels):
+        # create label widget with the text
+        label = Label(master=frm_form, text=text)
+        # create an entry widget
+        entry = Entry(master=frm_form, width=50)
+        # grid geometry manager
+        label.grid(row=idx, column=0, sticky='e')
+        entry.grid(row=idx, column=1)
+
+    # create new frame to contain submit and clear button
+    frm_buttons = Frame()
+    frm_buttons.pack(fill=X, ipadx=5, ipady=5)
+    # Submit button
+    btn_submit = Button(master=frm_buttons, text='Submit', command=lambda: database())
+    btn_submit.pack(side=RIGHT, padx=10, ipadx=10)
+    # Clear button
+    btn_clear = Button(master=frm_buttons, text='Clear')
+    btn_clear.pack(side=RIGHT, ipadx=10)
+
+
+def database():
+    """ This function will be used to save registrations/fortunes"""
 
 
 def display_rules():
-    print('')
-    print('')
-    print('')
-    time.sleep(120)
+    """ Create a window that displays the rules to the user"""
+    rules = Tk()
+    rules.geometry('300x200l')
+    rules.title('Rules of the Fortune Teller')
+    lbl = Label(rules, text='How to Play the Fortune Teller Game', font='50')
+    lbl.pack()
+    msg = Message(rules, text='Please select a category from the drop down menu. The program will display the fortune '
+                              'to you automatically. The program will automatically save your fortune if you are '
+                              'logged in as a returning user. Use the menu selection Exit from the main window to '
+                              'exit the program.')
+    msg.pack()
+    rules.mainloop()
 
 
 def fortune_menu():
-    print('Please choose a fortune category from the following menu:')
-    print('\n 1. Love')
-    print('\n 2. Career')
-    print('\n 3. Health')
-    print('\n 4. General')
-    print('\n 5. Random Fortune')
-    user_choice = input('\nEnter Selection Here: ')
-    if user_choice == 1:
-        love_fortune()
-    elif user_choice == 2:
-        career_fortune()
-    elif user_choice == 3:
-        health_fortune()
-    elif user_choice == 4:
-        general_fortune()
-    elif user_choice == 5:
-        random_fortune()
-    else:
-        print('Error! Invalid Selection!')
-        print('\nPlease enter a number between 1-5!')
-        user_choice = input('\nEnter Selection Here: ')
+    """This menu will give the user the option to choose a category"""
+    fortune = Tk()
+    fortune.title('Fortune Menu')
+
+    # Create menu bar
+    menubar = Menu(fortune)
+
+    # Add file menu for save and exit options
+    file = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='File', menu=file)
+    file.add_command(label='New Fortune', command=lambda: fortune_menu())
+    file.add_command(label='Save', command=lambda: database())
+    file.add_separator()
+    file.add_command(label='Exit', command=fortune.destroy)
+
+    lbl = Label(fortune, text='Please select a category!')
+    btn_love = Button(fortune, text='Love', command=lambda: love_fortune())
+    btn_career = Button(fortune, text='Career', command=lambda: career_fortune())
+    btn_health = Button(fortune, text='Health', command=lambda: health_fortune())
+    btn_general = Button(fortune, text='General', command=lambda: general_fortune())
+    btn_random = Button(fortune, text='Random', command=lambda: random_fortune())
 
 
 def love_fortune():
