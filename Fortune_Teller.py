@@ -13,7 +13,6 @@ from tkinter.ttk import *
 import tkinter as tk
 
 
-
 def main():
     """Display Main Menu and Welcome Message"""
     # create root window
@@ -56,6 +55,7 @@ def main():
 
 def login():
     """This function is used for returning users"""
+
 
 # 11/27/23
 # Error: cannot use geometry manager pack inside .!frame which already has slaves managed by grid
