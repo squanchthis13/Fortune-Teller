@@ -181,11 +181,21 @@ def career_fortune():
 
 
 def health_fortune():
-    with open("health_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from health_fortune.txt
-        print(random.choice(fortune))
+    fortune = []
+    # with open("health_fortune.txt", "r") as file:
+    #     all_text: str = file.read()
+    #     fortune = list(map(str, all_text.split(":")))
+    #     # Print random fortune from health_fortune.txt
+    #     print(random.choice(fortune))
+
+    # Modified by Hoi
+    # Testing health fortune. Txt is split by new line instead
+    file1 = open('health_fortune.txt', 'r')
+    lines = file1.read().splitlines()
+
+    for line in lines:
+        fortune.append(line)
+    print(random.choice(fortune))
 
 
 def general_fortune():
