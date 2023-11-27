@@ -9,6 +9,7 @@ November 26, 2023"""
 import random
 import fileinput
 from tkinter import *
+from tkinter import messagebox
 from tkinter.ttk import *
 import tkinter as tk
 
@@ -29,9 +30,10 @@ def main():
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
     # add Exit menu and commands
-    exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=exit)
-    exit.add_command(label='Exit Program', command=root.destroy)
+    # updated variable name for menu exit
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
 
     # add label to the root window
     lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
@@ -57,9 +59,7 @@ def login():
     """This function is used for returning users"""
 
 
-# 11/27/23
-# Error: cannot use geometry manager pack inside .!frame which already has slaves managed by grid
-
+# Added new registration form
 def guest_menu():
     # Create a guest menu window
     guest = Tk()
@@ -72,8 +72,6 @@ def guest_menu():
     btn_register = tk.Button(guest, text='No', bd='5', command=lambda: registration())
     btn_fortune_menu.pack()
     btn_register.pack()
-    # display window
-    guest.mainloop()
 
 
 def registration():
@@ -85,52 +83,89 @@ def registration():
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
     frm_form.pack()
 
-    # List the field labels
-    labels = [
-        "First Name"
-        "Last Name"
-        "Username"
-        "Password"
-        "e-mail"
-    ]
-    # loop for the different labels
-    for idx, text in enumerate(labels):
-        # create label widget with the text
-        label = Label(master=frm_form, text=text)
-        # create an entry widget
-        entry = Entry(master=frm_form, width=50)
-        # grid geometry manager
-        label.grid(row=idx, column=0, sticky='e')
-        entry.grid(row=idx, column=1)
+    # COMMENTED OUT 11/27 Hoi
+    # It doesn't seem to work on my end, so I have included a new form.
 
-    # create new frame to contain submit and clear button
-    frm_buttons = Frame()
-    frm_buttons.pack(fill=X, ipadx=5, ipady=5)
-    # Submit button
-    btn_submit = Button(master=frm_buttons, text='Submit', command=lambda: database())
-    btn_submit.pack(side=RIGHT, padx=10, ipadx=10)
-    # Clear button
-    btn_clear = Button(master=frm_buttons, text='Clear')
-    btn_clear.pack(side=RIGHT, ipadx=10)
+    # # List the field labels
+    # labels = [
+    #     "First Name"
+    #     "Last Name"
+    #     "Username"
+    #     "Password"
+    #     "e-mail"
+    # ]
+    # # loop for the different labels
+    # for idx, text in enumerate(labels):
+    #     # create label widget with the text
+    #     label = Label(master=frm_form, text=text)
+    #     # create an entry widget
+    #     entry = Entry(master=frm_form, width=50 )
+    #     # grid geometry manager
+    #     label.grid(row=idx, column=0, sticky='e')
+    #     entry.grid(row=idx, column=1)
+
+    # # create new frame to contain submit and clear button
+    # frm_buttons = Frame()
+    # frm_buttons.pack(fill=X, ipadx=5, ipady=5)
+    # # Submit button
+    # btn_submit = Button(master=frm_buttons, text='Submit', command=lambda: database())
+    # btn_submit.pack(side=RIGHT, padx=10, ipadx=10)
+    # # Clear button
+    # btn_clear = Button(master=frm_buttons, text='Clear')
+    # btn_clear.pack(side=RIGHT, ipadx=10)
+
+    '''Created 11/27/23 Hoi'''
+    # Reference : https://www.tutorialspoint.com/simple-registration-form-using-python-tkinter
+    a = Label(reg, text="First Name:")
+    a.grid(row=0, column=0)
+    b = Label(reg, text="Last Name:")
+    b.grid(row=1, column=0)
+    c = Label(reg, text="Username:")
+    c.grid(row=2, column=0)
+    d = Label(reg, text="Password:")
+    d.grid(row=3, column=0)
+    a1 = Entry(reg)
+    a1.grid(row=0, column=1)
+    b1 = Entry(reg)
+    b1.grid(row=1, column=1)
+    c1 = Entry(reg)
+    c1.grid(row=2, column=1)
+    d1 = Entry(reg)
+    d1.grid(row=3, column=1)
+
+    btn_submit = Button(master=reg, text="Submit", command=lambda: handle_registration_submit())
+    btn_submit.grid(row=4, column=0)
+
+    # Receive user input and submit form
+    # Needs work (connect to database)
+    def handle_registration_submit():
+        """ This function will be used to save registrations/fortunes"""
+        print("submitted!")
 
 
-def database():
-    """ This function will be used to save registrations/fortunes"""
-
-
+# Modified 11/27/23 for formatting.
+# Added button to handle potential action
 def display_rules():
     """ Create a window that displays the rules to the user"""
     rules = Tk()
-    rules.geometry('300x200l')
+    rules.geometry('300x200')
     rules.title('Rules of the Fortune Teller')
     lbl = Label(rules, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
-    msg = Message(rules, text='Please select a category from the drop down menu. The program will display the fortune '
-                              'to you automatically. The program will automatically save your fortune if you are '
-                              'logged in as a returning user. Use the menu selection Exit from the main window to '
-                              'exit the program.')
+    msg = Message(rules, text='> Please select a category from the drop down menu. \n '
+                              '> The program will display the fortune to you automatically. \n'
+                              '> The program will automatically save your fortune '
+                              '> if you are logged in as a returning user. \n'
+                              '> Use the menu selection Exit from the '
+                              '> main window to exit the program.\n')
     msg.pack()
-    rules.mainloop()
+    btn_rule_close = tk.Button(rules, text='Close Rules', bd='5', command=lambda: rules_option1())
+    btn_rule_close.pack()
+
+    def rules_option1():
+        """ Method to handle button click to close rules after user has viewed the rules"""
+        # Close out rules window
+        rules.destroy()
 
 
 def fortune_menu():
@@ -213,6 +248,11 @@ def random_fortune():
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from any of the .txt files
         print(random.choice(fortune))
+
+
+def database():
+    """ This function will be used to save registrations/fortunes"""
+    pass
 
 
 # Press the green button in the gutter to run the script.
