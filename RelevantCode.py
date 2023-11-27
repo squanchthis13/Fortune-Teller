@@ -21,7 +21,7 @@ LOG_NAME = "./log.txt"
 #First, we need to create a new database and open a database connection to allow sqlite3 to work
 #with it. Call sqlite3.connect() to create a connection to the database tutorial.db in the current
 #working directory, implicitly creating it if it does not exist
-DB_Name = "Test.db"
+DB_NAME = "Test.db"
 con = sqlite3.connect(DB_NAME)
 #In order to execute SQL statements and fetch results from SQL queries, we will need to use a 
 #database cursor. Call con.cursor() to create the Cursor:
@@ -49,8 +49,11 @@ l = tk.Label(master,
             text="Placeholder label for sign up func")
 
 def sign_up():
-## I think I forgot to salt the password actually so we will need to do that possibly and store the salt as well?
-        
+    ''' Accepts input from tkinter labels
+    Validates username does not already exist in DB
+    Confirms desired password matches password confirmation field
+    Commits user data to db if valid''''
+    
         uname = c.get("text")
         #Desired password
         pass1 = c.get("text")
