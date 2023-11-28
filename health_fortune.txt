@@ -1,9 +1,1 @@
-You have issues with food. Exercise caution.
-No issues.
-Good.
-There will be no issues with your body, but take good care of your mental health.
-Remember to get adequate exercise.
-Your have issues with food.
-Exercise caution.
-Your troubles will persist. You will need to occasionally rest your mind.
-You are lacking in nutrition. Be careful with your diet.
+You have issues with food. Exercise caution.:No issues.:Good.:There will be no issues with your body, but take good care of your mental health.:Remember to get adequate exercise.:Your have issues with food.:Exercise caution.:Your troubles will persist. You will need to occasionally rest your mind.:You are lacking in nutrition. Be careful with your diet.

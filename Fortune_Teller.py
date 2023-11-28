@@ -103,7 +103,8 @@ def registration():
     btn_submit.grid(row=4, column=0)
     btn_close = Button(reg, text='Close', command=reg.destroy)
     btn_close.grid(row=4, column=1)
-    
+
+
 def database():
     """Will be used to save registration/fortunes to database"""
 
@@ -127,26 +128,28 @@ def display_rules():
 
 def fortune_menu():
     """This menu will give the user the option to choose a category"""
-    fortune = Tk()
-    fortune.title('Fortune Menu')
+    fortune_menu_tk = Tk()
+    fortune_menu_tk.geometry('300x200')
+    fortune_menu_tk.title('Fortune Menu')
 
-    # Create menu bar
-    menubar = Menu(fortune)
+    ### This menu bar doesn't work! ###
+    # # Create menu bar
+    # menubar = Menu(fortune_menu)
 
-    # Add file menu for save and exit options
-    file = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='File', menu=file)
-    file.add_command(label='New Fortune', command=lambda: fortune_menu())
-    file.add_command(label='Save', command=lambda: database())
-    file.add_separator()
-    file.add_command(label='Exit', command=fortune.destroy)
+    # # Add file menu for save and exit options
+    # file = Menu(menubar, tearoff=0)
+    # menubar.add_cascade(label='File', menu=file)
+    # file.add_command(label='New Fortune', command=lambda: fortune_menu())
+    # file.add_command(label='Save', command=lambda: database())
+    # file.add_separator()
+    # file.add_command(label='Exit', command=fortune_menu.destroy)
 
-    lbl = Label(fortune, text='Please select a category!')
-    btn_love = Button(fortune, text='Love', command=lambda: love_fortune())
-    btn_career = Button(fortune, text='Career', command=lambda: career_fortune())
-    btn_health = Button(fortune, text='Health', command=lambda: health_fortune())
-    btn_general = Button(fortune, text='General', command=lambda: general_fortune())
-    btn_random = Button(fortune, text='Random', command=lambda: random_fortune())
+    lbl = Label(fortune_menu_tk, text='Please select a category!')
+    btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
+    btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career'))
+    btn_health = Button(fortune_menu_tk, text='Health', command=lambda: display_fortune('Health'))
+    btn_general = Button(fortune_menu_tk, text='General', command=lambda: display_fortune('General'))
+    btn_random = Button(fortune_menu_tk, text='Random', command=lambda: display_fortune('Random'))
 
     lbl.pack()
     btn_love.pack()
@@ -156,12 +159,53 @@ def fortune_menu():
     btn_random.pack()
 
 
+# 11/28/23 Hoi
+# Needs work (Connect to Database to save fortune if user is logged in)
+def display_fortune(category):
+    """ Method to create a new window to display user's fortune based on the category they choose in fortune menu"""
+    user_fortune = ""
+
+    fortune_tk = Tk()
+    fortune_tk.title('Fortune Menu')
+    fortune_tk.geometry('300x200')
+
+    if category == 'Love':
+        user_fortune = love_fortune()
+    elif category == 'Career':
+        user_fortune = career_fortune()
+    elif category == 'General':
+        user_fortune = general_fortune()
+    elif category == 'Health':
+        user_fortune = health_fortune()
+    elif category == 'Random':
+        user_fortune = random_fortune()
+
+    lbl = Label(fortune_tk, text='Your Fortune', font='50')
+    lbl.pack()
+    lbl_category = Label(fortune_tk, text=category, font='40')
+    lbl_category.pack()
+
+    fortune_message = Message(fortune_tk, text=user_fortune)
+    fortune_message.pack()
+
+    btn_fortune_new = tk.Button(fortune_tk, text='New Fortune', bd='5', command=fortune_tk.destroy)
+    btn_fortune_new.pack()
+    btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='5', command=lambda: save_fortune())
+    btn_fortune_save.pack()
+
+    def save_fortune():
+        """ Method to save user's fortune """
+        print("Need work! Saving user's fortune")
+
+    fortune_tk.mainloop()
+
+
 def love_fortune():
     with open("love_fortune.txt", "r") as file:
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from love_fortune.txt
-        print(random.choice(fortune))
+        return random.choice(fortune)
 
 
 def career_fortune():
@@ -169,7 +213,7 @@ def career_fortune():
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from career_fortune.txt
-        print(random.choice(fortune))
+        return random.choice(fortune)
 
 
 def health_fortune():
@@ -177,7 +221,7 @@ def health_fortune():
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from health_fortune.txt
-        print(random.choice(fortune))
+        return random.choice(fortune)
 
 
 def general_fortune():
@@ -185,7 +229,7 @@ def general_fortune():
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from general_fortune.txt
-        print(random.choice(fortune))
+        return random.choice(fortune)
 
 
 def random_fortune():
@@ -194,8 +238,7 @@ def random_fortune():
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
         # Print random fortune from any of the .txt files
-        print(random.choice(fortune))
-
+        return random.choice(fortune)
 
 
 # Press the green button in the gutter to run the script.
