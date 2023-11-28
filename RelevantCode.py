@@ -128,12 +128,11 @@ def auth_user():
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
-    cur = con.cursor() 
+    cur = con.cursor()
     
-    con = sqlite3.connect(DB_NAME)
-    cur = con.cursor() 
     #VALIDATE INPUT
     #if input is valid, query db
+    
     #query salt from db
     salt = cur.execute('SELECT salt FROM table WHERE username = ?', (uname))
     
