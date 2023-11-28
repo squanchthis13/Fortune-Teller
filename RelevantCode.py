@@ -42,7 +42,9 @@ CUR = CON.cursor()
 def create_table():
     CUR.execute("CREATE TABLE table(username VARCHAR UNIQUE, password VARCHAR, salt)")
     CON.commit()
-    
+
+# Added usname, pass1, pass2 as parameter
+# Doesn't seem to work on my end (something to do with cursor closed)
 def sign_up(uname, pass1, pass2):
     '''Accepts input from tkinter labels
     Validates username does not already exist in DB
