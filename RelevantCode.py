@@ -25,11 +25,7 @@ COMMON_PASS = 'filepath/'
 #First, we need to create a new database and open a database connection to allow sqlite3 to work
 #with it. Call sqlite3.connect() to create a connection to the database tutorial.db in the CURrent
 #working directory, implicitly creating it if it does not exist
-DB_NAME = "Test.db"
-CON = sqlite3.connect(DB_NAME)
-#In order to execute SQL statements and fetch results from SQL queries, we will need to use a 
-#database cursor. Call con.cursor() to create the Cursor:
-CUR = CON.cursor() 
+DB_NAME = "fortuneteller.db"
 
 # # REFERENCE https://www.geeksforgeeks.org/how-to-get-the-tkinter-label-text/#
 # #Placeholder -- CAN BE DELETED
@@ -53,7 +49,9 @@ def create_table():
     cur.execute(query3)
     # commit changes
     cur.commit()
-    # close DB connection
+    # close DB curser
+    cur.close()
+    #close DB connection
     con.close()
 
 # Added usname, pass1, pass2 as parameter
@@ -63,13 +61,20 @@ def sign_up(uname, pass1, pass2):
     Validates username does not already exist in DB
     Confirms desired password matches password confirmation field
     Commits user data to db if valid'''
+
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor() 
+    
     # uname = l.cget("text")
     # #Desired password
     # pass1 = l.cget("text")
     # #Confirm password
     # pass2 = l.cget("text")
+    
     # query database by username to determine if  user is already registered
-    res = CUR.execute("SELECT username FROM sqlite_master WHERE username='uname'")
+    res = cur.execute("SELECT username FROM sqlite_master WHERE username='uname'")
     data = res.fetchall()
     
     if len(data) != 0:
@@ -84,8 +89,12 @@ def sign_up(uname, pass1, pass2):
         #Fields are not left blank
         salt = uuid.uuid4().hex
         hashed_pass = hashlib.sha512(pass1+salt).hexdigest()
-        CUR.execute("INSERT INTO user VALUES (?, ?, ?)", (uname, hashed_pass, salt))
-        CON.commit() #Commit the transaction
+        cur.execute("INSERT INTO user VALUES (?, ?, ?)", (uname, hashed_pass, salt))
+        con.commit() #Commit the transaction
+    # close DB curser
+    cur.close()
+    #close DB connection
+    con.close()
 
 def validate_pass(password1, password2):
     '''Validates user's desired password is not found in list of common passphrases.
@@ -147,9 +156,10 @@ def auth_user():
     # else authorize user
     # commit changes to DB
     con.commit()
-    # close DB connection
+    # close DB curser
+    cur.close()
+    #close DB connection
     con.close()
-    
 
 def create_logger():
     '''Create and modify logger'''
