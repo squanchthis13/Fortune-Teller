@@ -40,8 +40,8 @@ CUR = CON.cursor()
 
 
 def create_table():
-    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"   
-    query2 = "CREATE TABLE fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
+    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, salt)"   
+    query2 = "CREATE TABLE fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
     query3 = "CREATE TABLE transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
                      
     CUR.execute(query1)
