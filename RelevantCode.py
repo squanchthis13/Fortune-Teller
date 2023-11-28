@@ -1,6 +1,5 @@
-
 '''
-Modified 27Nov23
+Modified 28Nov23
 
 @author: chelseanieves
 '''
@@ -12,13 +11,12 @@ import sqlite3
 import hashlib
 import uuid
 import string
-import tkinter as tk
 
 # create logger name and object
 logger = logging.getLogger(__name__)
 LOG_NAME = "./log.txt"
-SPECIAL_CHAR = string.punctuation
-COMMON_PASS = 'filepath/'
+SPECIAL_CHAR = string.punctuation # special characters to validate password requirements
+COMMON_PASS = 'filepath/' # MODIFY WITH ACTUAL PATHNAME WHEN PROGRAM IS FUNCTIONAL
 
 #REFERENCE https://docs.python.org/3/library/sqlite3.html
 
@@ -26,14 +24,19 @@ COMMON_PASS = 'filepath/'
 DB_NAME = "fortuneteller.db"
 
 def create_table():
+    ''' Creates 3 SQL tables to store user and previous fortune data ''' 
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
     cur = con.cursor() 
-    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"   
+    # create table USER
+    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"
+    # create table FORTUNE
     query2 = "CREATE TABLE fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
+    # create bridge table TRANSACTION
     query3 = "CREATE TABLE transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
-                     
+
+    # execute table creation queries
     cur.execute(query1)
     cur.execute(query2)
     cur.execute(query3)
@@ -118,10 +121,16 @@ def validate_pass(password1, password2):
                 print("Valid Password")
                 return True
     except IOError:
+        # file not found error
         print("Could not find file CommonPassword.txt")
         return False
 
+def display_previous_fortunes():
+    '''Displays previous fortunes to authenticated user'''
+    # username is PK so should be able to just query by that and list all
+
 def auth_user():
+    '''Authenticates user'''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -131,13 +140,13 @@ def auth_user():
     #if input is valid, query db
     
     #query salt from db
-    salt = cur.execute('SELECT salt FROM table WHERE username = ?', (uname))
+    salt = cur.execute('SELECT salt FROM user WHERE username = ?', (uname))
     
     #hash and salt supplied pass for comparison
     hashed_pass = hashlib.sha512(password+salt).hexdigest()
     
     #query db for username and pass matching uname and hashed_pass
-    cur.execute('SELECT * FROM table WHERE username = ? AND Password = ?', (uname, hashed_pass))
+    cur.execute('SELECT * FROM user WHERE username = ? AND password = ?', (uname, hashed_pass))
     res = cur.fetchall() #will return NONE if no result
     print(res)
     # if res is NONE, error
