@@ -14,6 +14,8 @@ from tkinter.ttk import *
 import tkinter as tk
 
 
+user_fortune = ""
+
 def main():
     """Display Main Menu and Welcome Message"""
     # create root window
@@ -227,7 +229,7 @@ def display_fortune():
     btn_health.pack()
     btn_general.pack()
     btn_random.pack()
-
+    print(user_fortune)
 
 def love_fortune():
     fortune = []
@@ -236,7 +238,7 @@ def love_fortune():
 
     for line in lines:
         fortune.append(line)
-    print(random.choice(fortune))
+    user_fortune = random.choice(fortune)
 
 
 def career_fortune():
@@ -273,11 +275,22 @@ def general_fortune():
 
 
 def random_fortune():
-    with fileinput.input(
-            files=("love_fortune.txt", "career_fortune.txt", "health_fortune.txt", "general_fortune.txt")) as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from any of the .txt files
+    fortune = []
+
+    # Open multiple text files
+    with open('love_fortune.txt', 'r') as file_love, open('general_fortune.txt', 'r') as file_general, open('health_fortune.txt', 'r') as file_health:
+        # Read text files and split by line
+        lines_love = file_love.read().splitlines()
+        lines_general = file_general.read().splitlines()
+        lines_health = file_health.read().splitlines()
+
+        # Append lines to fortune
+        for line in lines_love:
+            fortune.append(line)
+        for line in lines_general:
+            fortune.append(line)
+        for line in lines_health:
+            fortune.append(line)
         print(random.choice(fortune))
 
 
