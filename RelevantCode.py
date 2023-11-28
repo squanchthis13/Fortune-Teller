@@ -125,22 +125,32 @@ def validate_pass(password1, password2):
         return False
 
 def auth_user():
-    uname = l.cget("text")
-    password = l.cget("text")
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor() 
     
+    con = sqlite3.connect(DB_NAME)
+    cur = con.cursor() 
     #VALIDATE INPUT
     #if input is valid, query db
     #query salt from db
-    salt = CUR.execute('SELECT salt FROM table WHERE username = ?')
+    salt = cur.execute('SELECT salt FROM table WHERE username = ?', (uname))
     
     #hash and salt supplied pass for comparison
     hashed_pass = hashlib.sha512(password+salt).hexdigest()
     
     #query db for username and pass matching uname and hashed_pass
-    CUR.execute('SELECT * FROM table WHERE username = ? AND Password = ?', (uname, hashed_pass))
-    res = CUR.fetchone() #will return NONE if no result
-    CON.commit()
+    cur.execute('SELECT * FROM table WHERE username = ? AND Password = ?', (uname, hashed_pass))
+    res = cur.fetchall() #will return NONE if no result
     print(res)
+    # if res is NONE, error
+    # else authorize user
+    # commit changes to DB
+    con.commit()
+    # close DB connection
+    con.close()
+    
 
 def create_logger():
     '''Create and modify logger'''
