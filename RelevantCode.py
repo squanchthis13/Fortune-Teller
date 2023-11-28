@@ -40,14 +40,21 @@ CUR = CON.cursor()
 
 
 def create_table():
-    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR NOT NULL, salt)"   
-    query2 = "CREATE TABLE fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor() 
+    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"   
+    query2 = "CREATE TABLE fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
     query3 = "CREATE TABLE transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
                      
-    CUR.execute(query1)
-    CUR.execute(query2)
-    CUR.execute(query3)
-    CON.commit()
+    cur.execute(query1)
+    cur.execute(query2)
+    cur.execute(query3)
+    # commit changes
+    cur.commit()
+    # close DB connection
+    con.close()
 
 # Added usname, pass1, pass2 as parameter
 # Doesn't seem to work on my end (something to do with cursor closed)
