@@ -40,7 +40,13 @@ CUR = CON.cursor()
 
 
 def create_table():
-    CUR.execute("CREATE TABLE table(username VARCHAR UNIQUE, password VARCHAR, salt)")
+    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"   
+    query2 = "CREATE TABLE fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
+    query3 = "CREATE TABLE transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
+                     
+    CUR.execute(query1)
+    CUR.execute(query2)
+    CUR.execute(query3)
     CON.commit()
 
 # Added usname, pass1, pass2 as parameter
