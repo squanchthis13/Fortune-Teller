@@ -198,33 +198,60 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
+def display_fortune():
+    """This window will display the user's fortune"""
+    fortune = Tk()
+    fortune.title('Fortune')
+
+    # Create menu bar
+    menubar = Menu(fortune)
+
+    # Add file menu for save and exit options
+    file = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='File', menu=file)
+    file.add_command(label='New Fortune', command=lambda: fortune_menu())
+    file.add_command(label='Save', command=lambda: database())
+    file.add_separator()
+    file.add_command(label='Exit', command=fortune.destroy)
+
+    lbl = Label(fortune, text='Please select a category!')
+    btn_love = Button(fortune, text='Love', command=lambda: love_fortune())
+    btn_career = Button(fortune, text='Career', command=lambda: career_fortune())
+    btn_health = Button(fortune, text='Health', command=lambda: health_fortune())
+    btn_general = Button(fortune, text='General', command=lambda: general_fortune())
+    btn_random = Button(fortune, text='Random', command=lambda: random_fortune())
+
+    lbl.pack()
+    btn_love.pack()
+    btn_career.pack()
+    btn_health.pack()
+    btn_general.pack()
+    btn_random.pack()
+
 
 def love_fortune():
-    with open("love_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from love_fortune.txt
-        print(random.choice(fortune))
+    fortune = []
+    file1 = open('love_fortune.txt', 'r')
+    lines = file1.read().splitlines()
+
+    for line in lines:
+        fortune.append(line)
+    print(random.choice(fortune))
 
 
 def career_fortune():
-    with open("career_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from career_fortune.txt
-        print(random.choice(fortune))
+    fortune = []
+    file1 = open('career_fortune.txt', 'r')
+    lines = file1.read().splitlines()
+
+    for line in lines:
+        fortune.append(line)
+    print(random.choice(fortune))
 
 
 def health_fortune():
     fortune = []
-    # with open("health_fortune.txt", "r") as file:
-    #     all_text: str = file.read()
-    #     fortune = list(map(str, all_text.split(":")))
-    #     # Print random fortune from health_fortune.txt
-    #     print(random.choice(fortune))
 
-    # Modified by Hoi
-    # Testing health fortune. Txt is split by new line instead
     file1 = open('health_fortune.txt', 'r')
     lines = file1.read().splitlines()
 
@@ -234,11 +261,15 @@ def health_fortune():
 
 
 def general_fortune():
-    with open("general_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from general_fortune.txt
-        print(random.choice(fortune))
+    fortune = []
+
+    # Testing health fortune. Txt is split by new line
+    file1 = open('general_fortune.txt', 'r')
+    lines = file1.read().splitlines()
+
+    for line in lines:
+        fortune.append(line)
+    print(random.choice(fortune))
 
 
 def random_fortune():
