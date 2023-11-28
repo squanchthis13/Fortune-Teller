@@ -54,8 +54,38 @@ def main():
     root.mainloop()
 
 
+# Updated 11/28/23 Hoi
+# Added login form, password is hidden
+# Need work in method to log user in
 def login():
     """This function is used for returning users"""
+    # have the user register as a login user
+    login_tk = Tk()
+    login_tk.geometry('300x200')
+    login_tk.title('User Login')
+    # create new frame to contain the labels and entry boxes
+    login_form = Frame(relief=SUNKEN, borderwidth=3)
+    login_form.pack()
+
+    username_label = Label(login_tk, text="Username:")
+    username_label.grid(row=0, column=0)
+    password_label = Label(login_tk, text="Password:")
+    password_label.grid(row=1, column=0)
+
+    username_entry = Entry(login_tk)
+    username_entry.grid(row=0, column=1)
+    password_entry = Entry(login_tk, show='*')
+    password_entry.grid(row=1, column=1)
+
+    btn_submit = Button(master=login_tk, text="Login", command=lambda: user_login())
+    btn_submit.grid(row=2, column=0)
+    btn_close = Button(login_tk, text='Cancel', command=login_tk.destroy)
+    btn_close.grid(row=2, column=1)
+
+    def user_login():
+        print("user clicked logged in")
+
+    login_tk.mainloop()
 
 
 # Added new registration form
@@ -82,22 +112,23 @@ def registration():
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
     frm_form.pack()
 
-    a = Label(reg, text="First Name:")
-    a.grid(row=0, column=0)
-    b = Label(reg, text="Last Name:")
-    b.grid(row=1, column=0)
-    c = Label(reg, text="Username:")
-    c.grid(row=2, column=0)
-    d = Label(reg, text="Password:")
-    d.grid(row=3, column=0)
-    a1 = Entry(reg)
-    a1.grid(row=0, column=1)
-    b1 = Entry(reg)
-    b1.grid(row=1, column=1)
-    c1 = Entry(reg)
-    c1.grid(row=2, column=1)
-    d1 = Entry(reg)
-    d1.grid(row=3, column=1)
+    first_name_label = Label(reg, text="First Name:")
+    first_name_label.grid(row=0, column=0)
+    last_name_label = Label(reg, text="Last Name:")
+    last_name_label.grid(row=1, column=0)
+    username_label = Label(reg, text="Username:")
+    username_label.grid(row=2, column=0)
+    password_label = Label(reg, text="Password:")
+    password_label.grid(row=3, column=0)
+
+    first_name_entry = Entry(reg)
+    first_name_entry.grid(row=0, column=1)
+    last_name_entry = Entry(reg)
+    last_name_entry.grid(row=1, column=1)
+    username_entry = Entry(reg)
+    username_entry.grid(row=2, column=1)
+    password_entry = Entry(reg)
+    password_entry.grid(row=3, column=1)
 
     btn_submit = Button(master=reg, text="Submit", command=lambda: database())
     btn_submit.grid(row=4, column=0)
