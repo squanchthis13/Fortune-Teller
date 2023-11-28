@@ -31,28 +31,28 @@ CON = sqlite3.connect(DB_NAME)
 #database cursor. Call con.cursor() to create the Cursor:
 CUR = CON.cursor() 
 
-# REFERENCE https://www.geeksforgeeks.org/how-to-get-the-tkinter-label-text/#
-#Placeholder -- CAN BE DELETED
-master = tk.Tk()
-master.configure(bg='light grey') 
-l = tk.Label(master,
-            text="Placeholder label for sign up func")
+# # REFERENCE https://www.geeksforgeeks.org/how-to-get-the-tkinter-label-text/#
+# #Placeholder -- CAN BE DELETED
+# master = tk.Tk()
+# master.configure(bg='light grey')
+# l = tk.Label(master,
+#             text="Placeholder label for sign up func")
 
 
 def create_table():
     CUR.execute("CREATE TABLE table(username VARCHAR UNIQUE, password VARCHAR, salt)")
     CON.commit()
     
-def sign_up():
+def sign_up(uname, pass1, pass2):
     '''Accepts input from tkinter labels
     Validates username does not already exist in DB
     Confirms desired password matches password confirmation field
     Commits user data to db if valid'''
-    uname = l.cget("text")
-    #Desired password
-    pass1 = l.cget("text")
-    #Confirm password
-    pass2 = l.cget("text")
+    # uname = l.cget("text")
+    # #Desired password
+    # pass1 = l.cget("text")
+    # #Confirm password
+    # pass2 = l.cget("text")
     # query database by username to determine if  user is already registered
     res = CUR.execute("SELECT username FROM sqlite_master WHERE username='uname'")
     data = res.fetchall()
@@ -78,7 +78,7 @@ def validate_pass(password1, password2):
     1 special char)
     Returns true if user's password meets requirements.'''
     try:
-        with open(f'{COMMON_PASS}', encoding='UTF-8') as f:
+        with open('CommonPassword.txt', encoding='UTF-8') as f:
             contents = f.read()
             if password1 in contents:
                 #if password found in list of common passwords
@@ -103,6 +103,7 @@ def validate_pass(password1, password2):
                 print("Error: Passwords do not match.")
             else:
                 #Password is valid
+                print("Valid Password")
                 return True
     except IOError:
         print("Could not find file CommonPassword.txt")

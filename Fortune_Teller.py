@@ -12,6 +12,8 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
 
+from RelevantCode import *
+
 
 def main():
     """Display Main Menu and Welcome Message"""
@@ -120,6 +122,8 @@ def registration():
     username_label.grid(row=2, column=0)
     password_label = Label(reg, text="Password:")
     password_label.grid(row=3, column=0)
+    password_confirm_label = Label(reg, text="Confirm Password:")
+    password_confirm_label.grid(row=4, column=0)
 
     first_name_entry = Entry(reg)
     first_name_entry.grid(row=0, column=1)
@@ -127,13 +131,29 @@ def registration():
     last_name_entry.grid(row=1, column=1)
     username_entry = Entry(reg)
     username_entry.grid(row=2, column=1)
-    password_entry = Entry(reg)
+    password_entry = Entry(reg, show='*')
     password_entry.grid(row=3, column=1)
+    password_confirm_entry = Entry(reg, show='*')
+    password_confirm_entry.grid(row=4, column=1)
 
-    btn_submit = Button(master=reg, text="Submit", command=lambda: database())
-    btn_submit.grid(row=4, column=0)
+    btn_submit = Button(master=reg, text="Submit", command=lambda: user_register())
+    btn_submit.grid(row=5, column=0)
     btn_close = Button(reg, text='Close', command=reg.destroy)
-    btn_close.grid(row=4, column=1)
+    btn_close.grid(row=5, column=1)
+
+    def user_register():
+
+        # Get value from text boxes
+        username = username_entry.get()
+        password1 = password_entry.get()
+        password2 = password_confirm_entry.get()
+
+        # connect to backend
+        # sign_up(username, password1, password2)
+
+        # validate password
+        # delete if sign_up from RelevantCode.py works
+        validate_pass(password1, password2)
 
 
 def database():
