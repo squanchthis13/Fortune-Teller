@@ -22,18 +22,8 @@ COMMON_PASS = 'filepath/'
 
 #REFERENCE https://docs.python.org/3/library/sqlite3.html
 
-#First, we need to create a new database and open a database connection to allow sqlite3 to work
-#with it. Call sqlite3.connect() to create a connection to the database tutorial.db in the CURrent
-#working directory, implicitly creating it if it does not exist
+# Create a new database and open a database connection
 DB_NAME = "fortuneteller.db"
-
-# # REFERENCE https://www.geeksforgeeks.org/how-to-get-the-tkinter-label-text/#
-# #Placeholder -- CAN BE DELETED
-# master = tk.Tk()
-# master.configure(bg='light grey')
-# l = tk.Label(master,
-#             text="Placeholder label for sign up func")
-
 
 def create_table():
     # create DB connection
@@ -54,8 +44,6 @@ def create_table():
     #close DB connection
     con.close()
 
-# Added usname, pass1, pass2 as parameter
-# Doesn't seem to work on my end (something to do with cursor closed)
 def sign_up(uname, pass1, pass2):
     '''Accepts input from tkinter labels
     Validates username does not already exist in DB
