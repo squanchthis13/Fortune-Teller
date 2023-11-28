@@ -168,6 +168,3 @@ def create_logger():
     handler.setFormatter(formatter)
     # apply filter to handler
     handler.addFilter(logger)
-    
-CUR.close()
-CON.close()
