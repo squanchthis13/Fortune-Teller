@@ -9,7 +9,6 @@ November 26, 2023"""
 import random
 import fileinput
 from tkinter import *
-from tkinter import messagebox
 from tkinter.ttk import *
 import tkinter as tk
 
@@ -83,39 +82,6 @@ def registration():
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
     frm_form.pack()
 
-    # COMMENTED OUT 11/27 Hoi
-    # It doesn't seem to work on my end, so I have included a new form.
-
-    # # List the field labels
-    # labels = [
-    #     "First Name"
-    #     "Last Name"
-    #     "Username"
-    #     "Password"
-    #     "e-mail"
-    # ]
-    # # loop for the different labels
-    # for idx, text in enumerate(labels):
-    #     # create label widget with the text
-    #     label = Label(master=frm_form, text=text)
-    #     # create an entry widget
-    #     entry = Entry(master=frm_form, width=50 )
-    #     # grid geometry manager
-    #     label.grid(row=idx, column=0, sticky='e')
-    #     entry.grid(row=idx, column=1)
-
-    # # create new frame to contain submit and clear button
-    # frm_buttons = Frame()
-    # frm_buttons.pack(fill=X, ipadx=5, ipady=5)
-    # # Submit button
-    # btn_submit = Button(master=frm_buttons, text='Submit', command=lambda: database())
-    # btn_submit.pack(side=RIGHT, padx=10, ipadx=10)
-    # # Clear button
-    # btn_clear = Button(master=frm_buttons, text='Clear')
-    # btn_clear.pack(side=RIGHT, ipadx=10)
-
-    '''Created 11/27/23 Hoi'''
-    # Reference : https://www.tutorialspoint.com/simple-registration-form-using-python-tkinter
     a = Label(reg, text="First Name:")
     a.grid(row=0, column=0)
     b = Label(reg, text="Last Name:")
@@ -133,18 +99,15 @@ def registration():
     d1 = Entry(reg)
     d1.grid(row=3, column=1)
 
-    btn_submit = Button(master=reg, text="Submit", command=lambda: handle_registration_submit())
+    btn_submit = Button(master=reg, text="Submit", command=lambda: database())
     btn_submit.grid(row=4, column=0)
+    btn_close = Button(reg, text='Close', command=reg.destroy)
+    btn_close.grid(row=4, column=1)
+    
+def database():
+    """Will be used to save registration/fortunes to database"""
 
-    # Receive user input and submit form
-    # Needs work (connect to database)
-    def handle_registration_submit():
-        """ This function will be used to save registrations/fortunes"""
-        print("submitted!")
 
-
-# Modified 11/27/23 for formatting.
-# Added button to handle potential action
 def display_rules():
     """ Create a window that displays the rules to the user"""
     rules = Tk()
@@ -152,20 +115,14 @@ def display_rules():
     rules.title('Rules of the Fortune Teller')
     lbl = Label(rules, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
-    msg = Message(rules, text='> Please select a category from the drop down menu. \n '
+    msg = Message(rules, text='> Please select a category from the following buttons. \n '
                               '> The program will display the fortune to you automatically. \n'
-                              '> The program will automatically save your fortune '
-                              '> if you are logged in as a returning user. \n'
-                              '> Use the menu selection Exit from the '
-                              '> main window to exit the program.\n')
+                              '> The program will save your fortune '
+                              '> if you are logged in as a returning user and select save from menu. \n'
+                              '> Use the menu selection Exit to exit the program.\n')
     msg.pack()
-    btn_rule_close = tk.Button(rules, text='Close Rules', bd='5', command=lambda: rules_option1())
+    btn_rule_close = tk.Button(rules, text='Close', bd='5', command=rules.destroy)
     btn_rule_close.pack()
-
-    def rules_option1():
-        """ Method to handle button click to close rules after user has viewed the rules"""
-        # Close out rules window
-        rules.destroy()
 
 
 def fortune_menu():
@@ -216,21 +173,11 @@ def career_fortune():
 
 
 def health_fortune():
-    fortune = []
-    # with open("health_fortune.txt", "r") as file:
-    #     all_text: str = file.read()
-    #     fortune = list(map(str, all_text.split(":")))
-    #     # Print random fortune from health_fortune.txt
-    #     print(random.choice(fortune))
-
-    # Modified by Hoi
-    # Testing health fortune. Txt is split by new line instead
-    file1 = open('health_fortune.txt', 'r')
-    lines = file1.read().splitlines()
-
-    for line in lines:
-        fortune.append(line)
-    print(random.choice(fortune))
+    with open("health_fortune.txt", "r") as file:
+        all_text: str = file.read()
+        fortune = list(map(str, all_text.split(":")))
+        # Print random fortune from health_fortune.txt
+        print(random.choice(fortune))
 
 
 def general_fortune():
@@ -249,10 +196,6 @@ def random_fortune():
         # Print random fortune from any of the .txt files
         print(random.choice(fortune))
 
-
-def database():
-    """ This function will be used to save registrations/fortunes"""
-    pass
 
 
 # Press the green button in the gutter to run the script.
