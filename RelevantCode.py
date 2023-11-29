@@ -65,7 +65,7 @@ def sign_up(uname, pass1, pass2):
     # pass2 = l.cget("text")
     
     # query database by username to determine if  user is already registered
-    res = cur.execute("SELECT username FROM sqlite_master WHERE username='uname'")
+    res = cur.execute('SELECT username FROM sqlite_master WHERE username= ?', (uname))
     data = res.fetchall()
     
     if len(data) != 0:
