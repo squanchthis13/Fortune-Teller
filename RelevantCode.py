@@ -30,24 +30,24 @@ def create_table():
     # create DB cursor
     cur = con.cursor() 
     # create table USER
-    query1 = "CREATE TABLE user(username VARCHAR NOT NULL PRIMARY KEY, email VARCHAR NOT NULL UNIQUE, password VARCHAR, salt)"
+    query1 = "CREATE TABLE IF NOT EXISTS user(userId VARCHAR NOT NULL PRIMARY KEY, first_name TEXT, last_name TEXT, password VARCHAR, salt)"
     # create table FORTUNE
-    query2 = "CREATE TABLE fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
+    query2 = "CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER PRIMARY KEY AUTOINCREMENT, category VARCHAR)"
     # create bridge table TRANSACTION
-    query3 = "CREATE TABLE transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
+    #query3 = "CREATE TABLE IF NOT EXISTS transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)"
 
     # execute table creation queries
     cur.execute(query1)
     cur.execute(query2)
-    cur.execute(query3)
+    #cur.execute(query3)
     # commit changes
-    cur.commit()
+    con.commit()
     # close DB curser
     cur.close()
     #close DB connection
     con.close()
 
-def sign_up(uname, pass1, pass2):
+def sign_up(uname, fname, lname, pass1, pass2):
     '''Accepts input from tkinter labels
     Validates username does not already exist in DB
     Confirms desired password matches password confirmation field
@@ -56,21 +56,16 @@ def sign_up(uname, pass1, pass2):
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
-    cur = con.cursor() 
+    cur = con.cursor()
     
-    # uname = l.cget("text")
-    # #Desired password
-    # pass1 = l.cget("text")
-    # #Confirm password
-    # pass2 = l.cget("text")
+    username = uname.lower().strip()
+    fname = fname.lower().strip()
+    lname = lname.lower().strip()
     
-    # query database by username to determine if  user is already registered
-    res = cur.execute('SELECT username FROM sqlite_master WHERE username= ?', (uname))
-    data = res.fetchall()
-    
-    if len(data) != 0:
-        #If username is found in the db
-        print("Invalid username or password, please try again")
+    # Program is totally skipping over the if statements, validate_pass() is never called
+    if check_exists(username):
+        # call method to query database by username to determine if username is already registered
+        print("Username unavailable")
     elif uname == "" or pass1 == "" or pass2 == "":
         #Fields cannot be left blank
         print("Field cannot be left blank.")
@@ -78,14 +73,77 @@ def sign_up(uname, pass1, pass2):
         #Username not already in DB
         #Desired pass and confirmation pass match
         #Fields are not left blank
+        # Adding salt at the last of the password
         salt = uuid.uuid4().hex
-        hashed_pass = hashlib.sha512(pass1+salt).hexdigest()
-        cur.execute("INSERT INTO user VALUES (?, ?, ?)", (uname, hashed_pass, salt))
+        hashed_pass = hashlib.sha512(pass1.encode()).hexdigest()
+        password = hashed_pass + salt
+        cur.execute("INSERT INTO user (userId, first_name, last_name, password, salt) VALUES (?, ?, ?, ?, ?)", (username, fname, lname, password, salt))
         con.commit() #Commit the transaction
+    
+    # NEW NEW NEW
+    # Nieves, Chelsea 30Nov
+    # output SQL table in console for troubleshooting purposes
+    # CAN BE DELETED LATER    
+    readSqliteTable()
+    
     # close DB curser
     cur.close()
     #close DB connection
     con.close()
+
+ # NEW NEW NEW
+ # Nieves, Chelsea 30 Nov
+def check_exists(username):
+    ''' method to check if username already exists in db'''
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor()
+    query = 'SELECT userId FROM user WHERE userId = ?', 
+    res = cur.execute('SELECT userId FROM user WHERE userId=?', (username,))
+    data = res.fetchall()
+    if len(data) != 0:
+        # username exists in db
+        return True
+    else:
+        # username does not exist in db
+        return False
+    # close DB curser
+    cur.close()
+    #close DB connection
+    con.close()
+
+# NEW NEW NEW
+# Nieves, Chelsea 30 Nov
+# Temporary method to display table data and ensure user data is appropriately appended to db
+# CAN BE DELETED LATER
+def readSqliteTable():
+    try:
+        con = sqlite3.connect(DB_NAME)
+        cur = con.cursor()
+        print("Connected to SQLite")
+
+        sqlite_select_query = """SELECT * from user"""
+        cur.execute(sqlite_select_query)
+        records = cur.fetchall()
+        print("Total rows are:  ", len(records))
+        print("Printing each row")
+        for row in records:
+            print("Username: ", row[0])
+            print("First: ", row[1])
+            print("Last: ", row[2])
+            print("Hashed Pass: ", row[3])
+            print("Salt: ", row[4])
+            print("\n")
+
+        cur.close()
+
+    except sqlite3.Error as error:
+        print("Failed to read data from sqlite table", error)
+    finally:
+        if con:
+            con.close()
+            print("The SQLite connection is closed")
 
 def validate_pass(password1, password2):
     '''Validates user's desired password is not found in list of common passphrases.

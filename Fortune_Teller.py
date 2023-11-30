@@ -12,57 +12,8 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
 
-from RelevantCode import *
-
-
-def main():
-    """Display Main Menu and Welcome Message"""
-
-    # create root window
-    root = Tk()
-    # root window and title dimensions
-    root.title('Fortune Teller')
-    # geometry of the box (width x height)
-    root.geometry('650x400')
-    # center window
-    center_window(root)
-
-    # add menu bar to allow user to view rules or exit
-    menubar = Menu(root)
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-    # add Exit menu and commands
-    # updated variable name for menu exit
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
-
-    # add label to the root window
-    lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
-    lbl2 = Label(root, text='Reveal what your future holds!')
-    lbl1.pack()
-    lbl2.pack()
-
-    # add crystal ball ascii art
-    crystal_ball_ascii_art(root)
-
-    # ask user if they want to play as a guest
-    lbl3 = Label(root, text='Would you like to login?')
-    lbl3.pack()
-
-    # add buttons for user to select yes or no
-    btn_login_yes = tk.Button(root, text='Yes', bd='5', command=lambda: login())
-    btn_login_no = tk.Button(root, text='No', bd='5', command=lambda: guest_menu())
-    btn_login_yes.pack()
-    btn_login_no.pack()
-
-    # display menu
-    root.config(menu=menubar)
-    root.mainloop()
-
-
+from db import *
+    
 # Updated 11/28/23 Hoi
 # Added login form, password is hidden
 # Need work in method to log user in
@@ -122,7 +73,6 @@ def guest_menu():
 
     guest_tk.mainloop()
 
-
 def registration():
     """ This function is used to create new window that holds registration from """
 
@@ -158,28 +108,34 @@ def registration():
     password_confirm_entry = Entry(registration_tk, show='*')
     password_confirm_entry.grid(row=4, column=1)
 
-    btn_submit = Button(master=registration_tk, text="Submit", command=lambda: user_register())
+    btn_submit = Button(master=registration_tk, text="Submit", command=lambda: user_register(registration_tk, first_name_entry, last_name_entry, username_entry, password_entry, password_confirm_entry))
     btn_submit.grid(row=5, column=0)
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
     btn_close.grid(row=5, column=1)
 
     registration_tk.mainloop()
 
-    def user_register():
-        """ Method for registration() for backend"""
-        # Get value from text boxes
-        username = username_entry.get()
-        password1 = password_entry.get()
-        password2 = password_confirm_entry.get()
-
-        # connect to backend
-        # sign_up(username, password1, password2)
-
-        # validate password
-        # delete if sign_up from RelevantCode.py works
-        validate_pass(password1, password2)
-
-
+# NEW NEW NEW 
+# Nieves, Chelsea 30Nov
+# Added arguments to user_register(args)
+def user_register(window, first_name_entry, last_name_entry, username_entry, password_entry, password_confirm_entry):
+    """ Method for registration() for backend"""
+    # Get value from text boxes
+    uname = username_entry.get()
+    fname = first_name_entry.get()
+    lname = last_name_entry.get()
+    pass1 = password_entry.get()
+    pass2 = password_confirm_entry.get()
+    
+    # connect to backend
+    sign_up(uname, fname, lname, pass1, pass2)
+    
+    # NEW NEW NEW
+    #Nieves, Chelsea 30Nov
+    #close window after submitting data if good
+    window.destroy()
+    
+        
 def database():
     """Will be used to save registration/fortunes to database"""
 
@@ -448,7 +404,55 @@ def crystal_ball_ascii_art(win):
     crystal_ball_text = pad_to_center(crystal_ball_raw.split('\n'), 60)
     Label(win, justify=LEFT, text=crystal_ball_text).pack()
 
+def main():
+    """Display Main Menu and Welcome Message"""
+    
+    create_table()
+    
+    # create root window
+    root = Tk()
+    # root window and title dimensions
+    root.title('Fortune Teller')
+    # geometry of the box (width x height)
+    root.geometry('650x400')
+    # center window
+    center_window(root)
 
+    # add menu bar to allow user to view rules or exit
+    menubar = Menu(root)
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+    # add Exit menu and commands
+    # updated variable name for menu exit
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+
+    # add label to the root window
+    lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
+    lbl2 = Label(root, text='Reveal what your future holds!')
+    lbl1.pack()
+    lbl2.pack()
+
+    # add crystal ball ascii art
+    crystal_ball_ascii_art(root)
+
+    # ask user if they want to play as a guest
+    lbl3 = Label(root, text='Would you like to login?')
+    lbl3.pack()
+
+    # add buttons for user to select yes or no
+    btn_login_yes = tk.Button(root, text='Yes', bd='5', command=lambda: login())
+    btn_login_no = tk.Button(root, text='No', bd='5', command=lambda: guest_menu())
+    btn_login_yes.pack()
+    btn_login_no.pack()
+
+    # display menu
+    root.config(menu=menubar)
+    root.mainloop()
+    
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     main()
