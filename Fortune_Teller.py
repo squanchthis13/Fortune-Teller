@@ -12,7 +12,7 @@ from tkinter import *
 from tkinter.ttk import *
 import tkinter as tk
 
-from db import *
+from RelevantCode import *
     
 # Updated 11/28/23 Hoi
 # Added login form, password is hidden
