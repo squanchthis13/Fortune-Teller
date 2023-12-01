@@ -54,7 +54,7 @@ def login():
 # Added new registration form
 def guest_menu():
     """ This function creates a new pop-up window for Guest Form"""
-
+    # Constance
     # Create a guest menu window
     guest_tk = Tk()
     guest_tk.geometry('300x200')
@@ -76,6 +76,7 @@ def guest_menu():
 def registration():
     """ This function is used to create new window that holds registration from """
 
+    # Constance then changed by Hoi
     # Initialize New Window
     registration_tk = Tk()
     registration_tk.geometry('350x350')
@@ -142,7 +143,7 @@ def database():
 
 def display_rules():
     """ Create a window that displays the rules to the user"""
-
+    # Constance then changed by Hoi
     # Initialize New Window
     rules_tk = Tk()
     rules_tk.geometry('300x200')
@@ -170,24 +171,25 @@ def fortune_menu():
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
 
-    ### This menu bar doesn't work ###
-    # # Create menu bar
-    # menubar = Menu(fortune_menu)
+    # Constance
+    # Create menu bar
+    menubar = Menu(fortune_menu_tk)
+    # Constance
+    # Add file menu for save and exit options
+    file = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='File', menu=file)
+    file.add_command(label='New Fortune', command=lambda: fortune_menu())
+    file.add_command(label='Save', command=lambda: database())
+    file.add_separator()
+    file.add_command(label='Exit', command=fortune_menu.destroy)
 
-    # # Add file menu for save and exit options
-    # file = Menu(menubar, tearoff=0)
-    # menubar.add_cascade(label='File', menu=file)
-    # file.add_command(label='New Fortune', command=lambda: fortune_menu())
-    # file.add_command(label='Save', command=lambda: database())
-    # file.add_separator()
-    # file.add_command(label='Exit', command=fortune_menu.destroy)
-
+    #Constance
     lbl = Label(fortune_menu_tk, text='Please select a category!')
-    btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
-    btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career'))
-    btn_health = Button(fortune_menu_tk, text='Health', command=lambda: display_fortune('Health'))
-    btn_general = Button(fortune_menu_tk, text='General', command=lambda: display_fortune('General'))
-    btn_random = Button(fortune_menu_tk, text='Random', command=lambda: display_fortune('Random'))
+    btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love')) #someone changed my command
+    btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career')) #someone changed my command
+    btn_health = Button(fortune_menu_tk, text='Health', command=lambda: display_fortune('Health')) #someone changed my command
+    btn_general = Button(fortune_menu_tk, text='General', command=lambda: display_fortune('General')) #someone changed my command
+    btn_random = Button(fortune_menu_tk, text='Random', command=lambda: display_fortune('Random')) #someone changed my command
 
     lbl.pack()
     btn_love.pack()
@@ -316,6 +318,7 @@ def display_past_fortunes():
 
 
 def love_fortune():
+    # Constance
     with open("love_fortune.txt", "r") as file:
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
@@ -324,6 +327,7 @@ def love_fortune():
 
 
 def career_fortune():
+    # Constance
     with open("career_fortune.txt", "r") as file:
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
@@ -332,6 +336,7 @@ def career_fortune():
 
 
 def health_fortune():
+    # Constance
     with open("health_fortune.txt", "r") as file:
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
@@ -340,6 +345,7 @@ def health_fortune():
 
 
 def general_fortune():
+    # Constance
     with open("general_fortune.txt", "r") as file:
         all_text: str = file.read()
         fortune = list(map(str, all_text.split(":")))
@@ -348,6 +354,7 @@ def general_fortune():
 
 
 def random_fortune():
+    # Constance
     with fileinput.input(
             files=("love_fortune.txt", "career_fortune.txt", "health_fortune.txt", "general_fortune.txt")) as file:
         all_text: str = file.read()
@@ -406,9 +413,10 @@ def crystal_ball_ascii_art(win):
 
 def main():
     """Display Main Menu and Welcome Message"""
-    
+
     create_table()
     
+    # Constance
     # create root window
     root = Tk()
     # root window and title dimensions
@@ -416,8 +424,9 @@ def main():
     # geometry of the box (width x height)
     root.geometry('650x400')
     # center window
-    center_window(root)
-
+    center_window(root) #someone else added this
+    
+    #Constance 
     # add menu bar to allow user to view rules or exit
     menubar = Menu(root)
     # add Rules menu and commands
@@ -430,6 +439,7 @@ def main():
     menubar.add_cascade(label='Exit', menu=program_exit)
     program_exit.add_command(label='Exit Program', command=root.destroy)
 
+    # Constance
     # add label to the root window
     lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
     lbl2 = Label(root, text='Reveal what your future holds!')
@@ -438,11 +448,13 @@ def main():
 
     # add crystal ball ascii art
     crystal_ball_ascii_art(root)
-
+    
+    # Constance
     # ask user if they want to play as a guest
     lbl3 = Label(root, text='Would you like to login?')
     lbl3.pack()
 
+    #Constance
     # add buttons for user to select yes or no
     btn_login_yes = tk.Button(root, text='Yes', bd='5', command=lambda: login())
     btn_login_no = tk.Button(root, text='No', bd='5', command=lambda: guest_menu())
