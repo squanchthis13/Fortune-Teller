@@ -26,7 +26,7 @@ COMMON_PASS_PATH = "CommonPassword.txt"
 
 
 def create_logger():
-    '''Create and modify logger'''
+    """Create and modify logger"""
     # set level to log only ERROR and below
     logger.setLevel(logging.ERROR)
     # assign path to store logs
@@ -74,7 +74,9 @@ def read_sqlite_table():
 
 
 def create_table():
-    ''' Creates 3 SQL tables to store user and previous fortune data '''
+    """
+        Creates 3 SQL tables to store user and previous fortune data
+    """
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -108,7 +110,11 @@ def create_table():
 
 
 def check_username_exists(username):
-    ''' method to check if username already exists in db'''
+    """
+        method to check if username already exists in db
+
+        Return: boolean True/ False
+    """
 
     # create DB connection
     con = sqlite3.connect(DB_NAME)
@@ -144,17 +150,17 @@ def check_username_exists(username):
 def check_all_inputs(uname, fname, lname, pass1, pass2):
     """
         Method to check for validation for all input
-        - return empty string if all inputs are valid
-        - pass to user_register_submit in Fortune_Teller
+
+        Return: tuple(error_message, register)
     """
     uname = uname.lower().strip()
     error_message = ""
     ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea
     # Added variables to check validity of user input
-    valid = "False" # var to track if input is valid; default is False
-    register = "False" # var to track if user is able to register; default is False
-    
+    valid = "False"  # var to track if input is valid; default is False
+    register = "False"  # var to track if user is able to register; default is False
+
     if check_username_exists(uname):
         # call method to query database by username to determine if username is already registered
         error_message = "Username unavailable"
@@ -169,9 +175,9 @@ def check_all_inputs(uname, fname, lname, pass1, pass2):
         ### NEW NEW NEW ###
         # 2Dec Nieves, Chelsea
         # Assign returned tuple
-        
+
         error_message, valid = validate_pass(pass1, pass2)
-        
+
         # if all input fields valid, valid == "True"
         if valid == "True":
             # if valid == "True", allow user to register
@@ -189,13 +195,12 @@ def validate_pass(password1, password2):
     Validates user's desired password against requirements (12 char in length, 1 upper, 1 lower,
     1 special char)
 
-    Return: Empty string if valid password/
-            String with error message if invalid
+    Return: tuple(error_message, valid)
     """
     error_message = ""
     ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea
-    valid = "False" # var to track if user is able to register; default is False
+    valid = "False"  # var to track if user is able to register; default is False
     try:
         with open(COMMON_PASS_PATH, encoding='UTF-8') as f:
             contents = f.read()
@@ -221,8 +226,6 @@ def validate_pass(password1, password2):
                 # if desired password does not match confirmation field
                 error_message = "Error: Passwords do not match."
             else:
-                # Password is valid
-                error_message = "Valid Password"
                 ### NEW NEW NEW ###
                 # 2Dec Nieves, Chelsea
                 # user input is valid, update var
@@ -238,10 +241,11 @@ def validate_pass(password1, password2):
 
 
 def sign_up(uname, fname, lname, email, pass1, pass2):
-    '''Accepts input from tkinter labels
-    Validates username does not already exist in DB
-    Confirms desired password matches password confirmation field
-    Commits user data to db if valid'''
+    '''
+        Append new user information into table if all inputs are valid
+
+        Return: tuple(error_message, registered)
+    '''
 
     # create DB connection
     con = sqlite3.connect(DB_NAME)
@@ -263,7 +267,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     # 2Dec Nieves, Chelsea
     # Assign returned tuple
     error_message, register = check_all_inputs(uname, fname, lname, pass1, pass2)
-    registered = "False" # var to track if user is registered; default is False
+    registered = "False"  # var to track if user is registered; default is False
     # if user input is valid and user is allowed to register
     if register == "True":
         try:
@@ -287,7 +291,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
             if con:
                 con.close()
                 print("The SQLite connection is closed")
-    
+
     read_sqlite_table()
     ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea
@@ -295,9 +299,15 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     # Return registered status
     return error_message, registered
 
+
 def auth_user(uname, password):
-    """Authenticates user"""
+    """
+        Authenticates user
+
+        Return: tuple(error_message, logged_in)
+    """
     error_message = ""
+    logged_in = "False"
 
     # if username exists in db
     if check_username_exists(uname):
@@ -314,7 +324,7 @@ def auth_user(uname, password):
             is_match_password = bcrypt.checkpw(input_password_bytes, password_db_fetch[0])
 
             if is_match_password:
-                print("Match password")
+                logged_in = "True"
             else:
                 print(" Password Not Match")
                 error_message = "ERROR: Password Does Not Match !"
@@ -331,7 +341,7 @@ def auth_user(uname, password):
     else:
         error_message = "ERROR: No user found"
 
-    return error_message
+    return error_message, logged_in
 
 
 def display_previous_fortunes():

@@ -95,13 +95,12 @@ def login_window():
         uname = username_login_entry.get().lower().strip()
         password = password_login_entry.get().strip()
 
-        message = DBHelper.auth_user(uname, password)
-
-        # If there is no error message from auth_user, the user has successfully logged in and login form should be
-        # destroy
-        if message == "":
+        error_message, logged_in = DBHelper.auth_user(uname, password)
+        if logged_in == "True":
+            # destroy login form if successfully logged in
             login_tk.destroy()
-        login_message_window(message)
+
+        login_message_window(error_message)
 
     login_tk.mainloop()
 
