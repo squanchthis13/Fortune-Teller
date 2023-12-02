@@ -70,8 +70,9 @@ def read_sqlite_table():
         print("Printing each row...")
         for row in records:
             print("> FortuneId: ", row[0])
-            print("> Message: ", row[1])
-            print(">Category: ", row[2])
+            print("> UserId: ", row[1])
+            print(">Message: ", row[2])
+            print(">Category: ", row[3])
             print("\n")
         cur.close()
     except sqlite3.Error as err:
