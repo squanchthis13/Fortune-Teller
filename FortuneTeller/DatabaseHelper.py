@@ -94,8 +94,7 @@ def create_table():
     try:
         cur.executescript("""
         CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(20) NOT NULL, password BLOB);
-        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, message TEXT, category VARCHAR(10) NOT NULL);
-        CREATE TABLE IF NOT EXISTS user_fortune(userId VARCHAR(20), fortuneId INTEGER, FOREIGN KEY (userId) REFERENCES user(userId), FOREIGN KEY (fortuneId) REFERENCES fortune(fortuneId));
+        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
         """)
         
         # commit to db
@@ -352,4 +351,26 @@ def auth_user(uname, password):
 
 def display_previous_fortunes():
     """Displays previous fortunes to authenticated user"""
-    # username is PK so should be able to just query by that and list all
+    # if user is authenticated
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor()
+    try:
+        query = "SELECT * FROM fortune WHERE userId = (?)", (uname,)
+        records = cur.execute(query).fetchall()
+        con.commit()
+        print("PREVIOUS FORTUNES")
+        if len(records) > 0:
+            for row in records:
+                print(row)
+        else:
+            print("No fortunes")
+    except sqlite3.Error as err:
+        db_logger.error(err)
+    finally:
+        if con:
+            # close DB cursor
+            cur.close()
+            con.close()
+
