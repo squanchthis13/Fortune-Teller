@@ -283,7 +283,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
             # 2Dec Nieves, Chelsea
             # update registered var to reflect user is registered in DB
             registered = "True"
-            user_logger.info('New registration: %s' %uname)
+            user_logger.info('New registration: %(uname)s')
         except sqlite3.Error as err:
             # copied from https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-codes-in-python
             ##### SHOULD BE LOGGED AFTER LOGGER IS IMPLEMENTED #####
@@ -331,7 +331,7 @@ def auth_user(uname, password):
             if is_match_password:
                 logged_in = "True"
             else:
-                user_logger.error("Failed authentication, username: %s" % (uname))
+                user_logger.error("Failed authentication, username: %(uname)s")
                 error_message = "ERROR: Password Does Not Match !"
 
             # commit changes to DB
@@ -345,7 +345,7 @@ def auth_user(uname, password):
                 con.close()
     else:
         error_message = "ERROR: No user found"
-        user_logger.error("Failed authentication, username %s does not exist" % (uname))
+        user_logger.error("Failed authentication, username %(uname)s does not exist")
 
     return error_message, logged_in
 
