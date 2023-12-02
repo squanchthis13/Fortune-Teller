@@ -62,6 +62,19 @@ def read_sqlite_table():
             print("> Hashed Pass: ", row[4])
             print("\n")
 
+        ### NEW NEW NEW
+        # display records in Fortune table
+        sqlite_select_query = """SELECT * from FORTUNE"""
+        cur.execute(sqlite_select_query)
+        records = cur.fetchall()
+        print("FORTUNE: ")
+        print("Total rows are:  ", len(records))
+        print("Printing each row...")
+        for row in records:
+            print("> FortuneId: ", row[0])
+            print("> Message: ", row[1])
+            print(">Category: ", row[2])
+            print("\n")
         cur.close()
 
     except sqlite3.Error as error:
@@ -74,9 +87,7 @@ def read_sqlite_table():
 
 
 def create_table():
-    """
-        Creates 3 SQL tables to store user and previous fortune data
-    """
+        ''' Creates 3 SQL tables to store user and previous fortune data '''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -86,16 +97,14 @@ def create_table():
     try:
         cur.executescript("""
         CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(20) NOT NULL, password BLOB);
+        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, message TEXT, category VARCHAR(10) NOT NULL);
+        CREATE TABLE IF NOT EXISTS user_fortune(userId VARCHAR(20), fortuneId INTEGER, FOREIGN KEY (userId) REFERENCES user(userId), FOREIGN KEY (fortuneId) REFERENCES fortune(fortuneId));
         """)
-        read_sqlite_table()
-        # cur.executescript("""
-        # CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, category VARCHAR(10) NOT NULL;
-        # CREATE TABLE IF NOT EXISTS transaction(username VARCHAR, fortuneId INTEGER, FOREIGN KEY(username) REFERENCES user(username), FOREIGN KEY(fortuneId) REFERENCES fortune(fortuneId)";
-        # """)
-
+        
+        # commit to db
         con.commit()
-        # close DB cursor
-        cur.close()
+        # display tables to console
+        read_sqlite_table()
     except sqlite3.Error as err:
         # copied from https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-codes-in-python
         ##### SHOULD BE LOGGED AFTER LOGGER IS IMPLEMENTED #####
@@ -104,9 +113,12 @@ def create_table():
         print('SQLite traceback: ')
         exc_type, exc_value, exc_tb = sys.exc_info()
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
-
-    # close DB connection
-    con.close()
+    finally:
+        if con:
+            # close DB cursor
+            cur.close()
+            # close db connection
+            con.close()
 
 
 def check_username_exists(username):
