@@ -3,44 +3,42 @@ Modified 28Nov23
 
 @author: chelseanieves
 '''
-
-import logging
+#import logging
+#from logging import FileHandler
+#from logging import Formatter
 import sqlite3
 import string
 import sys
 import traceback
-
 import bcrypt
+from LogHandler import user_logger, db_logger
 
+######
 # create logger name and object
-logger = logging.getLogger(__name__)
-LOG_NAME = "./log.txt"
+#logger = logging.getLogger(__name__)
+#LOG_NAME = "./log.txt"
+########
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
 
-# REFERENCE https://docs.python.org/3/library/sqlite3.html
-
-# # Create a new database and open a database connection
-# DB_NAME = "fortuneteller.db"
+# Create a new database
 DB_NAME = "DecOneDB.db"
 COMMON_PASS_PATH = "CommonPassword.txt"
 
-
-def create_logger():
-    """Create and modify logger"""
+#def create_logger():
+ #   """Create and modify logger"""
     # set level to log only ERROR and below
-    logger.setLevel(logging.ERROR)
+  #  logger.setLevel(logging.ERROR)
     # assign path to store logs
-    handler = logging.FileHandler(f'{LOG_NAME}')
+   # handler = logging.FileHandler(f'{LOG_NAME}')
     # assign handler to logger
-    logger.addHandler(handler)
+    #logger.addHandler(handler)
     ## printing the hostname and ip_address
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s-%(name)s-\
-    %(message)s')
+    #formatter = logging.Formatter('%(asctime)s - %(levelname)s-%(name)s-\
+    #%(message)s')
     # apply formatter to logger handler
-    handler.setFormatter(formatter)
+    #handler.setFormatter(formatter)
     # apply filter to handler
-    handler.addFilter(logger)
-
+    #handler.addFilter(logger)
 
 def read_sqlite_table():
     try:
@@ -76,9 +74,8 @@ def read_sqlite_table():
             print(">Category: ", row[2])
             print("\n")
         cur.close()
-
-    except sqlite3.Error as error:
-        print("Failed to read data from sqlite table", error)
+    except sqlite3.Error as err:
+        db_logger.error(err)
     finally:
         if con:
             con.close()
@@ -87,7 +84,7 @@ def read_sqlite_table():
 
 
 def create_table():
-        ''' Creates 3 SQL tables to store user and previous fortune data '''
+    ''' Creates 3 SQL tables to store user and previous fortune data '''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -107,12 +104,7 @@ def create_table():
         read_sqlite_table()
     except sqlite3.Error as err:
         # copied from https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-codes-in-python
-        ##### SHOULD BE LOGGED AFTER LOGGER IS IMPLEMENTED #####
-        print('SQLite error: %s' % (' '.join(err.args)))
-        print("Exception class is: ", err.__class__)
-        print('SQLite traceback: ')
-        exc_type, exc_value, exc_tb = sys.exc_info()
-        print(traceback.format_exception(exc_type, exc_value, exc_tb))
+        db_logger.error(err)
     finally:
         if con:
             # close DB cursor
@@ -244,7 +236,7 @@ def validate_pass(password1, password2):
                 valid = "True"
     except IOError:
         # file not found error
-        print("Could not find file CommonPassword.txt")
+        db_logger.ERROR("Could not find file CommonPassword.txt")
     ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea
     # Invalid input
@@ -291,6 +283,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
             # 2Dec Nieves, Chelsea
             # update registered var to reflect user is registered in DB
             registered = "True"
+            user_logger.info('New registration: %s' %uname)
         except sqlite3.Error as err:
             # copied from https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-codes-in-python
             ##### SHOULD BE LOGGED AFTER LOGGER IS IMPLEMENTED #####
@@ -338,13 +331,13 @@ def auth_user(uname, password):
             if is_match_password:
                 logged_in = "True"
             else:
-                print(" Password Not Match")
+                user_logger.error("Failed authentication, username: %s" % (uname))
                 error_message = "ERROR: Password Does Not Match !"
 
             # commit changes to DB
             con.commit()
-        except sqlite3.Error as error:
-            error_message = "ERROR: Failed to read data from sqlite table"
+        except sqlite3.Error as err:
+            db_logger.error(err)
         finally:
             if con:
                 # close DB cursor
@@ -352,6 +345,7 @@ def auth_user(uname, password):
                 con.close()
     else:
         error_message = "ERROR: No user found"
+        user_logger.error("Failed authentication, username %s does not exist" % (uname))
 
     return error_message, logged_in
 
