@@ -1,6 +1,6 @@
 from tkinter import *
 import random
-
+from LogHandler import db_logger
 
 def center_window(win):
     """
@@ -50,43 +50,57 @@ def crystal_ball_ascii_art(win):
     crystal_ball_text = pad_to_center(crystal_ball_raw.split('\n'), 60)
     Label(win, justify=LEFT, text=crystal_ball_text).pack()
 
-
 def get_love_fortune():
-    with open("texts/love_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from love_fortune.txt
-        return random.choice(fortune)
-
+    try:
+        with open('texts/love_fortune.txt', 'r', encoding = 'utf-8') as file:
+            all_text: str = file.read()
+            fortune = list(map(str, all_text.split(':')))
+            # Print random fortune from love_fortune.txt
+            return random.choice(fortune)
+    except IOError as err:
+        print('Unable to find file love_fortune.txt')
+        db_logger.error(err)
 
 def get_career_fortune():
-    with open("texts/career_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from career_fortune.txt
-        return random.choice(fortune)
-
+    try:
+        with open('texts/career_fortune.txt', 'r', encoding = 'utf-8') as file:
+            all_text: str = file.read()
+            fortune = list(map(str, all_text.split(':')))
+            # Print random fortune from career_fortune.txt
+            return random.choice(fortune)
+    except IOError as err:
+        print('Unable to find file career_fortune.txt')
+        db_logger.error(err)
 
 def get_health_fortune():
-    with open("texts/health_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from health_fortune.txt
-        return random.choice(fortune)
-
+    try:
+        with open('texts/health_fortune.txt', 'r', encoding = 'utf-8') as file:
+            all_text: str = file.read()
+            fortune = list(map(str, all_text.split(':')))
+            # Print random fortune from health_fortune.txt
+            return random.choice(fortune)
+    except IOError as err:
+        print('Unable to find file health_fortune.txt')
+        db_logger.error(err)
 
 def get_general_fortune():
-    with open("texts/general_fortune.txt", "r") as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from general_fortune.txt
-        return random.choice(fortune)
-
+    try:
+        with open('texts/general_fortune.txt', 'r', encoding = 'utf-8') as file:
+            all_text: str = file.read()
+            fortune = list(map(str, all_text.split(':')))
+            # Print random fortune from general_fortune.txt
+            return random.choice(fortune)
+    except IOError as err:
+        print('Unable to find file general_fortune.txt')
+        db_logger.error(err)
 
 def get_random_fortune():
-    with fileinput.input(
-            files=("love_fortune.txt", "career_fortune.txt", "health_fortune.txt", "general_fortune.txt")) as file:
-        all_text: str = file.read()
-        fortune = list(map(str, all_text.split(":")))
-        # Print random fortune from any of the .txt files
-        return random.choice(fortune)
+    try:
+        with fileinput.input(
+                files=("love_fortune.txt", "career_fortune.txt", "health_fortune.txt", "general_fortune.txt")) as file:
+            all_text: str = file.read()
+            fortune = list(map(str, all_text.split(":")))
+            # Print random fortune from any of the .txt files
+            return random.choice(fortune)
+    except IOError as err:
+        db_logger.error(err)
