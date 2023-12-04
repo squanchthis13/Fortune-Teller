@@ -13,31 +13,11 @@ import tkinter as tk
 import DatabaseHelper as DBHelper
 from FTHelper import *
 
-# def guest_menu():
-#     """
-#     This function creates a new pop-up window for Guest Form
-#
-#     UPDATE ! 12/1 This method is not used anymore since I removed the window to ask whether the player want to play as guest or not
-#     User can register directly from the main menu
-#     """
-#
-#     # Create a guest menu window
-#     guest_tk = Tk()
-#     guest_tk.geometry('300x200')
-#     guest_tk.title('Guest Form')
-#     center_window(guest_tk)
-#
-#     # Guest Label
-#     lbl_guest = Label(guest_tk, text='Would you like to play as a guest?')
-#     lbl_guest.pack()
-#
-#     # add buttons for the user to select their answer
-#     btn_fortune_menu = tk.Button(guest_tk, text='Yes', bd='5', command=lambda: fortune_menu())
-#     btn_register = tk.Button(guest_tk, text='No', bd='5', command=lambda: registration_window())
-#     btn_fortune_menu.pack()
-#     btn_register.pack()
-#
-#     guest_tk.mainloop()
+
+def user():
+    user_logged_in = False
+    username = "Guest"
+
 
 def display_rules():
     """ Create a window that displays the rules to the user"""
@@ -298,12 +278,28 @@ def display_fortune(category):
 
     btn_fortune_new = tk.Button(fortune_tk, text='New Fortune', bd='2', command=fortune_tk.destroy)
     btn_fortune_new.pack()
-    btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: save_fortune())
+    btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: save_fortune_confirm_window())
     btn_fortune_save.pack()
 
-    def save_fortune():
-        """ Method to save user's fortune """
-        print("Need work! Saving user's fortune")
+    def save_fortune_confirm_window():
+        """
+        Method to create a new window that confirms whether a fortune is saved to the database
+        """
+        save_fortune_confirm_tk = Tk()
+        save_fortune_confirm_tk.geometry('400x150')
+        save_fortune_confirm_tk.title('User Register')
+        center_window(save_fortune_confirm_tk)
+
+        save_fortune_confirm_message = DBHelper.save_fortune_to_table(category, user_fortune)
+        # Create label for message
+        save_fortune_result_label = Label(save_fortune_confirm_tk, text=save_fortune_confirm_message)
+        save_fortune_result_label.pack()
+
+        # Create button for closing window
+        btn_close = Button(save_fortune_confirm_tk, text='Close', command=save_fortune_confirm_tk.destroy)
+        btn_close.pack()
+
+        save_fortune_confirm_tk.mainloop()
 
     fortune_tk.mainloop()
 
@@ -312,9 +308,15 @@ def past_fortunes_window():
     """ Method to create new window for displaying user's past fortunes """
 
     # Check if user is logged in
-    username = "placeholder_username"
+    if DBHelper.is_user_logged_in:
+        username = DBHelper.username
+    else:
+        username = "GUEST: Not Logged In"
 
-    def create_past_fortunes_table(data, win):
+    def create_past_fortunes_table(win):
+
+        past_fortunes = DBHelper.get_previous_fortunes(username)
+
         """ method to create table in win with dynamic height (rows) from data """
         # Create table frame widget
         past_fortunes_table_frame = tk.Frame(win)
@@ -325,37 +327,12 @@ def past_fortunes_window():
         scrollbar.pack(side=RIGHT, fill=Y)
 
         mylist = Listbox(past_fortunes_table_frame, yscrollcommand=scrollbar.set, width=75)
-        for line in range(100):
-            mylist.insert(END, "This is line number --------------------------------------" + str(line))
-        mylist.pack(side=LEFT, fill=BOTH)
-        #
-        # total_rows = len(data)
-        # total_columns = len(data[0])
-        #
-        # # code for creating table
-        # for i in range(total_rows):
-        #     for j in range(total_columns):
-        #         e = tk.Entry(past_fortunes_table_frame, width=20, font=('Arial', 16, 'bold'))
-        #         e.grid(row=i, column=j, sticky=W)
-        #         e.insert(END, data[i][j])
-        #         e.config(state=DISABLED)
-        scrollbar.config(command=mylist.yview)
+        for row in past_fortunes:
+            mylist.insert(END, row)
 
-    # WIP Retrieve dataset from backend
-    def get_past_fortunes_list(username):
-        """ Method to get past fortunes from specific user"""
-        # Placeholder list
-        past_fortunes_list = [('11/28/2023', 'Good'),
-                              ('11/28/2023', 'Bad'),
-                              ('11/29/2023', '1'),
-                              ('11/29/2023', '2'),
-                              ('11/30/2023', '3'),
-                              ('11/28/2023', 'Good'),
-                              ('11/28/2023', 'Bad'),
-                              ('11/29/2023', '1'),
-                              ('11/29/2023', '2'),
-                              ('11/30/2023', '3')]
-        return past_fortunes_list
+        mylist.pack(side=LEFT, fill=BOTH)
+
+        scrollbar.config(command=mylist.yview)
 
     # Initialize New Window
     previous_fortunes_tk = Tk()
@@ -368,13 +345,51 @@ def past_fortunes_window():
     username_label.grid(row=0, column=0)
 
     # Create table
-    create_past_fortunes_table(get_past_fortunes_list(username), previous_fortunes_tk)
+    create_past_fortunes_table(previous_fortunes_tk)
 
     # Button for Action
     btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5', command=previous_fortunes_tk.destroy)
     btn_close.grid(row=2, column=0)
 
     previous_fortunes_tk.mainloop()
+
+
+# Valerie
+# NEW
+def user_menu():
+    """New menu once user is logged in to choose new fortune or view old fortunes"""
+
+    # Initialize New Window
+    user_menu_tk = Tk()
+    user_menu_tk.geometry('300x150')
+    user_menu_tk.title('User Menu')
+    center_window(user_menu_tk)
+
+    # Create menu bar
+    menubar = Menu(user_menu_tk)
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=lambda: user_menu_tk.destroy)
+
+    # add label and buttons to the window
+    lbl1 = Label(user_menu_tk, text='Welcome to the Fortune Teller Game!')
+    lbl2 = Label(user_menu_tk, text='Reveal what your future holds!')
+    lbl1.pack()
+    lbl2.pack()
+
+    btn_get_frtn = Button(user_menu_tk, text='Get a Fortune', command=lambda: fortune_menu())
+    btn_past_frtn = Button(user_menu_tk, text='View Past Fortune', command=lambda: past_fortunes_window())
+
+    btn_get_frtn.pack()
+    btn_past_frtn.pack()
+
+    user_menu_tk.config(menu=menubar)
+    user_menu_tk.mainloop()
 
 
 def main_window():
@@ -399,8 +414,8 @@ def main_window():
     rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
+
     # add Exit menu and commands
-    # updated variable name for menu exit
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
     program_exit.add_command(label='Exit Program', command=root.destroy)
@@ -413,16 +428,6 @@ def main_window():
 
     # add crystal ball ascii art
     crystal_ball_ascii_art(root)
-
-    # # ask user if they want to play as a guest
-    # lbl3 = Label(root, text='Would you like to login?')
-    # lbl3.pack()
-    #
-    # # add buttons for user to select yes or no
-    # btn_login_yes = tk.Button(root, text='Yes', bd='5', command=lambda: login_window())
-    # btn_login_no = tk.Button(root, text='No', bd='5', command=lambda: guest_menu())
-    # btn_login_yes.pack()
-    # btn_login_no.pack()
 
     # Changed Buttons to include more options
     btn_play = tk.Button(root, text='Play as Guest', bd='1', command=lambda: fortune_menu())
@@ -440,4 +445,5 @@ def main_window():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    user()
     main_window()

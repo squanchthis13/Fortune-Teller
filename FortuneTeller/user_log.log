@@ -1,1 +1,4 @@
 2023-12-02 14:07:52,520 [INFO]: New registration: test3 in /Users/chelseanieves/eclipse-workspace/FortuneTeller/DatabaseHelper.py:287
+2023-12-04 13:01:55,457 [INFO]: New registration: %(uname)s in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:291
+2023-12-04 13:02:01,592 [ERROR]: Failed authentication, username %(uname)s does not exist in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:359
+2023-12-04 13:02:45,423 [INFO]: New registration: %(uname)s in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:291

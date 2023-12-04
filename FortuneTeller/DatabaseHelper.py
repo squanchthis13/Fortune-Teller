@@ -3,9 +3,9 @@ Modified 28Nov23
 
 @author: chelseanieves
 '''
-#import logging
-#from logging import FileHandler
-#from logging import Formatter
+# import logging
+# from logging import FileHandler
+# from logging import Formatter
 import sqlite3
 import string
 import sys
@@ -15,8 +15,8 @@ from LogHandler import user_logger, db_logger
 
 ######
 # create logger name and object
-#logger = logging.getLogger(__name__)
-#LOG_NAME = "./log.txt"
+# logger = logging.getLogger(__name__)
+# LOG_NAME = "./log.txt"
 ########
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
 
@@ -24,21 +24,26 @@ SPECIAL_CHAR = string.punctuation  # special characters to validate password req
 DB_NAME = "DecOneDB.db"
 COMMON_PASS_PATH = "CommonPassword.txt"
 
-#def create_logger():
- #   """Create and modify logger"""
-    # set level to log only ERROR and below
-  #  logger.setLevel(logging.ERROR)
-    # assign path to store logs
-   # handler = logging.FileHandler(f'{LOG_NAME}')
-    # assign handler to logger
-    #logger.addHandler(handler)
-    ## printing the hostname and ip_address
-    #formatter = logging.Formatter('%(asctime)s - %(levelname)s-%(name)s-\
-    #%(message)s')
-    # apply formatter to logger handler
-    #handler.setFormatter(formatter)
-    # apply filter to handler
-    #handler.addFilter(logger)
+is_user_logged_in = False
+username = ""
+
+
+# def create_logger():
+#   """Create and modify logger"""
+# set level to log only ERROR and below
+#  logger.setLevel(logging.ERROR)
+# assign path to store logs
+# handler = logging.FileHandler(f'{LOG_NAME}')
+# assign handler to logger
+# logger.addHandler(handler)
+## printing the hostname and ip_address
+# formatter = logging.Formatter('%(asctime)s - %(levelname)s-%(name)s-\
+# %(message)s')
+# apply formatter to logger handler
+# handler.setFormatter(formatter)
+# apply filter to handler
+# handler.addFilter(logger)
+
 
 def read_sqlite_table():
     try:
@@ -85,7 +90,8 @@ def read_sqlite_table():
 
 
 def create_table():
-    ''' Creates 3 SQL tables to store user and previous fortune data '''
+    """ Creates 3 SQL tables to store user and previous fortune data """
+
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -97,7 +103,7 @@ def create_table():
         CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(20) NOT NULL, password BLOB);
         CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
         """)
-        
+
         # commit to db
         con.commit()
         # display tables to console
@@ -113,7 +119,7 @@ def create_table():
             con.close()
 
 
-def check_username_exists(username):
+def check_username_exists(input_username):
     """
         method to check if username already exists in db
 
@@ -126,7 +132,7 @@ def check_username_exists(username):
     cur = con.cursor()
 
     try:
-        res = cur.execute('SELECT userId FROM user WHERE userId=?', (username,))
+        res = cur.execute('SELECT userId FROM user WHERE userId=?', (input_username,))
         data = res.fetchall()
         con.commit()
         if len(data) != 0:
@@ -330,6 +336,12 @@ def auth_user(uname, password):
 
             if is_match_password:
                 logged_in = "True"
+
+                global username
+                global is_user_logged_in
+                username = uname
+                is_user_logged_in = True
+
             else:
                 user_logger.error("Failed authentication, username: %(uname)s")
                 error_message = "ERROR: Password Does Not Match !"
@@ -350,21 +362,33 @@ def auth_user(uname, password):
     return error_message, logged_in
 
 
-def display_previous_fortunes():
+def get_previous_fortunes(uname):
     """Displays previous fortunes to authenticated user"""
     # if user is authenticated
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
     cur = con.cursor()
+
+    previous_fortunes = []
     try:
-        query = "SELECT * FROM fortune WHERE userId = (?)", (uname,)
-        records = cur.execute(query).fetchall()
+        ## NEW DEC 3 Hoi
+        # query = "SELECT * FROM fortune WHERE userId = (?)", (uname,)
+        # records = cur.execute(query).fetchall()
+
+        # Modified it to be consistent
+        # Separate the execution and fetchall functionality
+        # Pycharm was giving me warning about expecting a str instead of tuple for cur.execute()
+        # if we use query variable
+        fortunes_cur = cur.execute("SELECT * FROM fortune WHERE userId = (?)", (uname,))
+        records = fortunes_cur.fetchall()
+
         con.commit()
         print("PREVIOUS FORTUNES")
         if len(records) > 0:
             for row in records:
                 print(row)
+                previous_fortunes.append(row)
         else:
             print("No fortunes")
     except sqlite3.Error as err:
@@ -374,4 +398,37 @@ def display_previous_fortunes():
             # close DB cursor
             cur.close()
             con.close()
+    return previous_fortunes
 
+
+def save_fortune_to_table(category, fortune):
+    """ Save fortune to authenticated user """
+
+    save_fortune_to_table_message = "Error! Not Logged In"
+
+    global is_user_logged_in
+    # If user is not logged in already, return message immediately
+    if not is_user_logged_in:
+        return save_fortune_to_table_message
+
+    # if user is authenticated
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor()
+    try:
+        global username
+        cur.execute("INSERT INTO fortune (userId, message, category) VALUES (?, ?, ?)",
+                    (username, fortune, category))
+        con.commit()  # Commit the transaction
+        read_sqlite_table()
+
+        save_fortune_to_table_message = "Fortune Saved!"
+    except sqlite3.Error as err:
+        db_logger.error(err)
+    finally:
+        if con:
+            # close DB cursor
+            cur.close()
+            con.close()
+    return save_fortune_to_table_message
