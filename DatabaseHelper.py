@@ -380,15 +380,28 @@ def get_previous_fortunes(uname):
         # Separate the execution and fetchall functionality
         # Pycharm was giving me warning about expecting a str instead of tuple for cur.execute()
         # if we use query variable
-        fortunes_cur = cur.execute("SELECT * FROM fortune WHERE userId = (?)", (uname,))
-        records = fortunes_cur.fetchall()
+        #fortunes_cur = cur.execute("SELECT * FROM fortune WHERE userId = (?)", (uname,))
+        #ecords = fortunes_cur.fetchall()
 
+        #con.commit()
+        #print("PREVIOUS FORTUNES")
+        #if len(records) > 0:
+           # for row in records:
+                #print(row)
+                #previous_fortunes.append(row)
+
+        ### NEW NEW NEW
+        # 3Dec, Nieves, Chelsea
+        #modified query to output just category and message to user
+        fortunes_cur = cur.execute("SELECT category, message FROM fortune WHERE userId = (?)", (uname,))
+        res = fortunes_cur.fetchall()
         con.commit()
+
         print("PREVIOUS FORTUNES")
-        if len(records) > 0:
-            for row in records:
-                print(row)
-                previous_fortunes.append(row)
+        if len(res) > 0:
+            for category, message in res:
+                print(category + ": " + message)
+                previous_fortunes.append(category + ": " + message)
         else:
             print("No fortunes")
     except sqlite3.Error as err:
