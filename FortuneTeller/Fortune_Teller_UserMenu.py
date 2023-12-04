@@ -248,7 +248,7 @@ def user_menu():
     
     # Initialize New Window
     user_menu_tk = Tk()
-    user_menu_tk.geometry('300x1500')
+    user_menu_tk.geometry('300x150')
     user_menu_tk.title('User Menu')
     center_window(user_menu_tk)
 
