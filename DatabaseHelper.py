@@ -361,6 +361,19 @@ def auth_user(uname, password):
 
     return error_message, logged_in
 
+#Valerie Rudich 12/5/2023
+#NEW
+def sign_out():
+    """Signs user out and resets global variables"""
+    global is_user_logged_in
+    global username
+
+    is_user_logged_in = False
+    username = ""
+
+    message = "Successful Sign Out"
+    return message
+
 
 def get_previous_fortunes(uname):
     """Displays previous fortunes to authenticated user"""

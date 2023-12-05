@@ -23,7 +23,7 @@ def display_rules():
 
     # Initialize New Window
     rules_tk = Tk()
-    rules_tk.geometry('300x200')
+    rules_tk.geometry('350x260')
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
 
@@ -412,7 +412,7 @@ def signout_window():
 
     # Initialize New Window
     signout_tk = Tk()
-    signout_tk.geometry('300x200')
+    signout_tk.geometry('300x100')
     signout_tk.title("Sign Out")
     center_window(signout_tk)
 
@@ -422,15 +422,40 @@ def signout_window():
     lbl1.pack()
 
     btn_yes = Button(signout_tk, text="Yes", command=lambda: user_sign_out())
-    btn_no = Button(signout_tk, text="No", command=lambda:signout_tk.destroy)
+    btn_no = Button(signout_tk, text="No", command=signout_tk.destroy)
+
+    btn_yes.pack()
+    btn_no.pack() 
 
     # Valerie Rudich 12/5/2023
+    #NEW
     def user_sign_out():
+        signout_message = DBHelper.sign_out()
         signout_tk.destroy
-        DBHelper.is_user_logged_in = False
+        signout_message_window(signout_message)
         main_window()
 
     signout_tk.mainloop()
+
+# Valerie Rudich 12/5/2023
+#NEW
+def signout_message_window(message):
+    """ New window that show whether sign up is successful or not"""
+
+    signout_result_tk = Tk()
+    signout_result_tk.geometry('300x100')
+    signout_result_tk.title('Sign Out')
+    center_window(signout_result_tk)
+
+    # Create label for message
+    signout_result_label = Label(signout_result_tk, text=message)
+    signout_result_label.pack()
+
+    # Create button for closing window
+    btn_close = Button(signout_result_tk, text="Close", command=signout_result_tk.destroy)
+    btn_close.pack()
+
+    signout_result_tk.mainloop()
 
 # Constance Sturm 11/27/2023
 # Heavily Modified by Hoi Lam Wong 12/2/2023
