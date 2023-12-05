@@ -463,9 +463,10 @@ def signout_window(user_menu_tk):
 def main_window():
     """Display Main Menu and Welcome Message"""
     
-    DBHelper.create_table()
-    print("Table created")
-    # test_create_table()
+    if (DBHelper.active == False):
+        DBHelper.create_table()
+        print("Table created")
+        # test_create_table()
 
 
     # root window and title dimensions

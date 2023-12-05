@@ -28,6 +28,8 @@ COMMON_PASS_PATH = "CommonPassword.txt"
 is_user_logged_in = False
 username = ""
 
+active = False # var if db has been created
+
 
 # def create_logger():
 #   """Create and modify logger"""
@@ -93,6 +95,8 @@ def read_sqlite_table():
 def create_table():
     """ Creates 3 SQL tables to store user and previous fortune data """
 
+    active = True 
+    
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
