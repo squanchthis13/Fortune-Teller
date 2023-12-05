@@ -431,39 +431,22 @@ def signout_window():
     #NEW
     def user_sign_out():
         signout_message = DBHelper.sign_out()
-        signout_tk.destroy
-        signout_message_window(signout_message)
+        lbl2 = Label(signout_tk, text=signout_message)
+        lbl2.pack()
+        signout_tk.after(1500, signout_tk.destroy)
+        main_window()
 
     signout_tk.mainloop()
-
-# Valerie Rudich 12/5/2023
-#NEW
-def signout_message_window(message):
-    """ New window that show whether sign up is successful or not"""
-
-    signout_result_tk = Tk()
-    signout_result_tk.geometry('300x100')
-    signout_result_tk.title('Sign Out')
-    center_window(signout_result_tk)
-
-    # Create label for message
-    signout_result_label = Label(signout_result_tk, text=message)
-    signout_result_label.pack()
-
-    # Create button for closing window
-    btn_close = Button(signout_result_tk, text="Close", ccommand=lambda: main_window())
-    btn_close.pack()
-
-    signout_result_tk.mainloop()
 
 # Constance Sturm 11/27/2023
 # Heavily Modified by Hoi Lam Wong 12/2/2023
 def main_window():
     """Display Main Menu and Welcome Message"""
-
-    DBHelper.create_table()
-    print("Table created")
+    
+    #DBHelper.create_table()
+    #print("Table created")
     # test_create_table()
+    global root
 
     # root window and title dimensions
     root.title('Fortune Teller')
