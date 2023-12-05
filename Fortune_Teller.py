@@ -194,7 +194,7 @@ def registration_message_window(error_message):
     """ New window that show whether sign up is successful or not"""
 
     submission_result_tk = Tk()
-    submission_result_tk.geometry('400x150')
+    submission_result_tk.geometry('400x100')
     submission_result_tk.title('User Register')
     center_window(submission_result_tk)
 
@@ -360,7 +360,7 @@ def past_fortunes_window():
 
 
 # Valerie Rudich 12/4/2023
-# NEW
+#NEW
 def user_menu():
     """New menu once user is logged in to choose new fortune or view old fortunes"""
 
@@ -380,9 +380,14 @@ def user_menu():
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
     program_exit.add_command(label='Exit Program', command=lambda: user_menu_tk.destroy)
+    # add Sign Out menu and commands
+    #NEW
+    sign_out = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label="Sign Out", menu=sign_out)
+    sign_out.add_command(label="Sign Out", command=lambda: signout_window())
 
     # add label and buttons to the window
-    welcome_user_message = "Welcome Back!," + DBHelper.username + " to the Fortune Teller Game!"
+    welcome_user_message = "Welcome Back!, " + DBHelper.username + " to the Fortune Teller Game!"
     lbl1 = Label(user_menu_tk, text=welcome_user_message)
     lbl2 = Label(user_menu_tk, text='Reveal what your future holds!')
     lbl1.pack()
@@ -396,10 +401,36 @@ def user_menu():
 
     btn_get_frtn.pack()
     btn_past_frtn.pack()
-
     user_menu_tk.config(menu=menubar)
+
     user_menu_tk.mainloop()
 
+# Valerie Rudich 12/5/2023
+#NEW
+def signout_window():
+    """This function is used for signing users out and returning to main menu"""
+
+    # Initialize New Window
+    signout_tk = Tk()
+    signout_tk.geometry('300x200')
+    signout_tk.title("Sign Out")
+    center_window(signout_tk)
+
+    # add label and buttons to window
+    sign_out_message = "Confirm " + DBHelper.username + " Sign Out."
+    lbl1 = Label(signout_tk, text=sign_out_message)
+    lbl1.pack()
+
+    btn_yes = Button(signout_tk, text="Yes", command=lambda: user_sign_out())
+    btn_no = Button(signout_tk, text="No", command=lambda:signout_tk.destroy)
+
+    # Valerie Rudich 12/5/2023
+    def user_sign_out():
+        signout_tk.destroy
+        DBHelper.is_user_logged_in = False
+        main_window()
+
+    signout_tk.mainloop()
 
 # Constance Sturm 11/27/2023
 # Heavily Modified by Hoi Lam Wong 12/2/2023
@@ -413,7 +444,7 @@ def main_window():
     # root window and title dimensions
     root.title('Fortune Teller')
     # geometry of the box (width x height)
-    root.geometry('650x400')
+    root.geometry('650x415')
     # center window
     center_window(root)
 

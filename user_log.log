@@ -4,3 +4,6 @@
 2023-12-04 13:02:45,423 [INFO]: New registration: %(uname)s in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:291
 2023-12-04 14:18:42,073 [ERROR]: Failed authentication, username: %(uname)s in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:346
 2023-12-04 14:40:43,990 [ERROR]: Failed authentication, username: %(uname)s in D:\UMGC\Fortune-Teller\FortuneTeller\DatabaseHelper.py:346
+2023-12-05 00:37:33,111 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:346
+2023-12-05 00:39:22,842 [INFO]: New registration: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:292
+2023-12-05 00:39:46,729 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:360
