@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="480050d1-842a-4b73-aee3-1e2a8d8797a1" name="Changes" comment="New branch" />
+    <list default="true" id="480050d1-842a-4b73-aee3-1e2a8d8797a1" name="Changes" comment="New branch">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DatabaseHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/databasehelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FTHelper.py" beforeDir="false" afterPath="$PROJECT_DIR$/fthelper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FortuneTeller.db" beforeDir="false" afterPath="$PROJECT_DIR$/FortuneTeller.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Fortune_Teller.py" beforeDir="false" afterPath="$PROJECT_DIR$/fortune_teller.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LogHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/loghandler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_log.log" beforeDir="false" afterPath="$PROJECT_DIR$/user_log.log" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,7 +67,7 @@
       <recent name="D:\UMGC\Fortune-Teller\documentations" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Fortune_Teller">
+  <component name="RunManager" selected="Python.fortune_teller">
     <configuration name="Fortune_Teller (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -73,27 +81,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/FortuneTeller/Fortune_Teller.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Fortune_Teller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Fortune-Teller" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Fortune_Teller.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,13 +131,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="fortune_teller" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Fortune-Teller" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="D:\UMGC\Fortune-Teller\fortune_teller.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Fortune_Teller" />
+        <item itemvalue="Python.fortune_teller" />
         <item itemvalue="Python.Fortune_Teller (1)" />
         <item itemvalue="Python.TESTDatabaseHelper" />
         <item itemvalue="Python.TestDB" />
-        <item itemvalue="Python.Fortune_Teller" />
+        <item itemvalue="Python.fortune_teller" />
       </list>
     </recent_temporary>
   </component>

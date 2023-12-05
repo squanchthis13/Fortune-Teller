@@ -87,8 +87,9 @@ def login_window():
         error_message, logged_in = DBHelper.auth_user(uname, password)
         if logged_in == 'True':
             login_tk.destroy()
+            # hide root window when user logged in
             global root
-            root.destroy()
+            root.withdraw()
             user_menu()
         else:
             login_message_window(error_message)
@@ -458,8 +459,9 @@ def signout_window(user_menu_tk):
         lbl2.pack()
         signout_tk.after(2000, signout_tk.destroy)
         user_menu_tk.destroy()
-        ## NEED TO BE ABLE TO RETURN TO MAIN MENU
-        main_window()
+        # Hoi 12/5/23 Modify to un-hide root
+        global root
+        root.deiconify()
 
     signout_tk.mainloop()
 
