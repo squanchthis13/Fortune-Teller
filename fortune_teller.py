@@ -46,9 +46,9 @@ def display_rules():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -85,9 +85,9 @@ def login_window():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -304,9 +304,9 @@ def fortune_menu():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -362,9 +362,9 @@ def display_fortune(category):
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -462,9 +462,9 @@ def past_fortunes_window():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -504,9 +504,9 @@ def user_menu():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -558,9 +558,9 @@ def signout_window(user_menu_tk):
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
@@ -623,9 +623,9 @@ def main_window():
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+    frtne_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=frtne_menu)
+    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
