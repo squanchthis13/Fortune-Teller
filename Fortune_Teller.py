@@ -379,7 +379,7 @@ def user_menu():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=lambda: user_menu_tk.destroy)
+    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
     # add Sign Out menu and commands
     #NEW
     sign_out = Menu(menubar, tearoff=0)
@@ -387,7 +387,7 @@ def user_menu():
     sign_out.add_command(label="Sign Out", command=lambda: signout_window())
 
     # add label and buttons to the window
-    welcome_user_message = "Welcome Back!, " + DBHelper.username + " to the Fortune Teller Game!"
+    welcome_user_message = "Welcome Back, " + DBHelper.username + " to the Fortune Teller Game!"
     lbl1 = Label(user_menu_tk, text=welcome_user_message)
     lbl2 = Label(user_menu_tk, text='Reveal what your future holds!')
     lbl1.pack()
@@ -409,21 +409,17 @@ def user_menu():
 #NEW
 def signout_window():
     """This function is used for signing users out and returning to main menu"""
-
     # Initialize New Window
     signout_tk = Tk()
     signout_tk.geometry('300x125')
     signout_tk.title("Sign Out")
     center_window(signout_tk)
-
     # add label and buttons to window
     sign_out_message = "Confirm " + DBHelper.username + " Sign Out"
     lbl1 = Label(signout_tk, text=sign_out_message)
     lbl1.pack()
-
     btn_yes = Button(signout_tk, text="Yes", command=lambda: user_sign_out())
     btn_no = Button(signout_tk, text="No", command=signout_tk.destroy)
-
     btn_yes.pack()
     btn_no.pack() 
 
@@ -434,7 +430,7 @@ def signout_window():
         lbl2 = Label(signout_tk, text=signout_message)
         lbl2.pack()
         signout_tk.after(1500, signout_tk.destroy)
-
+        main_window()
     signout_tk.mainloop()
 
 # Constance Sturm 11/27/2023

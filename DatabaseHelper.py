@@ -368,13 +368,14 @@ def sign_out():
     global is_user_logged_in
     global username
 
+    message = f"User {username} Could Not Be Signed Out"
+
     if is_user_logged_in and username:
-        user_logger.info(f"User {username} has been signed out.")
-
-    is_user_logged_in = False
-    username = ""
-
-    message = "Successfully Signed Out"
+        user_logger.info(f"User {username} has been signed out")
+        is_user_logged_in = False
+        username = ""
+        message = "Successfully Signed Out"
+    
     return message
 
 
