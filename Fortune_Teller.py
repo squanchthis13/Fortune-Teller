@@ -172,9 +172,9 @@ def registration_window():
         uname = username_entry.get()
         fname = first_name_entry.get()
         lname = last_name_entry.get()
+        email = email_entry.get()
         pass1 = password_entry.get()
         pass2 = password_confirm_entry.get()
-        email = email_entry.get()
 
         # 2Dec Nieves, Chelsea
         error_message, registered = DBHelper.sign_up(uname, fname, lname, email, pass1, pass2)  # Assign returned tuple
@@ -227,6 +227,19 @@ def fortune_menu():
     fortune_menu_tk.geometry('300x200')
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
+
+    # Valerie Rudich 12/5/2023
+    #NEW
+    # Create menu bar
+    menubar = Menu(fortune_menu_tk)
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.destroy)
 
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
@@ -281,8 +294,12 @@ def display_fortune(category):
 
     btn_fortune_new = tk.Button(fortune_tk, text='New Fortune', bd='2', command=fortune_tk.destroy)
     btn_fortune_new.pack()
-    btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: [save_fortune_confirm_window(fortune_tk)])
-    btn_fortune_save.pack()
+    # Valerie Rudich 12/5/2023
+    #NEW
+    # adds save option only if the user is signed in
+    if (DBHelper.is_user_logged_in == True) :
+        btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: [save_fortune_confirm_window(fortune_tk)])
+        btn_fortune_save.pack()
 
     # Hoi Lam Wong 12/4/2023
     def save_fortune_confirm_window(win):
@@ -384,7 +401,7 @@ def user_menu():
     #NEW
     sign_out = Menu(menubar, tearoff=0)
     menubar.add_cascade(label="Sign Out", menu=sign_out)
-    sign_out.add_command(label="Sign Out", command=lambda: signout_window())
+    sign_out.add_command(label="Sign Out", command=lambda: signout_window(user_menu_tk))
 
     # add label and buttons to the window
     welcome_user_message = "Welcome Back, " + DBHelper.username + " to the Fortune Teller Game!"
@@ -407,19 +424,24 @@ def user_menu():
 
 # Valerie Rudich 12/5/2023
 #NEW
-def signout_window():
+def signout_window(user_menu_tk):
     """This function is used for signing users out and returning to main menu"""
+
     # Initialize New Window
     signout_tk = Tk()
     signout_tk.geometry('300x125')
     signout_tk.title("Sign Out")
     center_window(signout_tk)
+
     # add label and buttons to window
     sign_out_message = "Confirm " + DBHelper.username + " Sign Out"
     lbl1 = Label(signout_tk, text=sign_out_message)
+    
     lbl1.pack()
+
     btn_yes = Button(signout_tk, text="Yes", command=lambda: user_sign_out())
     btn_no = Button(signout_tk, text="No", command=signout_tk.destroy)
+
     btn_yes.pack()
     btn_no.pack() 
 
@@ -429,8 +451,11 @@ def signout_window():
         signout_message = DBHelper.sign_out()
         lbl2 = Label(signout_tk, text=signout_message)
         lbl2.pack()
-        signout_tk.after(1500, signout_tk.destroy)
+        signout_tk.after(2000, signout_tk.destroy)
+        user_menu_tk.destroy()
+        ## NEED TO BE ABLE TO RETURN TO MAIN MENU
         main_window()
+
     signout_tk.mainloop()
 
 # Constance Sturm 11/27/2023
@@ -452,6 +477,7 @@ def main_window():
 
     # add menu bar to allow user to view rules or exit
     menubar = Menu(root)
+
     # add Rules menu and commands
     rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)

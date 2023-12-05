@@ -34,3 +34,36 @@
 2023-12-05 03:30:26,988 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
 2023-12-05 03:30:58,743 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
 2023-12-05 03:31:25,959 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:45:04,716 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:45:45,350 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:46:01,624 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:46:31,046 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:46:59,460 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:47:49,747 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:48:34,622 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:48:58,449 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:51:21,423 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:51:58,316 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:52:17,084 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:53:56,822 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:54:27,600 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:54:53,059 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:55:20,696 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 03:58:02,686 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:374
+2023-12-05 04:47:53,391 [INFO]: New registration: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:317
+2023-12-05 04:48:06,825 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:371
+2023-12-05 04:48:10,680 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:371
+2023-12-05 04:49:39,549 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 04:57:27,721 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:371
+2023-12-05 04:57:41,883 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 04:58:01,226 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 04:59:30,168 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:00:06,307 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:01:12,368 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:01:27,541 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:02:37,136 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:03:23,926 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:03:59,580 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:04:38,926 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:05:00,116 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
+2023-12-05 05:06:14,997 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399

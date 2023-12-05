@@ -11,6 +11,7 @@ import string
 import sys
 import traceback
 import bcrypt
+import re
 from LogHandler import user_logger, db_logger
 
 ######
@@ -157,7 +158,7 @@ def check_username_exists(input_username):
             con.close()
 
 
-def check_all_inputs(uname, fname, lname, pass1, pass2):
+def check_all_inputs(uname, fname, lname, email, pass1, pass2):
     """
         Method to check for validation for all input
 
@@ -178,25 +179,49 @@ def check_all_inputs(uname, fname, lname, pass1, pass2):
     # 2Dec Nieves, Chelsea
     # Modified elif to include fname and lname not null/blank
     # Will need to add email field
-    elif uname == "" or fname == "" or lname == "" or pass1 == "" or pass2 == "":
+    elif uname == "" or fname == "" or lname == "" or email == "" or pass1 == "" or pass2 == "":
         # Fields cannot be left blank
         error_message = "Field cannot be left blank."
     else:
         ### NEW NEW NEW ###
-        # 2Dec Nieves, Chelsea
+        # 2Dec Nieves, Chelsea, Valerie
         # Assign returned tuple
 
         error_message, valid = validate_pass(pass1, pass2)
+        error_message2, valid2 = validate_email(email)
 
         # if all input fields valid, valid == "True"
-        if valid == "True":
+        if valid == "True" and valid2 == "True":
             # if valid == "True", allow user to register
             register = "True"
     ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea
+    # 2Dec Nieves, Chelsea, Valerie
     # Invalid input
     # Return success/error message and registration state
+    #return error_message, register
+    if (error_message2 != "") :
+        return error_message2, register
+    
     return error_message, register
+    
+
+# Valerie Rudich 12/5/2024
+#NEW
+def validate_email(email):
+    """
+    Validates user's email address
+
+    Return: tuple(error_message, valid)
+    """
+    error_message = "Error: Invalid Email Address"
+    valid = "False"
+    email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+
+    if (re.match(email_regex, email)) :
+        error_message = ""
+        valid = "True"
+
+    return error_message, valid
 
 
 def validate_pass(password1, password2):
@@ -276,7 +301,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea
     # Assign returned tuple
-    error_message, register = check_all_inputs(uname, fname, lname, pass1, pass2)
+    error_message, register = check_all_inputs(uname, fname, lname, email, pass1, pass2)
     registered = "False"  # var to track if user is registered; default is False
     # if user input is valid and user is allowed to register
     if register == "True":
