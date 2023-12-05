@@ -450,7 +450,7 @@ def past_fortunes_window():
     # Initialize New Window
     previous_fortunes_tk = Tk()
     previous_fortunes_tk.title('Past Fortunes')
-    previous_fortunes_tk.geometry('510x300')
+    previous_fortunes_tk.geometry('600x300')
     center_window(previous_fortunes_tk)
 
     # add menu bar to allow user to view rules, fortune,or exit
