@@ -371,7 +371,7 @@ def sign_out():
     is_user_logged_in = False
     username = ""
 
-    message = "Successful Sign Out"
+    message = "Successfully Signed Out"
     return message
 
 

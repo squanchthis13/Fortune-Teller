@@ -417,7 +417,7 @@ def signout_window():
     center_window(signout_tk)
 
     # add label and buttons to window
-    sign_out_message = "Confirm " + DBHelper.username + " Sign Out."
+    sign_out_message = "Confirm " + DBHelper.username + " Sign Out"
     lbl1 = Label(signout_tk, text=sign_out_message)
     lbl1.pack()
 
@@ -433,7 +433,6 @@ def signout_window():
         signout_message = DBHelper.sign_out()
         signout_tk.destroy
         signout_message_window(signout_message)
-        main_window()
 
     signout_tk.mainloop()
 
@@ -452,7 +451,7 @@ def signout_message_window(message):
     signout_result_label.pack()
 
     # Create button for closing window
-    btn_close = Button(signout_result_tk, text="Close", command=signout_result_tk.destroy)
+    btn_close = Button(signout_result_tk, text="Close", ccommand=lambda: main_window())
     btn_close.pack()
 
     signout_result_tk.mainloop()
