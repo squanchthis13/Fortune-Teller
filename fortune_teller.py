@@ -27,7 +27,7 @@ from fthelper import *
 # create root window
 root = Tk()
 
-# Constance Sturm 11/26/2023
+# Constance Sturm 11/26/2023, 12/5/23
 def display_rules():
     ''' Create a window that displays the rules to the user'''
 
@@ -37,6 +37,24 @@ def display_rules():
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(rules_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
     msg = Message(rules_tk, text='> Please select a category from the following buttons. \n '
@@ -48,7 +66,7 @@ def display_rules():
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
 
-# Constance Sturm 11/26/2023
+# Constance Sturm 11/26/2023, 12/5/23 
 def login_window():
     '''This function is used for returning users'''
 
@@ -58,6 +76,24 @@ def login_window():
     login_tk.title('User Login')
     center_window(login_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(login_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
     login_form.pack()
@@ -127,6 +163,7 @@ def login_message_window(error_message):
 
 
 # Hoi Lam Wong 11/27/2023
+# Constance Sturm 12/5/23 added menu bar for uniformity
 def registration_window():
     ''' This function is used to create new window that holds registration from '''
 
@@ -136,6 +173,24 @@ def registration_window():
     registration_tk.title('Registration Form')
     center_window(registration_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(registration_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
     frm_form.pack()
@@ -228,7 +283,7 @@ def registration_message_window(error_message):
     submission_result_tk.mainloop()
 
 
-# Constance 11/27/2023
+# Constance 11/27/2023, 12/5/23 
 def fortune_menu():
     '''This menu will give the user the option to choose a category'''
 
@@ -239,18 +294,25 @@ def fortune_menu():
     center_window(fortune_menu_tk)
 
     # Valerie Rudich 12/5/2023
-    #NEW
-    # Create menu bar
+    # Constance Sturm added additions to the menubar to keep it uniform 
+    # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(fortune_menu_tk)
+
     # add Rules menu and commands
     rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.destroy)
-
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
     btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career'))
@@ -268,6 +330,7 @@ def fortune_menu():
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
+# Constance Sturm 12/5/23 added menubar for uniformity 
 def display_fortune(category):
     ''' Method to create a new window to display user's fortune 
     based on the category they choose in fortune menu'''
@@ -290,6 +353,24 @@ def display_fortune(category):
     fortune_tk.geometry('300x200')
     center_window(fortune_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(fortune_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
     lbl_category = Label(fortune_tk, text=category, font='40')
@@ -337,6 +418,7 @@ def display_fortune(category):
 
 
 # Hoi Lam Wong 12/4/2023
+# Constance Sturm 12/5/23 added menubar for uniformity
 def past_fortunes_window():
     ''' Method to create new window for displaying user's past fortunes '''
     # Check if user is logged in
@@ -371,6 +453,24 @@ def past_fortunes_window():
     previous_fortunes_tk.geometry('510x300')
     center_window(previous_fortunes_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(previous_fortunes_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
     username_label.grid(row=0, column=0)
@@ -385,6 +485,7 @@ def past_fortunes_window():
     previous_fortunes_tk.mainloop()
 
 # Valerie Rudich 12/4/2023
+# Constance Sturm 12/5/23 updated menubar to create uniformity
 def user_menu():
     '''New menu once user is logged in to choose new fortune or view old fortunes'''
 
@@ -394,16 +495,24 @@ def user_menu():
     user_menu_tk.title('Fortune Teller')
     center_window(user_menu_tk)
 
-    # Create menu bar
+    # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(user_menu_tk)
+
     # add Rules menu and commands
     rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     # add Sign Out menu and commands
     #NEW
     sign_out = Menu(menubar, tearoff=0)
@@ -430,6 +539,7 @@ def user_menu():
     user_menu_tk.mainloop()
 
 # Valerie Rudich 12/5/2023
+# Constance Sturm 12/5/23 added menubar to keep uniformity
 def signout_window(user_menu_tk):
     '''This function is used for signing users out and returning to main menu'''
 
@@ -439,6 +549,24 @@ def signout_window(user_menu_tk):
     signout_tk.title('Sign Out')
     center_window(signout_tk)
 
+    # add menu bar to allow user to view rules, fortune,or exit
+    menubar = Menu(signout_tk)
+
+    # add Rules menu and commands
+    rules = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Rules', menu=rules)
+    rules.add_command(label='View Rules', command=lambda: display_rules())
+
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=root.destroy)
+    
     # add label and buttons to window
     sign_out_message = 'Confirm ' + DBHelper.username + ' Sign Out'
     lbl1 = Label(signout_tk, text=sign_out_message)
@@ -465,7 +593,7 @@ def signout_window(user_menu_tk):
 
     signout_tk.mainloop()
 
-# Constance Sturm 11/27/2023
+# Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
 # Heavily Modified by Hoi Lam Wong 12/2/2023
 def main_window():
     '''Display Main Menu and Welcome Message'''
@@ -486,7 +614,7 @@ def main_window():
     # center window
     center_window(root)
 
-    # add menu bar to allow user to view rules or exit
+    # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(root)
 
     # add Rules menu and commands
@@ -494,11 +622,16 @@ def main_window():
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
+    # add fortune menu and commands
+    fortune_menu = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Fortune', menu=fortune_menu)
+    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
+
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
     program_exit.add_command(label='Exit Program', command=root.destroy)
-
+    
     # add label to the root window
     lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
     lbl2 = Label(root, text='Reveal what your future holds!')
