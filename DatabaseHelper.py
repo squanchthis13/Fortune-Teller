@@ -368,6 +368,9 @@ def sign_out():
     global is_user_logged_in
     global username
 
+    if is_user_logged_in and username:
+        user_logger.info(f"User {username} has been signed out.")
+
     is_user_logged_in = False
     username = ""
 
