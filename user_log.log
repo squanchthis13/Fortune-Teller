@@ -68,3 +68,11 @@
 2023-12-05 05:05:00,116 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
 2023-12-05 05:06:14,997 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:399
 2023-12-05 05:13:30,894 [INFO]: User tester has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:403
+2023-12-05 09:18:22,336 [INFO]: User test has been signed out in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/DatabaseHelper.py:403
+2023-12-05 09:21:47,798 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/DatabaseHelper.py:321
+2023-12-05 10:46:02,060 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:258
+2023-12-05 10:46:11,015 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:300
+2023-12-05 10:46:24,897 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:300
+2023-12-05 11:03:22,829 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:288
+2023-12-05 11:09:20,253 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:303
+2023-12-05 11:09:35,852 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-2/databasehelper.py:248

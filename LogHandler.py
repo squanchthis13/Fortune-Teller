@@ -1,7 +1,5 @@
 '''
-Created on Dec 2, 2023
-
-@author: chelseanieves
+Module to handle the creation and formatting of loggers
 '''
 import logging
 from logging import FileHandler
@@ -9,15 +7,15 @@ from logging import Formatter
 
 # Create format for logged message
 log_format = (
-"%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d")
+'%(asctime)s [%(levelname)s]: %(message)s in %(pathname)s:%(lineno)d')
 # Assign default logging level
 log_level = logging.INFO
 
 # User Logger
 # create pathname to store log file
-user_log_file = "./user_log.log"
+user_log_file = './user_log.log'
 # Create logger
-user_logger = logging.getLogger("fortuneteller.user")
+user_logger = logging.getLogger('fortuneteller.user')
 # Assign default log level to logger
 user_logger.setLevel(log_level)
 # Create file handler
@@ -31,9 +29,9 @@ user_logger.addHandler(user_logger_FH)
 
 # DB Logger
 # Create pathname to store log file
-db_log_file = "./db_log.log"
+db_log_file = './db_log.log'
 # Create logger
-db_logger = logging.getLogger("fortuneteller.db")
+db_logger = logging.getLogger('fortuneteller.db')
 # Set level to logger
 db_logger.setLevel(log_level)
 # Create file handler

@@ -1,25 +1,35 @@
-"""Team 3: Fortune Teller Application
+'''Team 3: Fortune Teller Application
 Created By: Constance Sturm, Michelle Cook, Chelsea Nieves,
 Valerie Rudich, and Hoi Lam Wong
 University of Maryland Global Campus
 CMSC 495-7382: Capstone in Computer Science
 Professor David Castillo
-November 26, 2023"""
+November 26, 2023'''
 
+##NEW NEW NEW
+#Pylint
+#Wildcard import tkinter (wildcard-import)
 from tkinter import *
+#NEW NEW NEW
+#Pylint
+#Wildcard import tkinter.ttk (wildcard-import)
 from tkinter.ttk import *
 import tkinter as tk
 
-import DatabaseHelper as DBHelper
-from FTHelper import *
+import databasehelper as DBHelper
+#NEW NEW NEW 
+#Pylint
+#FortuneTeller/Fortune-Teller-2/fortune_teller.py:14:0: W0614: 
+# Unused import(s) random, LOVE_FORTUNE_PATH, CAREER_FORTUNE_PATH, GENERAL_FORTUNE_PATH, HEALTH_FORTUNE_PATH and db_logger from wildcard import of fthelper 
+# (unused-wildcard-import)
+from fthelper import *
 
 # create root window
 root = Tk()
 
-
 # Constance Sturm 11/26/2023
 def display_rules():
-    """ Create a window that displays the rules to the user"""
+    ''' Create a window that displays the rules to the user'''
 
     # Initialize New Window
     rules_tk = Tk()
@@ -38,10 +48,9 @@ def display_rules():
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
 
-
 # Constance Sturm 11/26/2023
 def login_window():
-    """This function is used for returning users"""
+    '''This function is used for returning users'''
 
     # Initialize New Window
     login_tk = Tk()
@@ -53,9 +62,9 @@ def login_window():
     login_form = Frame(relief=SUNKEN, borderwidth=3)
     login_form.pack()
 
-    username_login_label = Label(login_tk, text="Username:")
+    username_login_label = Label(login_tk, text='Username:')
     username_login_label.grid(row=0, column=0)
-    password_login_label = Label(login_tk, text="Password:")
+    password_login_label = Label(login_tk, text='Password:')
     password_login_label.grid(row=1, column=0)
 
     username_login_entry = Entry(login_tk)
@@ -65,7 +74,7 @@ def login_window():
 
     password_login_entry.grid(row=1, column=1)
 
-    btn_login_submit = Button(master=login_tk, text="Login", command=lambda: user_login())
+    btn_login_submit = Button(master=login_tk, text='Login', command=lambda: user_login())
     btn_login_submit.grid(row=2, column=0)
     btn_login_close = Button(login_tk, text='Cancel', command=login_tk.destroy)
     btn_login_close.grid(row=2, column=1)
@@ -76,7 +85,7 @@ def login_window():
         password = password_login_entry.get().strip()
 
         error_message, logged_in = DBHelper.auth_user(uname, password)
-        if logged_in == "True":
+        if logged_in == 'True':
             login_tk.destroy()
             global root
             root.destroy()
@@ -89,7 +98,7 @@ def login_window():
 
 # Hoi Lam Wong 11/27/2023
 def login_message_window(error_message):
-    """ New window that show whether sign up is successful or not"""
+    ''' New window that show whether sign up is successful or not'''
 
     login_result_tk = Tk()
     login_result_tk.geometry('400x150')
@@ -97,10 +106,10 @@ def login_message_window(error_message):
     center_window(login_result_tk)
 
     # Dynamically set message to show sign up confirmation
-    message = ""
-    if error_message == "":
+    message = ''
+    if error_message == '':
         # There is no error if error message is empty
-        message = "Log In Successful!"
+        message = 'Log In Successful!'
     else:
         # Else message to be displayed is the error message
         message = error_message
@@ -118,7 +127,7 @@ def login_message_window(error_message):
 
 # Hoi Lam Wong 11/27/2023
 def registration_window():
-    """ This function is used to create new window that holds registration from """
+    ''' This function is used to create new window that holds registration from '''
 
     # Initialize New Window
     registration_tk = Tk()
@@ -130,17 +139,17 @@ def registration_window():
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
     frm_form.pack()
 
-    first_name_label = Label(registration_tk, text="First Name:")
+    first_name_label = Label(registration_tk, text='First Name:')
     first_name_label.grid(row=0, column=0)
-    last_name_label = Label(registration_tk, text="Last Name:")
+    last_name_label = Label(registration_tk, text='Last Name:')
     last_name_label.grid(row=1, column=0)
-    username_label = Label(registration_tk, text="Username:")
+    username_label = Label(registration_tk, text='Username:')
     username_label.grid(row=2, column=0)
-    email_label = Label(registration_tk, text="Email:")
+    email_label = Label(registration_tk, text='Email:')
     email_label.grid(row=3, column=0)
-    password_label = Label(registration_tk, text="Password:")
+    password_label = Label(registration_tk, text='Password:')
     password_label.grid(row=4, column=0)
-    password_confirm_label = Label(registration_tk, text="Confirm Password:")
+    password_confirm_label = Label(registration_tk, text='Confirm Password:')
     password_confirm_label.grid(row=5, column=0)
 
     first_name_entry = Entry(registration_tk)
@@ -157,17 +166,16 @@ def registration_window():
     password_confirm_entry = Entry(registration_tk, show='*')
     password_confirm_entry.grid(row=5, column=1)
 
-    btn_submit = Button(master=registration_tk, text="Submit",
+    btn_submit = Button(master=registration_tk, text='Submit',
                         command=lambda: user_register())
     btn_submit.grid(row=6, column=0)
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
     btn_close.grid(row=6, column=1)
 
     def user_register():
-        """
-            Method for registration() for backend
-            Note: This method is part of/inside of method registration()
-        """
+        '''Method for registration() for backend
+        Note: This method is part of/inside of method registration()
+        '''
         # Get value from text boxes
         uname = username_entry.get()
         fname = first_name_entry.get()
@@ -177,8 +185,9 @@ def registration_window():
         pass2 = password_confirm_entry.get()
 
         # 2Dec Nieves, Chelsea
-        error_message, registered = DBHelper.sign_up(uname, fname, lname, email, pass1, pass2)  # Assign returned tuple
-        if registered == "True":
+        # Assign returned tuple
+        error_message, registered = DBHelper.sign_up(uname, fname, lname, email, pass1, pass2)
+        if registered == 'True':
             # destroy registration form if successfully signed up
             registration_tk.destroy()
 
@@ -191,7 +200,7 @@ def registration_window():
 
 # Hoi Lam Wong 11/27/2023
 def registration_message_window(error_message):
-    """ New window that show whether sign up is successful or not"""
+    ''' New window that show whether sign up is successful or not'''
 
     submission_result_tk = Tk()
     submission_result_tk.geometry('400x100')
@@ -199,10 +208,10 @@ def registration_message_window(error_message):
     center_window(submission_result_tk)
 
     # Dynamically set message to show sign up confirmation
-    message = ""
-    if error_message == "":
+    message = ''
+    if error_message == '':
         # There is no error if error message is empty
-        message = "Registration Successful! Please Log In"
+        message = 'Registration Successful! Please Log In'
     else:
         # Else message to be displayed is the error message
         message = error_message
@@ -220,7 +229,7 @@ def registration_message_window(error_message):
 
 # Constance 11/27/2023
 def fortune_menu():
-    """This menu will give the user the option to choose a category"""
+    '''This menu will give the user the option to choose a category'''
 
     # Initialize New Window
     fortune_menu_tk = Tk()
@@ -255,18 +264,14 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
-    # btn_previous_fortunes = Button(fortune_menu_tk, text='View Past Fortunes',
-    #                                command=lambda: past_fortunes_window())
-    # btn_previous_fortunes.pack()
-
     fortune_menu_tk.mainloop()
-
 
 # Hoi Lam Wong 11/28/2023
 def display_fortune(category):
-    """ Method to create a new window to display user's fortune based on the category they choose in fortune menu"""
+    ''' Method to create a new window to display user's fortune 
+    based on the category they choose in fortune menu'''
 
-    user_fortune = ""
+    user_fortune = ''
     if category == 'Love':
         user_fortune = get_love_fortune()
     elif category == 'Career':
@@ -295,17 +300,21 @@ def display_fortune(category):
     btn_fortune_new = tk.Button(fortune_tk, text='New Fortune', bd='2', command=fortune_tk.destroy)
     btn_fortune_new.pack()
     # Valerie Rudich 12/5/2023
-    #NEW
     # adds save option only if the user is signed in
-    if (DBHelper.is_user_logged_in == True) :
+
+    #NEW NEW NEW
+    #Pylint
+    #FortuneTeller/Fortune-Teller-2/fortune_teller.py:299:7: C0121: Comparison 'DBHelper.is_user_logged_in == True' should be 'DBHelper.is_user_logged_in is True' 
+    #if checking for the singleton value True, or 'DBHelper.is_user_logged_in' if testing for truthiness (singleton-comparison)
+    if DBHelper.is_user_logged_in == True:
         btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: [save_fortune_confirm_window(fortune_tk)])
         btn_fortune_save.pack()
 
     # Hoi Lam Wong 12/4/2023
     def save_fortune_confirm_window(win):
-        """
+        '''
         Method to create a new window that confirms whether a fortune is saved to the database
-        """
+        '''
         win.destroy()
         save_fortune_confirm_tk = Tk()
         save_fortune_confirm_tk.geometry('400x150')
@@ -328,19 +337,18 @@ def display_fortune(category):
 
 # Hoi Lam Wong 12/4/2023
 def past_fortunes_window():
-    """ Method to create new window for displaying user's past fortunes """
-
+    ''' Method to create new window for displaying user's past fortunes '''
     # Check if user is logged in
     if DBHelper.is_user_logged_in:
         username = DBHelper.username
     else:
-        username = "GUEST: Not Logged In"
+        username = 'GUEST: Not Logged In'
 
     def create_past_fortunes_table(win):
 
         past_fortunes = DBHelper.get_previous_fortunes(username)
 
-        """ method to create table in win with dynamic height (rows) from data """
+        ''' method to create table in win with dynamic height (rows) from data '''
         # Create table frame widget
         past_fortunes_table_frame = tk.Frame(win)
         past_fortunes_table_frame.grid(row=1, column=0, padx=10, pady=10)
@@ -375,11 +383,9 @@ def past_fortunes_window():
 
     previous_fortunes_tk.mainloop()
 
-
 # Valerie Rudich 12/4/2023
-#NEW
 def user_menu():
-    """New menu once user is logged in to choose new fortune or view old fortunes"""
+    '''New menu once user is logged in to choose new fortune or view old fortunes'''
 
     # Initialize New Window
     user_menu_tk = Tk()
@@ -400,11 +406,11 @@ def user_menu():
     # add Sign Out menu and commands
     #NEW
     sign_out = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label="Sign Out", menu=sign_out)
-    sign_out.add_command(label="Sign Out", command=lambda: signout_window(user_menu_tk))
+    menubar.add_cascade(label='Sign Out', menu=sign_out)
+    sign_out.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
 
     # add label and buttons to the window
-    welcome_user_message = "Welcome Back, " + DBHelper.username + " to the Fortune Teller Game!"
+    welcome_user_message = 'Welcome Back, ' + DBHelper.username + ' to the Fortune Teller Game!'
     lbl1 = Label(user_menu_tk, text=welcome_user_message)
     lbl2 = Label(user_menu_tk, text='Reveal what your future holds!')
     lbl1.pack()
@@ -423,24 +429,23 @@ def user_menu():
     user_menu_tk.mainloop()
 
 # Valerie Rudich 12/5/2023
-#NEW
 def signout_window(user_menu_tk):
-    """This function is used for signing users out and returning to main menu"""
+    '''This function is used for signing users out and returning to main menu'''
 
     # Initialize New Window
     signout_tk = Tk()
     signout_tk.geometry('300x125')
-    signout_tk.title("Sign Out")
+    signout_tk.title('Sign Out')
     center_window(signout_tk)
 
     # add label and buttons to window
-    sign_out_message = "Confirm " + DBHelper.username + " Sign Out"
+    sign_out_message = 'Confirm ' + DBHelper.username + ' Sign Out'
     lbl1 = Label(signout_tk, text=sign_out_message)
-    
+
     lbl1.pack()
 
-    btn_yes = Button(signout_tk, text="Yes", command=lambda: user_sign_out())
-    btn_no = Button(signout_tk, text="No", command=signout_tk.destroy)
+    btn_yes = Button(signout_tk, text='Yes', command=lambda: user_sign_out())
+    btn_no = Button(signout_tk, text='No', command=signout_tk.destroy)
 
     btn_yes.pack()
     btn_no.pack() 
@@ -461,13 +466,16 @@ def signout_window(user_menu_tk):
 # Constance Sturm 11/27/2023
 # Heavily Modified by Hoi Lam Wong 12/2/2023
 def main_window():
-    """Display Main Menu and Welcome Message"""
+    '''Display Main Menu and Welcome Message'''
     
+    #NEW NEW NEW
+    #Pylint
+    #FortuneTeller/Fortune-Teller-2/fortune_teller.py:462:8: C0121: Comparison 'DBHelper.active == False' 
+    #should be 'DBHelper.active is False' if checking for the singleton value False, or 'not DBHelper.active' if testing for falsiness (singleton-comparison)
     if (DBHelper.active == False):
         DBHelper.create_table()
-        print("Table created")
+        print('Table created')
         # test_create_table()
-
 
     # root window and title dimensions
     root.title('Fortune Teller')
