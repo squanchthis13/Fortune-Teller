@@ -11,3 +11,4 @@
 2023-12-05 01:12:50,085 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:346
 2023-12-05 01:27:09,947 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:346
 2023-12-05 01:39:23,866 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:346
+2023-12-05 02:23:44,125 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/DatabaseHelper.py:346

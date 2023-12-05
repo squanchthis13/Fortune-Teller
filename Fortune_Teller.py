@@ -45,7 +45,7 @@ def login_window():
 
     # Initialize New Window
     login_tk = Tk()
-    login_tk.geometry('300x200')
+    login_tk.geometry('300x100')
     login_tk.title('User Login')
     center_window(login_tk)
 
@@ -412,7 +412,7 @@ def signout_window():
 
     # Initialize New Window
     signout_tk = Tk()
-    signout_tk.geometry('300x100')
+    signout_tk.geometry('300x125')
     signout_tk.title("Sign Out")
     center_window(signout_tk)
 
@@ -434,7 +434,6 @@ def signout_window():
         lbl2 = Label(signout_tk, text=signout_message)
         lbl2.pack()
         signout_tk.after(1500, signout_tk.destroy)
-        main_window()
 
     signout_tk.mainloop()
 
@@ -443,10 +442,10 @@ def signout_window():
 def main_window():
     """Display Main Menu and Welcome Message"""
     
-    #DBHelper.create_table()
-    #print("Table created")
+    DBHelper.create_table()
+    print("Table created")
     # test_create_table()
-    global root
+
 
     # root window and title dimensions
     root.title('Fortune Teller')
