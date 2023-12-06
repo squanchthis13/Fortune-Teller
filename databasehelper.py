@@ -330,17 +330,24 @@ def get_previous_fortunes(uname):
 
     previous_fortunes = []
     try:
-        #modified query to output just category and message to user
+        # query db for fortunes associated with fk userId
         fortunes_cur = cur.execute('SELECT save_date, category, message FROM fortune WHERE userId = (?)',
                                 (uname,))
         res = fortunes_cur.fetchall()
+        # commit db session
         con.commit()
 
-        print('PREVIOUS FORTUNES')
-        if len(res) > 0:
+        if len(res) > 0: # if user has prev fortunes in db
+            header1 = '****DATE  :  CATEGORY  :  FORTUNE****'
+            header2 = '------------------------------------------'
+            previous_fortunes.append(header1)
+            previous_fortunes.append(header2)
+            print(header1)
+            print(header2)
             for save_date, category, message in res:
-                print(save_date + category + ': ' + message)
-                previous_fortunes.append(save_date + ' ' + category + ': ' + message)
+                res_strng = f'{save_date}  :  {category}  :  {message}'
+                print(res_strng)
+                previous_fortunes.append(res_strng)
         else:
             print('No fortunes')
     except sqlite3.Error as err:
