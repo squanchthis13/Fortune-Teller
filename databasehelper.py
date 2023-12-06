@@ -370,7 +370,7 @@ def save_fortune_to_table(category, fortune):
     #get date for save_date column in fortunes
     today = date.today()
     #format date month day, year
-    formatted_date = today.strftime('%B %d, %Y')
+    formatted_date = today.strftime('%b %d, %Y')
 
     try:
         global username
