@@ -331,7 +331,7 @@ def get_previous_fortunes(uname):
     previous_fortunes = []
     try:
         #modified query to output just category and message to user
-        fortunes_cur = cur.execute('SELECT (save_date, category, message) FROM fortune WHERE userId = (?)',
+        fortunes_cur = cur.execute('SELECT save_date, category, message FROM fortune WHERE userId = (?)',
                                 (uname,))
         res = fortunes_cur.fetchall()
         con.commit()
