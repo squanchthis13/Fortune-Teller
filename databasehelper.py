@@ -5,6 +5,7 @@ import sqlite3
 import string
 import re
 import bcrypt
+from datetime import date
 from loghandler import user_logger, db_logger
 
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
@@ -46,8 +47,9 @@ def read_sqlite_table():
         for row in records:
             print('> FortuneId: ', row[0])
             print('> UserId: ', row[1])
-            print('>Message: ', row[2])
-            print('>Category: ', row[3])
+            print('> Date: ', row[2])
+            print('> Message: ', row[3])
+            print('> Category: ', row[4])
             print('\n')
         cur.close()
     except sqlite3.Error as err:
@@ -67,7 +69,7 @@ def create_table():
     try:
         cur.executescript('''
         CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(20) NOT NULL, password BLOB);
-        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
+        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, save_date TEXT, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
         ''')
         # commit to db
         con.commit()
@@ -329,16 +331,16 @@ def get_previous_fortunes(uname):
     previous_fortunes = []
     try:
         #modified query to output just category and message to user
-        fortunes_cur = cur.execute('SELECT category, message FROM fortune WHERE userId = (?)',
+        fortunes_cur = cur.execute('SELECT (save_date, category, message) FROM fortune WHERE userId = (?)',
                                 (uname,))
         res = fortunes_cur.fetchall()
         con.commit()
 
         print('PREVIOUS FORTUNES')
         if len(res) > 0:
-            for category, message in res:
-                print(category + ': ' + message)
-                previous_fortunes.append(category + ': ' + message)
+            for save_date, category, message in res:
+                print(save_date + category + ': ' + message)
+                previous_fortunes.append(save_date + ' ' + category + ': ' + message)
         else:
             print('No fortunes')
     except sqlite3.Error as err:
@@ -364,10 +366,16 @@ def save_fortune_to_table(category, fortune):
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
     cur = con.cursor()
+
+    #get date for save_date column in fortunes
+    today = date.today()
+    #format date month day, year
+    formatted_date = today.strftime('%B %d, %Y')
+
     try:
         global username
-        cur.execute('INSERT INTO fortune (userId, message, category) VALUES (?, ?, ?)',
-                    (username, fortune, category))
+        cur.execute('INSERT INTO fortune (userId, save_date, message, category) VALUES (?, ?, ?, ?)',
+                    (username, formatted_date, fortune, category))
         con.commit()  # Commit the transaction
         read_sqlite_table()
 

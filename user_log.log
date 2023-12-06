@@ -88,3 +88,11 @@
 2023-12-05 13:00:57,653 [INFO]: User %{username}s has been signed out in D:\UMGC\Fortune-Teller\databasehelper.py:315
 2023-12-05 13:01:13,780 [INFO]: User %{username}s has been signed out in D:\UMGC\Fortune-Teller\databasehelper.py:315
 2023-12-05 13:01:39,075 [INFO]: User %{username}s has been signed out in D:\UMGC\Fortune-Teller\databasehelper.py:315
+2023-12-05 18:23:28,498 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:249
+2023-12-05 18:23:37,046 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:291
+2023-12-05 18:23:49,098 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:291
+2023-12-05 18:24:23,547 [ERROR]: Failed authentication, username: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:291
+2023-12-05 18:26:51,415 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:249
+2023-12-05 18:29:18,189 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:304
+2023-12-05 18:35:20,940 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:304
+2023-12-05 18:41:10,988 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:250
