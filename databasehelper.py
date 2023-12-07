@@ -68,7 +68,7 @@ def create_table():
     cur = con.cursor()
     try:
         cur.executescript('''
-        CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(20) NOT NULL, password BLOB);
+        CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, password BLOB);
         CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, save_date TEXT, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
         ''')
         # commit to db
@@ -85,6 +85,26 @@ def create_table():
             # close db connection
             con.close()
 
+def validate_string(strng):
+    '''Method to validate input string
+    :return: True if valid, else false'''
+    while True:
+        if strng == '':
+            print('ERROR: Field cannot be left blank 92')
+            break
+        elif any(char in SPECIAL_CHAR for char in strng):
+            print('ERROR: Field may not contain special characters ln213')
+            break
+        elif len(strng) > 20:
+            print('ERROR: Length may not exceed 20 characters ln215')
+            break
+        else:
+            #input is valid
+            print(f'INFO: {strng} is valid')
+            return True
+    #strng is invalid
+    return False
+
 def check_username_exists(input_username):
     '''Method to check if username already exists in db
     :return: boolean True if exists, else False
@@ -93,83 +113,73 @@ def check_username_exists(input_username):
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
     cur = con.cursor()
-    try:
-        res = cur.execute('SELECT userId FROM user WHERE userId=?', (input_username,))
-        data = res.fetchall()
-        con.commit()
-        if len(data) != 0:
-            # username exists in db
-            return True
-    except sqlite3.Error as err:
-        # log db error
-        db_logger.error(err)
-    finally:
-        if con:
-            # close DB cursor
-            cur.close()
-            # close db connection
-            con.close()
+    # validate user input before querying db
+    if validate_string(input_username):
+        try:
+            res = cur.execute('SELECT userId FROM user WHERE userId=?', (input_username,))
+            data = res.fetchall()
+            con.commit()
+            if len(data) != 0:
+                # username exists in db
+                return True
+        except sqlite3.Error as err:
+            # log db error
+            db_logger.error(err)
+        finally:
+            if con:
+                # close DB cursor
+                cur.close()
+                # close db connection
+                con.close()
     return False
 
-def check_all_inputs(uname, fname, lname, email, pass1, pass2):
-    '''Method to check for validation for all input
-    :return: tuple(error_message, register)'''
-    uname = uname.lower().strip()
-    error_message = ''
-    ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea
-    # Added variables to check validity of user input
-    valid = 'False'  # var to track if input is valid; default is False
-    register = 'False'  # var to track if user is able to register; default is False
-
-    if check_username_exists(uname):
-        # call method to query database by username to determine if username is already registered
-        error_message = 'Username unavailable'
-    ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea
-    # Modified elif to include fname and lname not null/blank
-    # Will need to add email field
-    elif uname == '' or fname == '' or lname == '':
-        # Fields cannot be left blank
-        error_message = 'Field cannot be left blank.'
-    elif email == '' or pass1 == '' or pass2 == '':
-        # Fields cannot be left blank
-        error_message = 'Field cannot be left blank.'
-    else:
-        ### NEW NEW NEW ###
-        # 2Dec Nieves, Chelsea, Valerie
-        # Assign returned tuple
-
-        error_message, valid = validate_pass(pass1, pass2)
-        error_message2, valid2 = validate_email(email)
-
-        # if all input fields valid, valid == 'True'
-        if valid == 'True' and valid2 == 'True':
-            # if valid == 'True', allow user to register
-            register = 'True'
-    ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea, Valerie
-    # Invalid input
-    # Return success/error message and registration state
-    #return error_message, register
-    if error_message2 != '':
-        return error_message2, register
-    return error_message, register
-
-# Valerie Rudich 12/5/2024
-#NEW
+# Valerie Rudich 12/5/2023
+# Chelsea Nieves 7 Dec 23 modified return statements
 def validate_email(email):
     '''Validates user's email address
-    :return: tuple(error_message, valid)'''
-    error_message = 'Error: Invalid Email Address'
-    valid = 'False'
+    :return: True if valid, else false'''
+    
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
-    if re.match(email_regex, email):
-        error_message = ''
-        valid = 'True'
+    while True:
+        if email == '':
+            print('Error: Email cannot be blank')
+            break
+        elif re.match(email_regex, email):
+            # email is valid
+            return True
+    return False
 
-    return error_message, valid
+def check_email_exists(email):
+    '''Method to check if email already exists in db
+    :return: boolean True if exists, else False
+    '''
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor()
+    # if email is valid
+    if validate_email(email):
+        try:
+            #query db for email
+            res = cur.execute('SELECT email FROM user WHERE email=?', (email,))
+            data = res.fetchall()
+            con.commit()
+            # if results in data
+            if len(data) != 0:
+                # email exists in db
+                return True
+        except sqlite3.Error as err:
+            # log db error
+            db_logger.error(err)
+        finally:
+            if con:
+                # close DB cursor
+                cur.close()
+                # close db connection
+                con.close()
+    # Invalid email or email not in db
+    return False
 
 def validate_pass(password1, password2):
     '''Validates user's desired password is not found in list of common passphrases.
@@ -216,6 +226,65 @@ def validate_pass(password1, password2):
     # Return success/error message and registration state
     return error_message, valid
 
+def check_all_inputs(uname, fname, lname, email, pass1, pass2):
+    '''Method to check for validation for all registration input
+    :return: tuple(error_message, register)'''
+    f_uname = uname.strip().lower()
+    f_fname = fname.strip().lower()
+    f_lname = lname.strip().lower()
+    f_email = email.strip().lower()
+
+    error_message = ''
+    ### NEW NEW NEW ###
+    # 2Dec Nieves, Chelsea
+    # Added variables to check validity of user input
+    valid = 'False'  # var to track if input is valid; default is False
+    register = 'False'  # var to track if user is able to register; default is False
+
+    while True:
+        if check_username_exists(f_uname):
+            # if username already exists in db
+            error_message = 'Username unavailable'
+            break
+        elif not validate_string(f_uname):
+            error_message = 'Invalid username'
+            break
+        elif not validate_string(f_fname):
+            error_message = 'Invalid first name'
+            break
+        elif not validate_string(f_lname):
+            error_message = 'Invalid last name'
+            break
+        elif check_email_exists(f_email):
+            # if email exists in db (must be unique)
+            error_message = 'Error: Invalid Email Address'
+            print('line 261 dbhelper')
+            break
+        elif not validate_email(f_email):
+            #if email is not valid
+            error_message = 'Error: Invalid Email Address'
+            print('line 266 dbhelper')
+        else:
+            ### NEW NEW NEW ###
+            # 2Dec Nieves, Chelsea, Valerie
+            # Assign returned tuple
+            error_message, valid = validate_pass(pass1, pass2)
+
+            # if all input fields valid, valid == 'True'
+            if valid == 'True':
+                # if valid == 'True', allow user to register
+                register = 'True'
+                break
+    ### NEW NEW NEW ###
+    # 2Dec Nieves, Chelsea, Valerie
+    # Invalid input
+    # Return success/error message and registration state
+    #return error_message, register
+    ### DELETED ####
+    #if error_message2 != '':
+    #    return error_message2, register
+    return error_message, register
+
 def sign_up(uname, fname, lname, email, pass1, pass2):
     '''Append new user information into table if all inputs are valid
     :return: tuple(error_message, registered)'''
@@ -225,22 +294,24 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     cur = con.cursor()
 
     #format user input
-    uname = uname.lower().strip()
-    fname = fname.lower().strip()
-    lname = lname.lower().strip()
-    email = email.strip()
+    f_uname = uname.strip().lower()
+    f_fname = fname.strip().lower()
+    f_lname = lname.strip().lower()
+    f_email = email.strip().lower()
 
-    # hash_password = password
-    password_byte = pass1.encode('utf-8')
-    # generating the salt
-    salt = bcrypt.gensalt()
-    # Hashing the password
-    hash_password = bcrypt.hashpw(password_byte, salt)
-    # Assign returned tuple
-    error_message, register = check_all_inputs(uname, fname, lname, email, pass1, pass2)
+    error_message, register = check_all_inputs(f_uname, f_fname, f_lname, f_email, pass1, pass2)
+
     registered = 'False'  # var to track if user is registered; default is False
+    
     # if user input is valid and user is allowed to register
     if register == 'True':
+        # hash_password = password
+        password_byte = pass1.encode('utf-8')
+        # generating the salt
+        salt = bcrypt.gensalt()
+        # Hashing the password
+        hash_password = bcrypt.hashpw(password_byte, salt)
+
         try:
             cur.execute('INSERT INTO user (userId, first_name, last_name, email, password) VALUES (?, ?, ?, ?, ?)',
                         (uname, fname, lname, email, hash_password))
@@ -265,15 +336,15 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
 def auth_user(uname, password):
     '''Authenticates user
     :return: tuple(error_message, logged_in)'''
+    # create DB connection
+    con = sqlite3.connect(DB_NAME)
+    # create DB cursor
+    cur = con.cursor()
     error_message = ''
     logged_in = 'False'
 
     # if username exists in db
     if check_username_exists(uname):
-        # create DB connection
-        con = sqlite3.connect(DB_NAME)
-        # create DB cursor
-        cur = con.cursor()
         try:
             user_password_db = cur.execute('SELECT password FROM user WHERE userID = (?)', (uname,))
             password_db_fetch = user_password_db.fetchone()

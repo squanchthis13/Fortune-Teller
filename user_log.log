@@ -98,3 +98,20 @@
 2023-12-05 18:41:10,988 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller-1/databasehelper.py:250
 2023-12-06 12:35:40,175 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller/databasehelper.py:250
 2023-12-06 12:41:30,921 [INFO]: New registration: %(uname)s in /Users/chelseanieves/FortuneTeller/Fortune-Teller/databasehelper.py:250
+2023-12-07 14:28:15,720 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:305
+2023-12-07 14:29:37,078 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:305
+2023-12-07 14:30:17,995 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:305
+2023-12-07 14:36:40,897 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:306
+2023-12-07 14:41:59,032 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:310
+2023-12-07 14:43:58,447 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:310
+2023-12-07 14:47:48,314 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:314
+2023-12-07 14:51:17,597 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:308
+2023-12-07 14:53:43,804 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:313
+2023-12-07 14:55:54,395 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:309
+2023-12-07 15:01:57,065 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:309
+2023-12-07 15:03:06,436 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:364
+2023-12-07 15:03:18,619 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:364
+2023-12-07 15:03:46,115 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:364
+2023-12-07 15:04:03,728 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:364
+2023-12-07 15:08:54,139 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:309
+2023-12-07 15:11:00,179 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:313
