@@ -65,6 +65,8 @@ def display_rules():
     msg.pack()
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
+    
+    display_rules.mainloop()
 
 # Constance Sturm 11/26/2023, 12/5/23 
 def login_window():
