@@ -53,7 +53,7 @@ def display_rules():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=display_rules.exit)
     
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
@@ -65,6 +65,8 @@ def display_rules():
     msg.pack()
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
+    rules_tk.config(menu=menubar)
+    rules_tk.mainloop()
 
 # Constance Sturm 11/26/2023, 12/5/23 
 def login_window():
@@ -92,7 +94,7 @@ def login_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=login_tk.exit)
     
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -130,6 +132,7 @@ def login_window():
         else:
             login_message_window(error_message)
 
+    login_tk.config(menu=menubar)
     login_tk.mainloop()
 
 
@@ -189,7 +192,7 @@ def registration_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=registration_tk.exit)
     
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -228,6 +231,8 @@ def registration_window():
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
     btn_close.grid(row=6, column=1)
 
+    
+
     def user_register():
         '''Method for registration() for backend
         Note: This method is part of/inside of method registration()
@@ -251,6 +256,7 @@ def registration_window():
         registration_message_window(error_message)
 
     # Call to create registration_tk... END of registration TK
+    registration_tk.config(menu=menubar)
     registration_tk.mainloop()
 
 
@@ -311,7 +317,7 @@ def fortune_menu():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.exit)
     
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
@@ -327,6 +333,7 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
+    fortune_menu_tk.config(menu=menubar)
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
@@ -369,7 +376,7 @@ def display_fortune(category):
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=fortune_tk.exit)
     
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
@@ -414,6 +421,7 @@ def display_fortune(category):
 
         save_fortune_confirm_tk.mainloop()
 
+    fortune_tk.config(menu=menubar)
     fortune_tk.mainloop()
 
 
@@ -469,7 +477,7 @@ def past_fortunes_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=previous_fortunes_tk.exit)
     
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
@@ -482,6 +490,7 @@ def past_fortunes_window():
     btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5', command=previous_fortunes_tk.destroy)
     btn_close.grid(row=2, column=0)
 
+    previous_fortunes_tk.config(menu=menubar)
     previous_fortunes_tk.mainloop()
 
 # Valerie Rudich 12/4/2023
@@ -511,7 +520,7 @@ def user_menu():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=user_menu_tk.exit)
     
     # add Sign Out menu and commands
     #NEW
@@ -536,6 +545,7 @@ def user_menu():
     btn_past_frtn.pack()
     user_menu_tk.config(menu=menubar)
 
+    user_menu_tk.config(menu=menubar)
     user_menu_tk.mainloop()
 
 # Valerie Rudich 12/5/2023
@@ -565,7 +575,7 @@ def signout_window(user_menu_tk):
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
+    program_exit.add_command(label='Exit Program', command=signout_tk.exit)
     
     # add label and buttons to window
     sign_out_message = 'Confirm ' + DBHelper.username + ' Sign Out'
@@ -591,6 +601,7 @@ def signout_window(user_menu_tk):
         global root
         root.deiconify()
 
+    signout_tk.config(menu=menubar)
     signout_tk.mainloop()
 
 # Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
