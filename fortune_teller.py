@@ -53,7 +53,7 @@ def display_rules():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=display_rules.exit)
+    program_exit.add_command(label='Exit Program', command=rules_tk.exit)
     
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
