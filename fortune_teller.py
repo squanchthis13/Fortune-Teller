@@ -460,15 +460,10 @@ def user_menu():
     menubar.add_cascade(label='Fortune', menu=frtne_menu)
     frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
-    # add Sign Out menu and commands
-    #NEW
-    sign_out = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Sign Out', menu=sign_out)
-    sign_out.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
-
-    # add Exit menu and commands
+    # add Exit and Sign Out menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
     program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
 
     # add label and buttons to the window
@@ -486,9 +481,11 @@ def user_menu():
 
     btn_get_frtn.pack()
     btn_past_frtn.pack()
-    user_menu_tk.config(menu=menubar)
 
     user_menu_tk.config(menu=menubar)
+
+    user_menu_tk.attributes('-type', 'splash')
+
     user_menu_tk.mainloop()
 
 
@@ -498,9 +495,9 @@ def signout_window(user_menu_tk):
         if DBHelper.sign_out():
             tk.messagebox.showinfo(title='Success', message='Successfully Signed Out!')
             user_menu_tk.destroy()
-            main_window()
+            #main_window()
         else:
-            tk.messagebox.showerror(title='Error', message = 'Sign out failed!')
+            tk.messagebox.showerror(title='Error', message ='Sign out failed!')
     else:
         return
 
@@ -560,10 +557,11 @@ def main_window():
     btn_login.pack()
     btn_register.pack()
 
+    root.attributes('-type', 'splash')
+
     # display menu
     root.config(menu=menubar)
     root.mainloop()
-
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

@@ -385,15 +385,13 @@ def sign_out():
     global is_user_logged_in
     global username
 
-    
-
     if is_user_logged_in and username:
         user_logger.info('User %{username}s signed out successfully')
         is_user_logged_in = False
         username = ''
         return True
     else:
-        message = f''
+        #message = f''
         user_logger.error('User %{username}s Could Not Be Signed Out!')
         return False
 

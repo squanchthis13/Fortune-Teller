@@ -157,3 +157,14 @@
 2023-12-08 13:20:05,967 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
 2023-12-08 13:20:11,426 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:391
 2023-12-08 13:20:47,513 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:24:41,063 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:378
+2023-12-08 18:24:43,890 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:378
+2023-12-08 18:27:32,851 [ERROR]: Failed authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:360
+2023-12-08 18:28:05,375 [INFO]: New registration: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:322
+2023-12-08 18:28:18,354 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:30:24,802 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:44:45,198 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:44:57,990 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389
+2023-12-08 18:46:43,840 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:47:19,897 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-08 18:47:48,471 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
