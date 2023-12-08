@@ -398,8 +398,10 @@ def display_fortune(category):
         if res == 'yes' :
             if DBHelper.save_fortune_to_table(category, user_fortune):
                 tk.messagebox.showinfo(title=None, message='Fortune saved successfully!')
-        else :
-            tk.messagebox.showerror(title=None, message='Something went wrong! Unable to save fortune.')
+            else :
+                tk.messagebox.showerror(title=None, message='Something went wrong! Unable to save fortune.')
+                root.destroy()
+        else:
             root.destroy()
         '''
         Method to create a new window that confirms whether a fortune is saved to the database

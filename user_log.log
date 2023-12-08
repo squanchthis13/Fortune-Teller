@@ -141,3 +141,6 @@
 2023-12-08 12:09:24,628 [INFO]: User %{username}s has been signed out in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:373
 2023-12-08 12:09:43,898 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:361
 2023-12-08 12:09:51,806 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:361
+2023-12-08 12:29:28,704 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 12:31:06,245 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 12:32:27,719 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
