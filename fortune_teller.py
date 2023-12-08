@@ -15,7 +15,6 @@ from tkinter import messagebox
 #Wildcard import tkinter.ttk (wildcard-import)
 from tkinter.ttk import *
 import tkinter as tk
-
 import databasehelper as DBHelper
 #NEW NEW NEW 
 #Pylint
@@ -24,13 +23,9 @@ import databasehelper as DBHelper
 # (unused-wildcard-import)
 from fthelper import *
 
-# create root window
-root = Tk()
-
 # Constance Sturm 11/26/2023, 12/5/23
 def display_rules():
     ''' Create a window that displays the rules to the user'''
-
     # Initialize New Window
     rules_tk = Tk()
     rules_tk.geometry('350x260')
@@ -71,7 +66,6 @@ def display_rules():
 # Constance Sturm 11/26/2023, 12/5/23 
 def login_window():
     '''This function is used for returning users'''
-
     # Initialize New Window
     login_tk = Tk()
     login_tk.geometry('300x100')
@@ -131,39 +125,8 @@ def login_window():
             user_menu()
         else:
             tk.messagebox.showinfo(title=None, message='Authentication Failed!')
-
     login_tk.config(menu=menubar)
     login_tk.mainloop()
-
-
-# Hoi Lam Wong 11/27/2023
-'''def login_message_window(error_message):
-     New window that show whether sign up is successful or not
-
-    login_result_tk = Tk()
-    login_result_tk.geometry('400x150')
-    login_result_tk.title('User Register')
-    center_window(login_result_tk)
-
-    # Dynamically set message to show sign up confirmation
-    message = ''
-    if error_message == '':
-        # There is no error if error message is empty
-        message = 'Log In Successful!'
-    else:
-        # Else message to be displayed is the error message
-        message = error_message
-
-    # Create label for message
-    login_result_label = Label(login_result_tk, text=message)
-    login_result_label.pack()
-
-    # Create button for closing window
-    btn_close = Button(login_result_tk, text='Close', command=login_result_tk.destroy)
-    btn_close.pack()
-
-    login_result_tk.mainloop()'''
-
 
 # Hoi Lam Wong 11/27/2023
 # Constance Sturm 12/5/23 added menu bar for uniformity
@@ -403,29 +366,6 @@ def display_fortune(category):
                 root.destroy()
         else:
             root.destroy()
-        '''
-        Method to create a new window that confirms whether a fortune is saved to the database
-        
-        win.destroy()
-        save_fortune_confirm_tk = Tk()
-        save_fortune_confirm_tk.geometry('400x150')
-        save_fortune_confirm_tk.title('User Register')
-        center_window(save_fortune_confirm_tk)
-
-        save_fortune_confirm_message = DBHelper.save_fortune_to_table(category, user_fortune)
-        # Create label for message
-        save_fortune_result_label = Label(save_fortune_confirm_tk, text=save_fortune_confirm_message)
-        save_fortune_result_label.pack()
-
-        # Create button for closing window
-        btn_close = Button(save_fortune_confirm_tk, text='Close', command=save_fortune_confirm_tk.destroy)
-        btn_close.pack()
-
-        save_fortune_confirm_tk.mainloop()
-
-    fortune_tk.config(menu=menubar)
-    fortune_tk.mainloop()'''
-
 
 # Hoi Lam Wong 12/4/2023
 # Constance Sturm 12/5/23 added menubar for uniformity
@@ -499,7 +439,6 @@ def past_fortunes_window():
 # Constance Sturm 12/5/23 updated menubar to create uniformity
 def user_menu():
     '''New menu once user is logged in to choose new fortune or view old fortunes'''
-
     # Initialize New Window
     user_menu_tk = Tk()
     user_menu_tk.geometry('650x400')
@@ -554,7 +493,6 @@ def user_menu():
 # Constance Sturm 12/5/23 added menubar to keep uniformity
 def signout_window(user_menu_tk):
     '''This function is used for signing users out and returning to main menu'''
-
     # Initialize New Window
     signout_tk = Tk()
     signout_tk.geometry('300x125')
@@ -612,7 +550,8 @@ def signout_window(user_menu_tk):
 # Heavily Modified by Hoi Lam Wong 12/2/2023
 def main_window():
     '''Display Main Menu and Welcome Message'''
-    
+    # create root window
+    root = Tk()
     #NEW NEW NEW
     #Pylint
     #FortuneTeller/Fortune-Teller-2/fortune_teller.py:462:8: C0121: Comparison 'DBHelper.active == False' 
