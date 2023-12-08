@@ -615,9 +615,9 @@ def main_window():
     #Pylint
     #FortuneTeller/Fortune-Teller-2/fortune_teller.py:462:8: C0121: Comparison 'DBHelper.active == False' 
     #should be 'DBHelper.active is False' if checking for the singleton value False, or 'not DBHelper.active' if testing for falsiness (singleton-comparison)
-    if (DBHelper.active == False):
-        DBHelper.create_table()
-        print('Table created')
+    #if (DBHelper.active == False):
+    DBHelper.create_table()
+    print('Table created')
     # test_create_table()
 
     # root window and title dimensions

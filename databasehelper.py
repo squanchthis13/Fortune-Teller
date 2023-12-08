@@ -13,7 +13,7 @@ DB_NAME = 'FortuneTeller.db' # Create a new database
 COMMON_PASS_PATH = 'texts/CommonPassword.txt'
 is_user_logged_in = False
 username = ''
-active = False # var if db has been created
+#active = False # var if db has been created
 
 def read_sqlite_table():
     '''Method to output data from User and Fortune SQLite table to console'''
