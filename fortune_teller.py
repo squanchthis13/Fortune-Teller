@@ -458,7 +458,7 @@ def past_fortunes_window():
     # Initialize New Window
     previous_fortunes_tk = Tk()
     previous_fortunes_tk.title('Past Fortunes')
-    previous_fortunes_tk.geometry('600x300')
+    previous_fortunes_tk.geometry('725x300')
     center_window(previous_fortunes_tk)
 
     # add menu bar to allow user to view rules, fortune,or exit
@@ -517,16 +517,16 @@ def user_menu():
     menubar.add_cascade(label='Fortune', menu=frtne_menu)
     frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
-    
     # add Sign Out menu and commands
     #NEW
     sign_out = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Sign Out', menu=sign_out)
     sign_out.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
+
+    # add Exit menu and commands
+    program_exit = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Exit', menu=program_exit)
+    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
 
     # add label and buttons to the window
     welcome_user_message = 'Welcome Back, ' + DBHelper.username + ' to the Fortune Teller Game!'
@@ -595,6 +595,8 @@ def signout_window(user_menu_tk):
         signout_message = DBHelper.sign_out()
         lbl2 = Label(signout_tk, text=signout_message)
         lbl2.pack()
+        # Valerie Rudich 12/7/23
+        signout_tk.attributes('-topmost', True) #keeps signout screen on top until timeout
         signout_tk.after(2000, signout_tk.destroy)
         user_menu_tk.destroy()
         # Hoi 12/5/23 Modify to un-hide root

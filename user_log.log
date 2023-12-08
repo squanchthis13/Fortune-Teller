@@ -115,3 +115,18 @@
 2023-12-07 15:04:03,728 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:364
 2023-12-07 15:08:54,139 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:309
 2023-12-07 15:11:00,179 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller/databasehelper.py:313
+2023-12-08 03:53:59,748 [INFO]: New registration: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:321
+2023-12-08 03:55:03,245 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 03:59:24,900 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:01:46,741 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:02:38,493 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:02:59,784 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:03:31,085 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:03:57,650 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:04:53,148 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:05:52,997 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:06:40,997 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:07:19,499 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:08:15,282 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:08:51,609 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
+2023-12-08 04:09:26,104 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
