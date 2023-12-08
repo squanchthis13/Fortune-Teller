@@ -5,7 +5,9 @@ import sqlite3
 import string
 import re
 from datetime import date
+import tkinter as tk
 import bcrypt
+from tkinter import messagebox
 from loghandler import user_logger, db_logger
 
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
@@ -184,10 +186,8 @@ def validate_pass(password1, password2):
     '''Validates user's desired password is not found in list of common passphrases.
     Validates user's desired password against requirements (12 char in length, 1 upper, 1 lower,
     1 special char)
-    :return: tuple(error_message, valid)'''
+    :return: True if password is valid, else False'''
     error_message = ''
-    valid = 'False'  # var to track if user is able to register; default is False
-
     try:
         with open(COMMON_PASS_PATH, encoding='UTF-8') as f:
             contents = f.read()
@@ -216,15 +216,14 @@ def validate_pass(password1, password2):
                 ### NEW NEW NEW ###
                 # 2Dec Nieves, Chelsea
                 # user input is valid, update var
-                valid = 'True'
+                return True
     except IOError:
         # file not found error
         db_logger.ERROR('Could not find file CommonPassword.txt')
-    ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea
-    # Invalid input
-    # Return success/error message and registration state
-    return error_message, valid
+
+    # Output error message
+    tk.messagebox.showerror(title=None, message=error_message)
+    return False
 
 def check_all_inputs(uname, fname, lname, email, pass1, pass2):
     '''Method to check for validation for all registration input
@@ -235,11 +234,6 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
     f_email = email.strip().lower()
 
     error_message = ''
-    ### NEW NEW NEW ###
-    # 2Dec Nieves, Chelsea
-    # Added variables to check validity of user input
-    valid = 'False'  # var to track if input is valid; default is False
-    register = 'False'  # var to track if user is able to register; default is False
 
     while True:
         if check_username_exists(f_uname):
@@ -266,24 +260,18 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             print('line 266 dbhelper')
             break
         else:
-            ### NEW NEW NEW ###
-            # 2Dec Nieves, Chelsea, Valerie
-            # Assign returned tuple
-            error_message, valid = validate_pass(pass1, pass2)
-
-            # if all input fields valid, valid == 'True'
-            if valid == 'True':
-                # if valid == 'True', allow user to register
-                register = 'True'
-                break
+            if validate_pass(pass1, pass2):
+                #Input is valid and passwords match
+                return True
+    # Output error message
+    tk.messagebox.showerror(title=None, message=error_message)
     # 2Dec Nieves, Chelsea, Valerie
     # Invalid input
-    # Return success/error message and registration state
-    return error_message, register
+    return False
 
 def sign_up(uname, fname, lname, email, pass1, pass2):
     '''Append new user information into table if all inputs are valid
-    :return: tuple(error_message, registered)'''
+    :return: True if sign up successful, else False'''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -295,12 +283,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     f_lname = lname.strip().lower()
     f_email = email.strip().lower()
 
-    error_message, register = check_all_inputs(f_uname, f_fname, f_lname, f_email, pass1, pass2)
-
-    registered = 'False'  # var to track if user is registered; default is False
-
-    # if user input is valid and user is allowed to register
-    if register == 'True':
+    if check_all_inputs(f_uname, f_fname, f_lname, f_email, pass1, pass2):
         # hash_password = password
         password_byte = pass1.encode('utf-8')
         # generating the salt
@@ -313,8 +296,8 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
                         (uname, fname, lname, email, hash_password))
             con.commit()  # Commit the transaction
             # update registered var to reflect user is registered in DB
-            registered = 'True'
             user_logger.info('New registration: %(uname)s')
+            return True
         except sqlite3.Error as err:
             # log db error
             db_logger.error(err)
@@ -325,39 +308,37 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
                 print('The SQLite connection is closed')
 
     read_sqlite_table()
-    # Return success/error message
-    # Return registered status
-    return error_message, registered
+    # return false if db query or user input invalid
+    return False
 
 def auth_user(uname, password):
     '''Authenticates user
-    :return: tuple(error_message, logged_in)'''
+    :return: True if user is logged in, else False'''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
     cur = con.cursor()
-    error_message = ''
-    logged_in = 'False'
 
-    # if username exists in db
+    # call method to validate input and check if uname in db
     if check_username_exists(uname):
         try:
+            # query db for password assoc. with uname
             user_password_db = cur.execute('SELECT password FROM user WHERE userID = (?)', (uname,))
             password_db_fetch = user_password_db.fetchone()
+            # encode db output
             input_password_bytes = password.encode('utf-8')
-
+            # compare passwords 
             is_match_password = bcrypt.checkpw(input_password_bytes, password_db_fetch[0])
 
             if is_match_password:
-                logged_in = 'True'
-
                 global username
                 global is_user_logged_in
                 username = uname
                 is_user_logged_in = True
+                return True
             else:
                 user_logger.error('Failed authentication, username: %(uname)s')
-                error_message = 'ERROR: Authentication failed!'
+                return False
             # commit changes to DB
             con.commit()
         except sqlite3.Error as err:
@@ -368,9 +349,8 @@ def auth_user(uname, password):
                 cur.close()
                 con.close()
     else:
-        error_message = 'ERROR: Authentication failed!'
         user_logger.error('Failed authentication, username %(uname)s does not exist')
-    return error_message, logged_in
+        return False
 
 #Valerie Rudich 12/5/2023
 def sign_out():
@@ -428,14 +408,7 @@ def get_previous_fortunes(uname):
 
 def save_fortune_to_table(category, fortune):
     ''' Save fortune to authenticated user '''
-    save_fortune_to_table_message = 'Error! Please register or log in to save a fortune.'
-
     global is_user_logged_in
-    # If user is not logged in already, return message immediately
-    if not is_user_logged_in:
-        return save_fortune_to_table_message
-
-    # if user is authenticated
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -445,20 +418,22 @@ def save_fortune_to_table(category, fortune):
     today = date.today()
     #format date month day, year
     formatted_date = today.strftime('%b %d, %Y')
-
-    try:
-        global username
-        cur.execute('INSERT INTO fortune (userId, save_date, message, category) VALUES (?, ?, ?, ?)',
-                    (username, formatted_date, fortune, category))
-        con.commit()  # Commit the transaction
-        read_sqlite_table()
-
-        save_fortune_to_table_message = 'Fortune Saved!'
-    except sqlite3.Error as err:
-        db_logger.error(err)
-    finally:
-        if con:
-            # close DB cursor
-            cur.close()
-            con.close()
-    return save_fortune_to_table_message
+    
+    if is_user_logged_in:
+        try:
+            global username
+            cur.execute('INSERT INTO fortune (userId, save_date, message, category) VALUES (?, ?, ?, ?)',
+                        (username, formatted_date, fortune, category))
+            con.commit()  # Commit the transaction
+            read_sqlite_table()
+            return True
+        except sqlite3.Error as err:
+            db_logger.error(err)
+        finally:
+            if con:
+                # close DB cursor
+                cur.close()
+                con.close()
+    else:
+        tk.messagebox.showerror(title=None, message='Error! Please register or log in to save a fortune.')
+    return False

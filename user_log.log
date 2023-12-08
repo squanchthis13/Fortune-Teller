@@ -132,3 +132,6 @@
 2023-12-08 04:09:26,104 [INFO]: User %{username}s has been signed out in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:388
 2023-12-08 08:43:07,868 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:323
 2023-12-08 09:05:26,482 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:377
+2023-12-08 10:08:15,198 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:317
+2023-12-08 10:10:21,712 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:317
+2023-12-08 10:54:45,108 [INFO]: User %{username}s has been signed out in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:377

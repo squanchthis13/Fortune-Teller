@@ -9,7 +9,7 @@ November 26, 2023'''
 ##NEW NEW NEW
 #Pylint
 #Wildcard import tkinter (wildcard-import)
-from tkinter import *
+from tkinter import messagebox
 #NEW NEW NEW
 #Pylint
 #Wildcard import tkinter.ttk (wildcard-import)
@@ -121,24 +121,24 @@ def login_window():
     def user_login():
         uname = username_login_entry.get().lower().strip()
         password = password_login_entry.get().strip()
-
-        error_message, logged_in = DBHelper.auth_user(uname, password)
-        if logged_in == 'True':
+        
+        if DBHelper.auth_user(uname, password):
+            tk.messagebox.showinfo(title=None, message='Login Successful!')
             login_tk.destroy()
             # hide root window when user logged in
             global root
             root.withdraw()
             user_menu()
         else:
-            login_message_window(error_message)
+            tk.messagebox.showinfo(title=None, message='Authentication Failed!')
 
     login_tk.config(menu=menubar)
     login_tk.mainloop()
 
 
 # Hoi Lam Wong 11/27/2023
-def login_message_window(error_message):
-    ''' New window that show whether sign up is successful or not'''
+'''def login_message_window(error_message):
+     New window that show whether sign up is successful or not
 
     login_result_tk = Tk()
     login_result_tk.geometry('400x150')
@@ -162,7 +162,7 @@ def login_message_window(error_message):
     btn_close = Button(login_result_tk, text='Close', command=login_result_tk.destroy)
     btn_close.pack()
 
-    login_result_tk.mainloop()
+    login_result_tk.mainloop()'''
 
 
 # Hoi Lam Wong 11/27/2023
@@ -231,8 +231,6 @@ def registration_window():
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
     btn_close.grid(row=6, column=1)
 
-    
-
     def user_register():
         '''Method for registration() for backend
         Note: This method is part of/inside of method registration()
@@ -245,24 +243,24 @@ def registration_window():
         pass1 = password_entry.get()
         pass2 = password_confirm_entry.get()
 
-        # 2Dec Nieves, Chelsea
-        # Assign returned tuple
-        error_message, registered = DBHelper.sign_up(uname, fname, lname, email, pass1, pass2)
-        if registered == 'True':
+        # 8Dec Nieves, Chelsea
+        # if sign_up returns true
+        if DBHelper.sign_up(uname, fname, lname, email, pass1, pass2):
+            # Call method to create new window that contains the confirmation/ error message
+            tk.messagebox.showinfo(title=None, message='Registration Successful! Please Log In')
             # destroy registration form if successfully signed up
             registration_tk.destroy()
-
-        # Call method to create new window that contains the confirmation/ error message
-        registration_message_window(error_message)
+        else:
+            tk.messagebox.showerror(title=None, message='Registration Failed!')
 
     # Call to create registration_tk... END of registration TK
     registration_tk.config(menu=menubar)
     registration_tk.mainloop()
 
-
 # Hoi Lam Wong 11/27/2023
-def registration_message_window(error_message):
-    ''' New window that show whether sign up is successful or not'''
+# DELETED 8Dec Nieves, Chelsea
+'''def registration_message_window(error_message):
+    New window that show whether sign up is successful or not
 
     submission_result_tk = Tk()
     submission_result_tk.geometry('400x100')
@@ -286,8 +284,7 @@ def registration_message_window(error_message):
     btn_close = Button(submission_result_tk, text='Close', command=submission_result_tk.destroy)
     btn_close.pack()
 
-    submission_result_tk.mainloop()
-
+    submission_result_tk.mainloop()'''
 
 # Constance 11/27/2023, 12/5/23 
 def fortune_menu():
@@ -391,19 +388,22 @@ def display_fortune(category):
     # Valerie Rudich 12/5/2023
     # adds save option only if the user is signed in
 
-    #NEW NEW NEW
-    #Pylint
-    #FortuneTeller/Fortune-Teller-2/fortune_teller.py:299:7: C0121: Comparison 'DBHelper.is_user_logged_in == True' should be 'DBHelper.is_user_logged_in is True' 
-    #if checking for the singleton value True, or 'DBHelper.is_user_logged_in' if testing for truthiness (singleton-comparison)
-    if DBHelper.is_user_logged_in == True:
+    if DBHelper.is_user_logged_in:
         btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: [save_fortune_confirm_window(fortune_tk)])
         btn_fortune_save.pack()
 
     # Hoi Lam Wong 12/4/2023
     def save_fortune_confirm_window(win):
+        res = tk.messagebox.askquestion('Save Fortune', 'Do you want to save your fortune?')
+        if res == 'yes' :
+            if DBHelper.save_fortune_to_table(category, user_fortune):
+                tk.messagebox.showinfo(title=None, message='Fortune saved successfully!')
+        else :
+            tk.messagebox.showerror(title=None, message='Something went wrong! Unable to save fortune.')
+            root.destroy()
         '''
         Method to create a new window that confirms whether a fortune is saved to the database
-        '''
+        
         win.destroy()
         save_fortune_confirm_tk = Tk()
         save_fortune_confirm_tk.geometry('400x150')
@@ -422,7 +422,7 @@ def display_fortune(category):
         save_fortune_confirm_tk.mainloop()
 
     fortune_tk.config(menu=menubar)
-    fortune_tk.mainloop()
+    fortune_tk.mainloop()'''
 
 
 # Hoi Lam Wong 12/4/2023
