@@ -18,7 +18,7 @@ active = False # var if db has been created
 def read_sqlite_table():
     '''Method to output data from User and Fortune SQLite table to console'''
     try:
-        con = sqlite3.connefct(DB_NAME)
+        con = sqlite3.connect(DB_NAME)
         cur = con.cursor()
         print('\n------------------------------------------')
         print('Connected to SQLite')
