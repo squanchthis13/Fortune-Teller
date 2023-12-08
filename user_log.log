@@ -135,3 +135,9 @@
 2023-12-08 10:08:15,198 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:317
 2023-12-08 10:10:21,712 [INFO]: New registration: %(uname)s in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:317
 2023-12-08 10:54:45,108 [INFO]: User %{username}s has been signed out in /Users/chelseanieves/7Dec/Fortune-Teller-2/databasehelper.py:377
+2023-12-08 12:08:20,770 [INFO]: New registration: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:305
+2023-12-08 12:09:00,590 [INFO]: New registration: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:305
+2023-12-08 12:09:16,721 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:350
+2023-12-08 12:09:24,628 [INFO]: User %{username}s has been signed out in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:373
+2023-12-08 12:09:43,898 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:361
+2023-12-08 12:09:51,806 [ERROR]: Failed authentication, username %(uname)s does not exist in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:361

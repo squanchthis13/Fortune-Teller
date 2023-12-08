@@ -6,8 +6,8 @@ import string
 import re
 from datetime import date
 import tkinter as tk
-import bcrypt
 from tkinter import messagebox
+import bcrypt
 from loghandler import user_logger, db_logger
 
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
@@ -194,36 +194,49 @@ def validate_pass(password1, password2):
             if password1 in contents:
                 # if password found in list of common passwords
                 error_message = 'Error: Found in list of common passwords. Please try again.'
-            elif len(password1) < 12:
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if len(password1) < 12:
                 # if password length is not 12 char
                 error_message = 'Invalid length: Password must be greater than 12 characters.'
-            elif not any(char.isdigit() for char in password1):
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.isdigit() for char in password1):
                 # if password does not contain at least one numerical char
                 error_message = 'Error: Password must contain at least one numerical character.'
-            elif not any(char.islower() for char in password1):
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.islower() for char in password1):
                 # if password does not contain at least one lowercase char
                 error_message = 'Error: Password must contain at least one lowercase character.'
-            elif not any(char.isupper() for char in password1):
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.isupper() for char in password1):
                 # if password does not contain at least one uppercase char
                 error_message = 'Error: Password must contain at least one uppercase character.'
-            elif not any(char in SPECIAL_CHAR for char in password1):
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char in SPECIAL_CHAR for char in password1):
                 # if password does not contain at least one special char
                 error_message = 'Error: Password must contain at least one special character.'
-            elif password1 != password2:
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if password1 != password2:
                 # if desired password does not match confirmation field
                 error_message = 'Error: Passwords do not match.'
-            else:
-                ### NEW NEW NEW ###
-                # 2Dec Nieves, Chelsea
-                # user input is valid, update var
-                return True
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
     except IOError:
         # file not found error
         db_logger.ERROR('Could not find file CommonPassword.txt')
-
-    # Output error message
-    tk.messagebox.showerror(title=None, message=error_message)
-    return False
+    return True
 
 def check_all_inputs(uname, fname, lname, email, pass1, pass2):
     '''Method to check for validation for all registration input
@@ -239,32 +252,42 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
         if check_username_exists(f_uname):
             # if username already exists in db
             error_message = 'Username unavailable'
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_string(f_uname):
             error_message = 'Invalid username'
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_string(f_fname):
             error_message = 'Invalid first name'
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_string(f_lname):
             error_message = 'Invalid last name'
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             break
         if check_email_exists(f_email):
             # if email exists in db (must be unique)
             error_message = 'Error: Invalid Email Address'
-            print('line 261 dbhelper')
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_email(f_email):
             #if email is not valid
             error_message = 'Error: Invalid Email Address. \nExample: example@mail.com'
+            # Output error message
+            tk.messagebox.showerror(title=None, message=error_message)
             print('line 266 dbhelper')
             break
+        if validate_pass(pass1, pass2):
+            #Inputs are valid and passwords match
+            return True
         else:
-            if validate_pass(pass1, pass2):
-                #Input is valid and passwords match
-                return True
-    # Output error message
-    tk.messagebox.showerror(title=None, message=error_message)
+            break
     # 2Dec Nieves, Chelsea, Valerie
     # Invalid input
     return False
@@ -325,22 +348,24 @@ def auth_user(uname, password):
             # query db for password assoc. with uname
             user_password_db = cur.execute('SELECT password FROM user WHERE userID = (?)', (uname,))
             password_db_fetch = user_password_db.fetchone()
+            # commit changes to DB
+            con.commit()
             # encode db output
             input_password_bytes = password.encode('utf-8')
-            # compare passwords 
+            # compare passwords
             is_match_password = bcrypt.checkpw(input_password_bytes, password_db_fetch[0])
 
-            if is_match_password:
+            if not is_match_password:
+                #log error
+                user_logger.error('Failed authentication, username: %(uname)s')
+            else:
                 global username
                 global is_user_logged_in
                 username = uname
                 is_user_logged_in = True
+                # log error
+                user_logger.info('Successful authentication, username: %(uname)s')
                 return True
-            else:
-                user_logger.error('Failed authentication, username: %(uname)s')
-                return False
-            # commit changes to DB
-            con.commit()
         except sqlite3.Error as err:
             db_logger.error(err)
         finally:
@@ -349,8 +374,9 @@ def auth_user(uname, password):
                 cur.close()
                 con.close()
     else:
+        #log error
         user_logger.error('Failed authentication, username %(uname)s does not exist')
-        return False
+    return False
 
 #Valerie Rudich 12/5/2023
 def sign_out():
@@ -418,7 +444,7 @@ def save_fortune_to_table(category, fortune):
     today = date.today()
     #format date month day, year
     formatted_date = today.strftime('%b %d, %Y')
-    
+
     if is_user_logged_in:
         try:
             global username
@@ -436,4 +462,5 @@ def save_fortune_to_table(category, fortune):
                 con.close()
     else:
         tk.messagebox.showerror(title=None, message='Error! Please register or log in to save a fortune.')
+        db_logger.error('The user should not be able to access this')
     return False
