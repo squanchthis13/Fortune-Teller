@@ -53,7 +53,7 @@ def display_rules():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=rules_tk.exit)
+    program_exit.add_command(label='Exit Program', command=rules_tk.destroy)
     
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
@@ -94,7 +94,7 @@ def login_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=login_tk.exit)
+    program_exit.add_command(label='Exit Program', command=login_tk.destroy)
     
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -192,7 +192,7 @@ def registration_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=registration_tk.exit)
+    program_exit.add_command(label='Exit Program', command=registration_tk.destroy)
     
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -317,7 +317,7 @@ def fortune_menu():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.exit)
+    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.destroy)
     
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
@@ -376,7 +376,7 @@ def display_fortune(category):
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=fortune_tk.exit)
+    program_exit.add_command(label='Exit Program', command=fortune_tk.destroy)
     
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
@@ -477,7 +477,7 @@ def past_fortunes_window():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=previous_fortunes_tk.exit)
+    program_exit.add_command(label='Exit Program', command=previous_fortunes_tk.destroy)
     
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
@@ -520,7 +520,7 @@ def user_menu():
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=user_menu_tk.exit)
+    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
     
     # add Sign Out menu and commands
     #NEW
@@ -575,7 +575,7 @@ def signout_window(user_menu_tk):
     # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=signout_tk.exit)
+    program_exit.add_command(label='Exit Program', command=signout_tk.destroy)
     
     # add label and buttons to window
     sign_out_message = 'Confirm ' + DBHelper.username + ' Sign Out'
