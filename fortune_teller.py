@@ -172,7 +172,7 @@ def registration_window():
 
     # Initialize New Window
     registration_tk = Tk()
-    registration_tk.geometry('350x350')
+    registration_tk.geometry('350x200')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
 
