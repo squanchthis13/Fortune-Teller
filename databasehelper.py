@@ -4,8 +4,8 @@ Module to create db, tables, and query/output data
 import sqlite3
 import string
 import re
-import bcrypt
 from datetime import date
+import bcrypt
 from loghandler import user_logger, db_logger
 
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
@@ -61,7 +61,7 @@ def read_sqlite_table():
             print('------------------------------------------')
 
 def create_table():
-    ''' Creates 3 SQL tables to store user and previous fortune data '''
+    ''' Creates SQL tables to store user and previous fortune data '''
     # create DB connection
     con = sqlite3.connect(DB_NAME)
     # create DB cursor
@@ -92,10 +92,10 @@ def validate_string(strng):
         if strng == '':
             print('ERROR: Field cannot be left blank 92')
             break
-        elif any(char in SPECIAL_CHAR for char in strng):
+        if any(char in SPECIAL_CHAR for char in strng):
             print('ERROR: Field may not contain special characters ln213')
             break
-        elif len(strng) > 20:
+        if len(strng) > 20:
             print('ERROR: Length may not exceed 20 characters ln215')
             break
         else:
@@ -138,17 +138,16 @@ def check_username_exists(input_username):
 def validate_email(email):
     '''Validates user's email address
     :return: True if valid, else false'''
-    
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
     while True:
         if email == '':
             print('Error: Email cannot be blank')
             break
-        elif re.match(email_regex, email):
+        if re.match(email_regex, email):
             # email is valid
             return True
-        return False
+    return False
 
 def check_email_exists(email):
     '''Method to check if email already exists in db
@@ -188,7 +187,7 @@ def validate_pass(password1, password2):
     :return: tuple(error_message, valid)'''
     error_message = ''
     valid = 'False'  # var to track if user is able to register; default is False
-    
+
     try:
         with open(COMMON_PASS_PATH, encoding='UTF-8') as f:
             contents = f.read()
@@ -247,21 +246,21 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             # if username already exists in db
             error_message = 'Username unavailable'
             break
-        elif not validate_string(f_uname):
+        if not validate_string(f_uname):
             error_message = 'Invalid username'
             break
-        elif not validate_string(f_fname):
+        if not validate_string(f_fname):
             error_message = 'Invalid first name'
             break
-        elif not validate_string(f_lname):
+        if not validate_string(f_lname):
             error_message = 'Invalid last name'
             break
-        elif check_email_exists(f_email):
+        if check_email_exists(f_email):
             # if email exists in db (must be unique)
             error_message = 'Error: Invalid Email Address'
             print('line 261 dbhelper')
             break
-        elif not validate_email(f_email):
+        if not validate_email(f_email):
             #if email is not valid
             error_message = 'Error: Invalid Email Address. \nExample: example@mail.com'
             print('line 266 dbhelper')
@@ -277,14 +276,9 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
                 # if valid == 'True', allow user to register
                 register = 'True'
                 break
-    ### NEW NEW NEW ###
     # 2Dec Nieves, Chelsea, Valerie
     # Invalid input
     # Return success/error message and registration state
-    #return error_message, register
-    ### DELETED ####
-    #if error_message2 != '':
-    #    return error_message2, register
     return error_message, register
 
 def sign_up(uname, fname, lname, email, pass1, pass2):
@@ -304,7 +298,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
     error_message, register = check_all_inputs(f_uname, f_fname, f_lname, f_email, pass1, pass2)
 
     registered = 'False'  # var to track if user is registered; default is False
-    
+
     # if user input is valid and user is allowed to register
     if register == 'True':
         # hash_password = password
@@ -351,7 +345,7 @@ def auth_user(uname, password):
             user_password_db = cur.execute('SELECT password FROM user WHERE userID = (?)', (uname,))
             password_db_fetch = user_password_db.fetchone()
             input_password_bytes = password.encode('utf-8')
-            
+
             is_match_password = bcrypt.checkpw(input_password_bytes, password_db_fetch[0])
 
             if is_match_password:

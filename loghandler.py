@@ -42,5 +42,3 @@ db_logger_FH.setLevel(log_level)
 db_logger_FH.setFormatter(Formatter(log_format))
 # Add handler to db_logger
 db_logger.addHandler(db_logger_FH)
-    
-    
