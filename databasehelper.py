@@ -148,7 +148,7 @@ def validate_email(email):
         elif re.match(email_regex, email):
             # email is valid
             return True
-    return False
+        return False
 
 def check_email_exists(email):
     '''Method to check if email already exists in db
@@ -188,6 +188,7 @@ def validate_pass(password1, password2):
     :return: tuple(error_message, valid)'''
     error_message = ''
     valid = 'False'  # var to track if user is able to register; default is False
+    
     try:
         with open(COMMON_PASS_PATH, encoding='UTF-8') as f:
             contents = f.read()
@@ -262,8 +263,9 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             break
         elif not validate_email(f_email):
             #if email is not valid
-            error_message = 'Error: Invalid Email Address'
+            error_message = 'Error: Invalid Email Address. \nExample: example@mail.com'
             print('line 266 dbhelper')
+            break
         else:
             ### NEW NEW NEW ###
             # 2Dec Nieves, Chelsea, Valerie
