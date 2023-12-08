@@ -5,7 +5,6 @@ University of Maryland Global Campus
 CMSC 495-7382: Capstone in Computer Science
 Professor David Castillo
 November 26, 2023'''
-
 ##NEW NEW NEW
 #Pylint
 #Wildcard import tkinter (wildcard-import)
@@ -22,6 +21,9 @@ import databasehelper as DBHelper
 # Unused import(s) random, LOVE_FORTUNE_PATH, CAREER_FORTUNE_PATH, GENERAL_FORTUNE_PATH, HEALTH_FORTUNE_PATH and db_logger from wildcard import of fthelper 
 # (unused-wildcard-import)
 from fthelper import *
+
+# create root window
+root = Tk()
 
 # Constance Sturm 11/26/2023, 12/5/23
 def display_rules():
@@ -363,9 +365,9 @@ def display_fortune(category):
                 tk.messagebox.showinfo(title=None, message='Fortune saved successfully!')
             else :
                 tk.messagebox.showerror(title=None, message='Something went wrong! Unable to save fortune.')
-                root.destroy()
+                fortune_tk.destroy()
         else:
-            root.destroy()
+            return
 
 # Hoi Lam Wong 12/4/2023
 # Constance Sturm 12/5/23 added menubar for uniformity
@@ -489,69 +491,23 @@ def user_menu():
     user_menu_tk.config(menu=menubar)
     user_menu_tk.mainloop()
 
-# Valerie Rudich 12/5/2023
-# Constance Sturm 12/5/23 added menubar to keep uniformity
+
 def signout_window(user_menu_tk):
-    '''This function is used for signing users out and returning to main menu'''
-    # Initialize New Window
-    signout_tk = Tk()
-    signout_tk.geometry('300x125')
-    signout_tk.title('Sign Out')
-    center_window(signout_tk)
-
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(signout_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=signout_tk.destroy)
-    
-    # add label and buttons to window
-    sign_out_message = 'Confirm ' + DBHelper.username + ' Sign Out'
-    lbl1 = Label(signout_tk, text=sign_out_message)
-
-    lbl1.pack()
-
-    btn_yes = Button(signout_tk, text='Yes', command=lambda: user_sign_out())
-    btn_no = Button(signout_tk, text='No', command=signout_tk.destroy)
-
-    btn_yes.pack()
-    btn_no.pack() 
-
-    # Valerie Rudich 12/5/2023
-    #NEW
-    def user_sign_out():
-        signout_message = DBHelper.sign_out()
-        lbl2 = Label(signout_tk, text=signout_message)
-        lbl2.pack()
-        # Valerie Rudich 12/7/23
-        signout_tk.attributes('-topmost', True) #keeps signout screen on top until timeout
-        signout_tk.after(2000, signout_tk.destroy)
-        user_menu_tk.destroy()
-        # Hoi 12/5/23 Modify to un-hide root
-        global root
-        root.deiconify()
-
-    signout_tk.config(menu=menubar)
-    signout_tk.mainloop()
+    res = tk.messagebox.askquestion(title='Sign Out', message='Confirm Sign Out?')
+    if res == 'yes':
+        if DBHelper.sign_out():
+            tk.messagebox.showinfo(title='Success', message='Successfully Signed Out!')
+            user_menu_tk.destroy()
+            main_window()
+        else:
+            tk.messagebox.showerror(title='Error', message = 'Sign out failed!')
+    else:
+        return
 
 # Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
 # Heavily Modified by Hoi Lam Wong 12/2/2023
 def main_window():
     '''Display Main Menu and Welcome Message'''
-    # create root window
-    root = Tk()
     #NEW NEW NEW
     #Pylint
     #FortuneTeller/Fortune-Teller-2/fortune_teller.py:462:8: C0121: Comparison 'DBHelper.active == False' 

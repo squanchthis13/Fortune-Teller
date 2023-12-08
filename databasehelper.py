@@ -379,19 +379,23 @@ def auth_user(uname, password):
     return False
 
 #Valerie Rudich 12/5/2023
+#Chelsea Nieves 12/8/23
 def sign_out():
     '''Signs user out and resets global variables'''
     global is_user_logged_in
     global username
 
-    message = f'User {username} Could Not Be Signed Out'
+    
 
     if is_user_logged_in and username:
-        user_logger.info('User %{username}s has been signed out')
+        user_logger.info('User %{username}s signed out successfully')
         is_user_logged_in = False
         username = ''
-        message = 'Successfully Signed Out'
-    return message
+        return True
+    else:
+        message = f''
+        user_logger.error('User %{username}s Could Not Be Signed Out!')
+        return False
 
 def get_previous_fortunes(uname):
     '''Displays previous fortunes to authenticated user'''

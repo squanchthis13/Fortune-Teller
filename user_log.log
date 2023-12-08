@@ -144,3 +144,16 @@
 2023-12-08 12:29:28,704 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
 2023-12-08 12:31:06,245 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
 2023-12-08 12:32:27,719 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 12:53:05,639 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:00:56,548 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:02:35,438 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:02:49,087 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:390
+2023-12-08 13:02:59,037 [ERROR]: User  Could Not Be Signed Out! in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:399
+2023-12-08 13:07:43,817 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:08:35,912 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:08:49,843 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:390
+2023-12-08 13:18:19,195 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:18:24,691 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:391
+2023-12-08 13:20:05,967 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
+2023-12-08 13:20:11,426 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:391
+2023-12-08 13:20:47,513 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/8Dec/Fortune-Teller/databasehelper.py:367
