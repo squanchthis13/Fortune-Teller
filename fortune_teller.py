@@ -29,10 +29,14 @@ root = Tk()
 def display_rules():
     ''' Create a window that displays the rules to the user'''
     # Initialize New Window
-    rules_tk = Tk()
+    rules_tk = tk.Toplevel()
     rules_tk.geometry('350x260')
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
+
+    # close window without removing menu bar
+    rules_tk.protocol("WM_DELETE_WINDOW", rules_tk.destroy)
+    rules_tk.bind("<Destroy>", rules_tk.destroy)
 
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
@@ -45,17 +49,20 @@ def display_rules():
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
     
-    menu_bar(rules_tk)
     rules_tk.mainloop()
 
 # Constance Sturm 11/26/2023, 12/5/23 
 def login_window():
     '''This function is used for returning users'''
     # Initialize New Window
-    login_tk = Tk()
+    login_tk = tk.Toplevel()
     login_tk.geometry('300x100')
     login_tk.title('User Login')
     center_window(login_tk)
+
+    # close window without removing menu bar
+    login_tk.protocol("WM_DELETE_WINDOW", login_tk.destroy)
+    login_tk.bind("<Destroy>", login_tk.destroy)
 
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -93,7 +100,6 @@ def login_window():
         else:
             tk.messagebox.showinfo(title=None, message='Authentication Failed!')
    
-    menu_bar(login_tk)
     login_tk.mainloop()
 
 # Hoi Lam Wong 11/27/2023
@@ -102,10 +108,14 @@ def registration_window():
     ''' This function is used to create new window that holds registration from '''
 
     # Initialize New Window
-    registration_tk = Tk()
+    registration_tk = tk.Toplevel()
     registration_tk.geometry('350x200')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
+
+    # close window without removing menu bar
+    registration_tk.protocol("WM_DELETE_WINDOW", registration_tk.destroy)
+    registration_tk.bind("<Destroy>", registration_tk.destroy)
 
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -167,7 +177,6 @@ def registration_window():
             tk.messagebox.showerror(title=None, message='Registration Failed!')
 
     # Call to create registration_tk... END of registration TK
-    menu_bar(registration_tk)
     registration_tk.mainloop()
 
 # Hoi Lam Wong 11/27/2023
@@ -204,10 +213,14 @@ def fortune_menu():
     '''This menu will give the user the option to choose a category'''
 
     # Initialize New Window
-    fortune_menu_tk = Tk()
+    fortune_menu_tk = tk.Toplevel()
     fortune_menu_tk.geometry('300x200')
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
+
+    # close window without removing menu bar
+    fortune_menu_tk.protocol("WM_DELETE_WINDOW", fortune_menu_tk.destroy)
+    fortune_menu_tk.bind("<Destroy>", fortune_menu_tk.destroy)
 
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
@@ -223,7 +236,6 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
-    menu_bar(fortune_menu_tk)
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
@@ -245,10 +257,14 @@ def display_fortune(category):
         user_fortune = get_random_fortune()
 
     # Initialize New Window
-    fortune_tk = Tk()
+    fortune_tk = tk.Toplevel()
     fortune_tk.title('Fortune Menu')
     fortune_tk.geometry('300x200')
     center_window(fortune_tk)
+
+    # close window without removing menu bar
+    fortune_tk.protocol("WM_DELETE_WINDOW", fortune_tk.destroy)
+    fortune_tk.bind("<Destroy>", fortune_tk.destroy)
 
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
@@ -277,8 +293,6 @@ def display_fortune(category):
                 fortune_tk.destroy()
         else:
             return
-        
-    menu_bar(fortune_tk)
 
 # Hoi Lam Wong 12/4/2023
 # Constance Sturm 12/5/23 added menubar for uniformity
@@ -311,10 +325,14 @@ def past_fortunes_window():
         scrollbar.config(command=mylist.yview)
 
     # Initialize New Window
-    previous_fortunes_tk = Tk()
+    previous_fortunes_tk = tk.Toplevel()
     previous_fortunes_tk.title('Past Fortunes')
     previous_fortunes_tk.geometry('725x300')
     center_window(previous_fortunes_tk)
+
+    # close window without removing menu bar
+    previous_fortunes_tk.protocol("WM_DELETE_WINDOW", previous_fortunes_tk.destroy)
+    previous_fortunes_tk.bind("<Destroy>", previous_fortunes_tk.destroy)
 
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
@@ -327,7 +345,6 @@ def past_fortunes_window():
     btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5', command=previous_fortunes_tk.destroy)
     btn_close.grid(row=2, column=0)
 
-    menu_bar(previous_fortunes_tk)
     previous_fortunes_tk.mainloop()
 
 # Valerie Rudich 12/4/2023
@@ -370,7 +387,7 @@ def signout_window(user_menu_tk):
             tk.messagebox.showinfo(title='Success', message='Successfully Signed Out!')
             user_menu_tk.destroy()
             root.deiconify() # main will not double print content in same window
-            #main_window()
+            menu_bar(root)
         else:
             tk.messagebox.showerror(title='Error', message ='Sign out failed!')
     else:
@@ -384,17 +401,17 @@ def menu_bar(window):
     window.config(menu=menubar)
 
     # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
+    rules = Menu(menubar, tearoff=1)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
 
     # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
+    frtne_menu = Menu(menubar, tearoff=1)
     menubar.add_cascade(label='Fortune', menu=frtne_menu)
     frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
     
     # add Exit and Sign Out menu and commands
-    program_exit = Menu(menubar, tearoff=0)
+    program_exit = Menu(menubar, tearoff=1)
     menubar.add_cascade(label='Exit', menu=program_exit)
     if DBHelper.is_user_logged_in :
         program_exit.add_command(label='Sign Out', command=lambda: signout_window(window))
