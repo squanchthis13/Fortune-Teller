@@ -92,7 +92,7 @@ def validate_username(uname):
     :return: True if valid, else false'''
     while True:
         if uname == '':
-            print('ERROR: Field cannot be left blank 92')
+            print('ERROR: Field cannot be left blank')
             break
         if any(char in SPECIAL_CHAR for char in uname):
             print('ERROR: Field may not contain special characters.')
@@ -113,7 +113,7 @@ def validate_name(name):
     :return: True if valid, else false'''
     while True:
         if name == '':
-            print('ERROR: Field cannot be left blank 92')
+            print('ERROR: Field cannot be left blank')
             break
         if any(char in SPECIAL_CHAR for char in name):
             print('ERROR: Field may not contain special characters.')
