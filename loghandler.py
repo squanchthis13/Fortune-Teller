@@ -1,5 +1,7 @@
 '''
-Module to handle the creation and formatting of loggers
+Module to handle the creation and formatting of user and database loggers
+modified 9Dec23
+@author: Chelsea Nieves
 '''
 import logging
 from logging import FileHandler
