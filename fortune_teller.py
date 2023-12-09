@@ -33,26 +33,6 @@ def display_rules():
     rules_tk.geometry('350x260')
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(rules_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=rules_tk.destroy)
-    """
-    menu_bar(rules_tk)
 
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
@@ -64,7 +44,8 @@ def display_rules():
     msg.pack()
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
-    #rules_tk.config(menu=menubar)
+    
+    menu_bar(rules_tk)
     rules_tk.mainloop()
 
 # Constance Sturm 11/26/2023, 12/5/23 
@@ -75,26 +56,6 @@ def login_window():
     login_tk.geometry('300x100')
     login_tk.title('User Login')
     center_window(login_tk)
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(login_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=login_tk.destroy)
-    """
-    menu_bar(login_tk)
 
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -131,7 +92,8 @@ def login_window():
             user_menu()
         else:
             tk.messagebox.showinfo(title=None, message='Authentication Failed!')
-    #login_tk.config(menu=menubar)
+   
+    menu_bar(login_tk)
     login_tk.mainloop()
 
 # Hoi Lam Wong 11/27/2023
@@ -144,26 +106,6 @@ def registration_window():
     registration_tk.geometry('350x200')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(registration_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    fortune_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=fortune_menu)
-    fortune_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=registration_tk.destroy)
-    """
-    menu_bar(registration_tk)
 
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -225,7 +167,7 @@ def registration_window():
             tk.messagebox.showerror(title=None, message='Registration Failed!')
 
     # Call to create registration_tk... END of registration TK
-    #registration_tk.config(menu=menubar)
+    menu_bar(registration_tk)
     registration_tk.mainloop()
 
 # Hoi Lam Wong 11/27/2023
@@ -266,28 +208,6 @@ def fortune_menu():
     fortune_menu_tk.geometry('300x200')
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
-    """
-    # Valerie Rudich 12/5/2023
-    # Constance Sturm added additions to the menubar to keep it uniform 
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(fortune_menu_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=fortune_menu_tk.destroy)
-    """
-    menu_bar(fortune_menu_tk)
 
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
@@ -303,7 +223,7 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
-    #fortune_menu_tk.config(menu=menubar)
+    menu_bar(fortune_menu_tk)
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
@@ -329,26 +249,6 @@ def display_fortune(category):
     fortune_tk.title('Fortune Menu')
     fortune_tk.geometry('300x200')
     center_window(fortune_tk)
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(fortune_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=fortune_tk.destroy)
-    """
-    menu_bar(fortune_tk)
 
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
@@ -377,6 +277,8 @@ def display_fortune(category):
                 fortune_tk.destroy()
         else:
             return
+        
+    menu_bar(fortune_tk)
 
 # Hoi Lam Wong 12/4/2023
 # Constance Sturm 12/5/23 added menubar for uniformity
@@ -413,26 +315,6 @@ def past_fortunes_window():
     previous_fortunes_tk.title('Past Fortunes')
     previous_fortunes_tk.geometry('725x300')
     center_window(previous_fortunes_tk)
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(previous_fortunes_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=previous_fortunes_tk.destroy)
-    """
-    menu_bar(previous_fortunes_tk)
 
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
@@ -445,7 +327,7 @@ def past_fortunes_window():
     btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5', command=previous_fortunes_tk.destroy)
     btn_close.grid(row=2, column=0)
 
-    #previous_fortunes_tk.config(menu=menubar)
+    menu_bar(previous_fortunes_tk)
     previous_fortunes_tk.mainloop()
 
 # Valerie Rudich 12/4/2023
@@ -460,34 +342,6 @@ def user_menu():
     # to close program using 'x' in title bar
     user_menu_tk.protocol("WM_DELETE_WINDOW", lambda: exit())
     user_menu_tk.bind("<Destroy>", lambda: exit())
-    
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(user_menu_tk)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Sign Out menu and commands
-    #NEW
-    sign_out = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Sign Out', menu=sign_out)
-    sign_out.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
-    
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
-    """
-
-    menu_bar(user_menu_tk)
 
     # add label and buttons to the window
     welcome_user_message = 'Welcome Back, ' + DBHelper.username + ' to the Fortune Teller Game!'
@@ -504,9 +358,8 @@ def user_menu():
 
     btn_get_frtn.pack()
     btn_past_frtn.pack()
-    #user_menu_tk.config(menu=menubar)
 
-    #user_menu_tk.config(menu=menubar)
+    menu_bar(user_menu_tk)
     user_menu_tk.mainloop()
 
 
@@ -516,6 +369,7 @@ def signout_window(user_menu_tk):
         if DBHelper.sign_out():
             tk.messagebox.showinfo(title='Success', message='Successfully Signed Out!')
             user_menu_tk.destroy()
+            root.deiconify() # main will not double print content in same window
             #main_window()
         else:
             tk.messagebox.showerror(title='Error', message ='Sign out failed!')
@@ -569,26 +423,6 @@ def main_window():
     # to close program using 'x' in title bar
     root.protocol("WM_DELETE_WINDOW", lambda: exit())
     root.bind("<Destroy>", lambda: exit())
-    """
-    # add menu bar to allow user to view rules, fortune,or exit
-    menubar = Menu(root)
-
-    # add Rules menu and commands
-    rules = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Rules', menu=rules)
-    rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-
-    # add Exit menu and commands
-    program_exit = Menu(menubar, tearoff=0)
-    menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Exit Program', command=root.destroy)
-    """
-    menu_bar(root)
 
     # add label to the root window
     lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
@@ -609,7 +443,7 @@ def main_window():
     btn_register.pack()
 
     # display menu
-    #root.config(menu=menubar)
+    menu_bar(root)
     root.mainloop()
 
 # Press the green button in the gutter to run the script.
