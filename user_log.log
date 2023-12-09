@@ -179,3 +179,11 @@
 2023-12-09 00:58:01,022 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389
 2023-12-09 00:58:21,385 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
 2023-12-09 00:58:25,424 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389
+2023-12-09 01:02:25,270 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:03:57,123 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:04:59,389 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:05:53,758 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:05:58,361 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389
+2023-12-09 01:06:13,135 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:07:29,021 [INFO]: Successful authentication, username: %(uname)s in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:367
+2023-12-09 01:07:44,642 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389

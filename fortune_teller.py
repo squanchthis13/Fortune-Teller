@@ -34,10 +34,6 @@ def display_rules():
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
 
-    # close window without removing menu bar
-    rules_tk.protocol("WM_DELETE_WINDOW", rules_tk.destroy)
-    rules_tk.bind("<Destroy>", rules_tk.destroy)
-
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
     lbl.pack()
     msg = Message(rules_tk, text='> Please select a category from the following buttons. \n '
@@ -60,10 +56,6 @@ def login_window():
     login_tk.title('User Login')
     center_window(login_tk)
 
-    # close window without removing menu bar
-    login_tk.protocol("WM_DELETE_WINDOW", login_tk.destroy)
-    login_tk.bind("<Destroy>", login_tk.destroy)
-
     # create new frame to contain the labels and entry boxes
     login_form = Frame(relief=SUNKEN, borderwidth=3)
     login_form.pack()
@@ -80,7 +72,7 @@ def login_window():
 
     password_login_entry.grid(row=1, column=1)
 
-    btn_login_submit = Button(master=login_tk, text='Login', command=lambda: user_login())
+    btn_login_submit = Button(master=login_tk, text='Login', command=lambda: [root.iconify, user_login()])
     btn_login_submit.grid(row=2, column=0)
     btn_login_close = Button(login_tk, text='Cancel', command=login_tk.destroy)
     btn_login_close.grid(row=2, column=1)
@@ -112,10 +104,6 @@ def registration_window():
     registration_tk.geometry('350x200')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
-
-    # close window without removing menu bar
-    registration_tk.protocol("WM_DELETE_WINDOW", registration_tk.destroy)
-    registration_tk.bind("<Destroy>", registration_tk.destroy)
 
     # create new frame to contain the labels and entry boxes
     frm_form = Frame(relief=SUNKEN, borderwidth=3)
@@ -218,10 +206,6 @@ def fortune_menu():
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
 
-    # close window without removing menu bar
-    fortune_menu_tk.protocol("WM_DELETE_WINDOW", fortune_menu_tk.destroy)
-    fortune_menu_tk.bind("<Destroy>", fortune_menu_tk.destroy)
-
     lbl = Label(fortune_menu_tk, text='Please select a category!')
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
     btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career'))
@@ -261,10 +245,6 @@ def display_fortune(category):
     fortune_tk.title('Fortune Menu')
     fortune_tk.geometry('300x200')
     center_window(fortune_tk)
-
-    # close window without removing menu bar
-    fortune_tk.protocol("WM_DELETE_WINDOW", fortune_tk.destroy)
-    fortune_tk.bind("<Destroy>", fortune_tk.destroy)
 
     lbl = Label(fortune_tk, text='Your Fortune', font='50')
     lbl.pack()
@@ -330,10 +310,6 @@ def past_fortunes_window():
     previous_fortunes_tk.geometry('725x300')
     center_window(previous_fortunes_tk)
 
-    # close window without removing menu bar
-    previous_fortunes_tk.protocol("WM_DELETE_WINDOW", previous_fortunes_tk.destroy)
-    previous_fortunes_tk.bind("<Destroy>", previous_fortunes_tk.destroy)
-
     # Username label
     username_label = Label(previous_fortunes_tk, text=username)
     username_label.grid(row=0, column=0)
@@ -352,7 +328,7 @@ def past_fortunes_window():
 def user_menu():
     '''New menu once user is logged in to choose new fortune or view old fortunes'''
     # Initialize New Window
-    user_menu_tk = Tk()
+    user_menu_tk = tk.Toplevel()
     user_menu_tk.geometry('650x400')
     user_menu_tk.title('Fortune Teller')
     center_window(user_menu_tk)
