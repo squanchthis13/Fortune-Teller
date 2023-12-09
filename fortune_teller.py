@@ -29,7 +29,7 @@ root = Tk()
 def display_rules():
     ''' Create a window that displays the rules to the user'''
     # Initialize New Window
-    rules_tk = tk.Toplevel()
+    rules_tk = Toplevel()
     rules_tk.geometry('350x260')
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
@@ -51,7 +51,7 @@ def display_rules():
 def login_window():
     '''This function is used for returning users'''
     # Initialize New Window
-    login_tk = tk.Toplevel()
+    login_tk = Toplevel()
     login_tk.geometry('300x100')
     login_tk.title('User Login')
     center_window(login_tk)
@@ -100,7 +100,7 @@ def registration_window():
     ''' This function is used to create new window that holds registration from '''
 
     # Initialize New Window
-    registration_tk = tk.Toplevel()
+    registration_tk = Toplevel()
     registration_tk.geometry('350x200')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
@@ -201,7 +201,7 @@ def fortune_menu():
     '''This menu will give the user the option to choose a category'''
 
     # Initialize New Window
-    fortune_menu_tk = tk.Toplevel()
+    fortune_menu_tk = Toplevel()
     fortune_menu_tk.geometry('300x200')
     fortune_menu_tk.title('Fortune Menu')
     center_window(fortune_menu_tk)
@@ -241,7 +241,7 @@ def display_fortune(category):
         user_fortune = get_random_fortune()
 
     # Initialize New Window
-    fortune_tk = tk.Toplevel()
+    fortune_tk = Toplevel()
     fortune_tk.title('Fortune Menu')
     fortune_tk.geometry('300x200')
     center_window(fortune_tk)
@@ -305,7 +305,7 @@ def past_fortunes_window():
         scrollbar.config(command=mylist.yview)
 
     # Initialize New Window
-    previous_fortunes_tk = tk.Toplevel()
+    previous_fortunes_tk = Toplevel()
     previous_fortunes_tk.title('Past Fortunes')
     previous_fortunes_tk.geometry('725x300')
     center_window(previous_fortunes_tk)
@@ -328,7 +328,7 @@ def past_fortunes_window():
 def user_menu():
     '''New menu once user is logged in to choose new fortune or view old fortunes'''
     # Initialize New Window
-    user_menu_tk = tk.Toplevel()
+    user_menu_tk = Toplevel()
     user_menu_tk.geometry('650x400')
     user_menu_tk.title('Fortune Teller')
     center_window(user_menu_tk)
