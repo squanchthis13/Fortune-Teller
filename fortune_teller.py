@@ -446,6 +446,7 @@ def user_menu():
     user_menu_tk.geometry('650x400')
     user_menu_tk.title('Fortune Teller')
     center_window(user_menu_tk)
+    user_menu_tk.attributes('-type', 'splash')
 
     # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(user_menu_tk)
@@ -460,10 +461,15 @@ def user_menu():
     menubar.add_cascade(label='Fortune', menu=frtne_menu)
     frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
 
-    # add Exit and Sign Out menu and commands
+    # add Sign Out menu and commands
+    #NEW
+    sign_out = Menu(menubar, tearoff=0)
+    menubar.add_cascade(label='Sign Out', menu=sign_out)
+    sign_out.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
+    
+    # add Exit menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
-    program_exit.add_command(label='Sign Out', command=lambda: signout_window(user_menu_tk))
     program_exit.add_command(label='Exit Program', command=user_menu_tk.destroy)
 
     # add label and buttons to the window
@@ -481,11 +487,9 @@ def user_menu():
 
     btn_get_frtn.pack()
     btn_past_frtn.pack()
-
     user_menu_tk.config(menu=menubar)
 
-    user_menu_tk.attributes('-type', 'splash')
-
+    user_menu_tk.config(menu=menubar)
     user_menu_tk.mainloop()
 
 
@@ -520,6 +524,7 @@ def main_window():
     root.geometry('650x415')
     # center window
     center_window(root)
+    root.attributes('-type', 'splash')
 
     # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(root)
@@ -556,8 +561,6 @@ def main_window():
     btn_play.pack()
     btn_login.pack()
     btn_register.pack()
-
-    root.attributes('-type', 'splash')
 
     # display menu
     root.config(menu=menubar)
