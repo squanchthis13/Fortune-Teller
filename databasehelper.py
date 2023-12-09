@@ -87,22 +87,47 @@ def create_table():
             # close db connection
             con.close()
 
-def validate_string(strng):
-    '''Method to validate input string
+def validate_username(uname):
+    '''Method to validate input username
     :return: True if valid, else false'''
     while True:
-        if strng == '':
+        if uname == '':
             print('ERROR: Field cannot be left blank 92')
             break
-        if any(char in SPECIAL_CHAR for char in strng):
-            print('ERROR: Field may not contain special characters ln213')
+        if any(char in SPECIAL_CHAR for char in uname):
+            print('ERROR: Field may not contain special characters.')
             break
-        if len(strng) > 20:
-            print('ERROR: Length may not exceed 20 characters ln215')
+        if len(uname) > 20:
+            print('ERROR: Length may not exceed 20 characters.')
             break
         else:
             #input is valid
-            print(f'INFO: {strng} is valid')
+            print(f'INFO: {uname} is valid')
+            return True
+    #strng is invalid
+    return False 
+
+
+def validate_name(name):
+    '''Method to validate input fname, lname
+    :return: True if valid, else false'''
+    while True:
+        if name == '':
+            print('ERROR: Field cannot be left blank 92')
+            break
+        if any(char in SPECIAL_CHAR for char in name):
+            print('ERROR: Field may not contain special characters.')
+            break
+        ###NEW NEW NEW 9 DEC NIEVES,CHELSEA###
+        if any(char.isdigit() for char in name):
+            print('ERROR: Field may not contain any numerical characters.')
+            break
+        if len(name) > 20:
+            print('ERROR: Length may not exceed 20 characters.')
+            break
+        else:
+            #input is valid
+            print(f'INFO: {name} is valid')
             return True
     #strng is invalid
     return False
@@ -116,7 +141,7 @@ def check_username_exists(input_username):
     # create DB cursor
     cur = con.cursor()
     # validate user input before querying db
-    if validate_string(input_username):
+    if validate_username(input_username):
         try:
             res = cur.execute('SELECT userId FROM user WHERE userId=?', (input_username,))
             data = res.fetchall()
@@ -255,17 +280,17 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break
-        if not validate_string(f_uname):
+        if not validate_username(f_uname):
             error_message = 'Invalid username'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break
-        if not validate_string(f_fname):
+        if not validate_name(f_fname):
             error_message = 'Invalid first name'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break
-        if not validate_string(f_lname):
+        if not validate_name(f_lname):
             error_message = 'Invalid last name'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
