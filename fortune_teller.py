@@ -457,7 +457,10 @@ def user_menu():
     user_menu_tk.geometry('650x400')
     user_menu_tk.title('Fortune Teller')
     center_window(user_menu_tk)
-    user_menu_tk.attributes('-type', 'splash') # to close program using 'x' in title bar
+    # to close program using 'x' in title bar
+    user_menu_tk.protocol("WM_DELETE_WINDOW", lambda: close_program())
+    user_menu_tk.bind("<Destroy>", lambda: close_program())
+    
     """
     # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(user_menu_tk)
@@ -518,6 +521,11 @@ def signout_window(user_menu_tk):
             tk.messagebox.showerror(title='Error', message ='Sign out failed!')
     else:
         return
+    
+def close_program():
+    close = tk.messagebox.askquestion(title='Exit Program', message='Are you sure you want to exit?')
+    if close == 'yes':
+        exit()
 
 # Valerie Rudich 12/8/23
 #NEW
@@ -541,7 +549,7 @@ def menu_bar(window):
     menubar.add_cascade(label='Exit', menu=program_exit)
     if DBHelper.is_user_logged_in :
         program_exit.add_command(label='Sign Out', command=lambda: signout_window(window))
-    program_exit.add_command(label='Exit Program', command=exit)
+    program_exit.add_command(label='Exit Program', command=lambda: close_program())
 
 
 # Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
@@ -563,7 +571,9 @@ def main_window():
     root.geometry('650x415')
     # center window
     center_window(root)
-    root.attributes('-type', 'splash') # to close program using 'x' in title bar
+    # to close program using 'x' in title bar
+    root.protocol("WM_DELETE_WINDOW", lambda: close_program())
+    root.bind("<Destroy>", lambda: close_program())
     """
     # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(root)
