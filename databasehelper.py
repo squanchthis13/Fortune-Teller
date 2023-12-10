@@ -297,13 +297,13 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             break
         if check_email_exists(f_email):
             # if email exists in db (must be unique)
-            error_message = 'ERROR: Email Previously Registered.'
+            error_message = 'Email Previously Registered.'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_email(f_email):
             #if email is not valid
-            error_message = 'ERROR: Invalid Email Address. \nExample: example@mail.com'
+            error_message = 'Invalid Email Address. \nExample: example@mail.com'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             print('line 266 dbhelper')
