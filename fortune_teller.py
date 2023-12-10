@@ -72,7 +72,7 @@ def login_window():
 
     password_login_entry.grid(row=1, column=1)
 
-    btn_login_submit = Button(master=login_tk, text='Login', command=lambda: [root.iconify, user_login()])
+    btn_login_submit = Button(master=login_tk, text='Login', command=lambda: user_login())
     btn_login_submit.grid(row=2, column=0)
     btn_login_close = Button(login_tk, text='Cancel', command=login_tk.destroy)
     btn_login_close.grid(row=2, column=1)
@@ -86,7 +86,6 @@ def login_window():
             tk.messagebox.showinfo(title=None, message='Login Successful!')
             login_tk.destroy()
             # hide root window when user logged in
-            global root
             root.withdraw()
             user_menu()
         else:
@@ -334,7 +333,7 @@ def user_menu():
     center_window(user_menu_tk)
     # to close program using 'x' in title bar
     user_menu_tk.protocol("WM_DELETE_WINDOW", lambda: exit())
-    user_menu_tk.bind("<Destroy>", lambda: exit())
+    user_menu_tk.bind("<Destroy>", None, True)
 
     # add label and buttons to the window
     welcome_user_message = 'Welcome Back, ' + DBHelper.username + ' to the Fortune Teller Game!'
@@ -377,23 +376,16 @@ def menu_bar(window):
     window.config(menu=menubar)
 
     # add Rules menu and commands
-    rules = Menu(menubar, tearoff=1)
+    rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
-
-    """
-    # add fortune menu and commands
-    frtne_menu = Menu(menubar, tearoff=1)
-    menubar.add_cascade(label='Fortune', menu=frtne_menu)
-    frtne_menu.add_command(label='View Fortune', command=lambda: fortune_menu())
-    """
     
     # add Exit and Sign Out menu and commands
-    program_exit = Menu(menubar, tearoff=1)
+    program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
     if DBHelper.is_user_logged_in :
         program_exit.add_command(label='Sign Out', command=lambda: signout_window(window))
-    program_exit.add_command(label='Exit Program', command=lambda: exit())
+    program_exit.add_command(label='Exit Program', command=exit)
 
 
 # Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
@@ -416,8 +408,8 @@ def main_window():
     # center window
     center_window(root)
     # to close program using 'x' in title bar
-    root.protocol("WM_DELETE_WINDOW", lambda: exit())
-    root.bind("<Destroy>", lambda: exit())
+    root.protocol("WM_DELETE_WINDOW", lambda:exit())
+    root.bind("<Destroy>", None, True)
 
     # add label to the root window
     lbl1 = Label(root, text='Welcome to the Fortune Teller Game!')
