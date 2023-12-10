@@ -100,7 +100,7 @@ def registration_window():
 
     # Initialize New Window
     registration_tk = Toplevel()
-    registration_tk.geometry('350x200')
+    registration_tk.geometry('330x270')
     registration_tk.title('Registration Form')
     center_window(registration_tk)
 
@@ -135,11 +135,23 @@ def registration_window():
     password_confirm_entry = Entry(registration_tk, show='*')
     password_confirm_entry.grid(row=5, column=1)
 
+    # Added 12/10/2023 Hoi Lam, for displaying password requirement in window
+
+    password_must_be_label = Label(registration_tk, text='Password must \ncontain at least :')
+    password_must_be_label.grid(row=7, column=0)
+    password_requirement_label = Label(registration_tk, text='\n - 12 characters\n'
+                                                             ' - 1 numerical character \n'
+                                                             ' - 1 lowercase character  \n'
+                                                             ' - 1 uppercase character \n'
+                                                             ' - 1 special character \n')
+    password_requirement_label.grid(row=7, column=1)
+
     btn_submit = Button(master=registration_tk, text='Submit',
                         command=lambda: user_register())
-    btn_submit.grid(row=6, column=0)
+
+    btn_submit.grid(row=9, column=0)
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
-    btn_close.grid(row=6, column=1)
+    btn_close.grid(row=9, column=1)
 
     def user_register():
         '''Method for registration() for backend
