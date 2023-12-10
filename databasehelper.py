@@ -5,6 +5,7 @@ import sqlite3
 import string
 import re
 from datetime import date
+from tkinter import messagebox
 import tkinter as tk
 import bcrypt
 from loghandler import user_logger, db_logger

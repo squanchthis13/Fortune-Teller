@@ -198,3 +198,17 @@
 2023-12-10 13:05:58,548 [INFO]: New registration: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:347
 2023-12-10 13:06:10,917 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391
 2023-12-10 13:07:47,416 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391
+2023-12-10 13:14:51,643 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/Fortune-Teller/databasehelper.py:122
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:125
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Field may not contain any numerical characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:129
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:132
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/Fortune-Teller/databasehelper.py:103
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:106
+2023-12-10 13:14:51,644 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:109
+2023-12-10 13:16:17,190 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/Fortune-Teller/databasehelper.py:123
+2023-12-10 13:16:17,190 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:126
+2023-12-10 13:16:17,190 [ERROR]: ERROR: Field may not contain any numerical characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:130
+2023-12-10 13:16:17,190 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:133
+2023-12-10 13:16:27,126 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/Fortune-Teller/databasehelper.py:104
+2023-12-10 13:16:27,126 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:107
+2023-12-10 13:16:27,126 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:110
