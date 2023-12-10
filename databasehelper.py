@@ -297,7 +297,7 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             break
         if check_email_exists(f_email):
             # if email exists in db (must be unique)
-            error_message = 'Error: Invalid Email Address'
+            error_message = 'Invalid Email Address'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break

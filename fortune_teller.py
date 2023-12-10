@@ -160,8 +160,8 @@ def registration_window():
             tk.messagebox.showinfo(title=None, message='Registration Successful! Please Log In')
             # destroy registration form if successfully signed up
             registration_tk.destroy()
-        else:
-            tk.messagebox.showerror(title=None, message='Registration Failed!')
+        #else:
+            #tk.messagebox.showerror(title=None, message='Registration Failed!')
 
     # Call to create registration_tk... END of registration TK
     registration_tk.mainloop()
