@@ -4,7 +4,10 @@ Valerie Rudich, and Hoi Lam Wong
 University of Maryland Global Campus
 CMSC 495-7382: Capstone in Computer Science
 Professor David Castillo
-November 26, 2023'''
+December 12, 2023
+
+Main Module
+'''
 #Pylint
 #Wildcard import tkinter (wildcard-import)
 from tkinter import messagebox
@@ -226,17 +229,19 @@ def display_fortune(category):
     # Valerie Rudich 12/5/2023
     # adds save option only if the user is signed in
     if DBHelper.is_user_logged_in:
-        btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2', command=lambda: [save_fortune_confirm_window(fortune_tk)])
+        btn_fortune_save = tk.Button(fortune_tk, text='Save', bd='2',
+                                     command=lambda: [save_fortune_confirm_window()])
         btn_fortune_save.pack()
 
     # Hoi Lam Wong 12/4/2023
-    def save_fortune_confirm_window(win):
+    def save_fortune_confirm_window():
         res = tk.messagebox.askquestion('Save Fortune', 'Do you want to save your fortune?')
         if res == 'yes' :
             if DBHelper.save_fortune_to_table(category, user_fortune):
                 tk.messagebox.showinfo(title=None, message='Fortune saved successfully!')
             else :
-                tk.messagebox.showerror(title=None, message='Something went wrong! Unable to save fortune.')
+                tk.messagebox.showerror(title=None, message='Something went wrong!\n'
+                                        'Unable to save fortune.')
                 fortune_tk.destroy()
         else:
             return
@@ -252,10 +257,9 @@ def past_fortunes_window():
         username = 'GUEST: Not Logged In'
 
     def create_past_fortunes_table(win):
-
+        ''' method to create table in win with dynamic height (rows) from data '''
         past_fortunes = DBHelper.get_previous_fortunes(username)
 
-        ''' method to create table in win with dynamic height (rows) from data '''
         # Create table frame widget
         past_fortunes_table_frame = tk.Frame(win)
         past_fortunes_table_frame.grid(row=1, column=0, padx=10, pady=10)
@@ -285,7 +289,8 @@ def past_fortunes_window():
     create_past_fortunes_table(previous_fortunes_tk)
 
     # Button for Action
-    btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5', command=previous_fortunes_tk.destroy)
+    btn_close = tk.Button(previous_fortunes_tk, text='Close', bd='5',
+                          command=previous_fortunes_tk.destroy)
     btn_close.grid(row=2, column=0)
 
     previous_fortunes_tk.mainloop()
@@ -314,7 +319,8 @@ def user_menu():
     crystal_ball_ascii_art(user_menu_tk)
 
     btn_get_frtn = Button(user_menu_tk, text='Get a Fortune', command=lambda: fortune_menu())
-    btn_past_frtn = Button(user_menu_tk, text='View Past Fortune', command=lambda: past_fortunes_window())
+    btn_past_frtn = Button(user_menu_tk, text='View Past Fortune',
+                           command=lambda: past_fortunes_window())
 
     btn_get_frtn.pack()
     btn_past_frtn.pack()
@@ -324,6 +330,7 @@ def user_menu():
 
 
 def signout_window(user_menu_tk):
+    ''' method to handle user sign out confirmation '''
     res = tk.messagebox.askquestion(title='Sign Out', message='Confirm Sign Out?')
     if res == 'yes':
         if DBHelper.sign_out():
@@ -339,6 +346,7 @@ def signout_window(user_menu_tk):
 # Valerie Rudich 12/8/23
 #NEW
 def menu_bar(window):
+    ''' method to define menu bar '''
     # add menu bar to allow user to view rules, fortune,or exit
     menubar = Menu(window)
     window.config(menu=menubar)
@@ -347,7 +355,7 @@ def menu_bar(window):
     rules = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Rules', menu=rules)
     rules.add_command(label='View Rules', command=lambda: display_rules())
-    
+
     # add Exit and Sign Out menu and commands
     program_exit = Menu(menubar, tearoff=0)
     menubar.add_cascade(label='Exit', menu=program_exit)
@@ -355,20 +363,11 @@ def menu_bar(window):
         program_exit.add_command(label='Sign Out', command=lambda: signout_window(window))
     program_exit.add_command(label='Exit Program', command=exit)
 
-
-# Constance Sturm 11/27/2023, 12/5/23 updated menubar for uniformity
-# Heavily Modified by Hoi Lam Wong 12/2/2023
+# Constance Sturm, Hoi Lam Wong
 def main_window():
     '''Display Main Menu and Welcome Message'''
-    #NEW NEW NEW
-    #Pylint
-    #FortuneTeller/Fortune-Teller-2/fortune_teller.py:462:8: C0121: Comparison 'DBHelper.active == False' 
-    #should be 'DBHelper.active is False' if checking for the singleton value False, or 'not DBHelper.active' if testing for falsiness (singleton-comparison)
-    #if (DBHelper.active == False):
+    # call method to create db tables
     DBHelper.create_table()
-    print('Table created')
-    # test_create_table()
-
     # root window and title dimensions
     root.title('Fortune Teller')
     # geometry of the box (width x height)

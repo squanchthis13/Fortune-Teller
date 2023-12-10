@@ -1,6 +1,13 @@
-'''Helper moduler for fortune_teller.py'''
-#NEW NEW NEW
-#Pylint
+'''Team 3: Fortune Teller Application
+Created By: Constance Sturm, Michelle Cook, Chelsea Nieves,
+Valerie Rudich, and Hoi Lam Wong
+University of Maryland Global Campus
+CMSC 495-7382: Capstone in Computer Science
+Professor David Castillo
+December 12, 2023
+
+Helper module for fortune_teller.py
+'''
 #Wildcard import tkinter (wildcard-import)
 from tkinter import *
 import random
@@ -23,7 +30,6 @@ def center_window(win):
     win_height = height + titlebar_height + frm_width
     x = win.winfo_screenwidth() // 2 - win_width // 2
     y = win.winfo_screenheight() // 2 - win_height // 2
-    # Formatting a regular string which could be a f-string (consider-using-f-string)
     win.geometry(f'{width}x{height}+{x}+{y}')
     win.deiconify()
 
@@ -66,7 +72,6 @@ def get_love_fortune():
             for line in lines:
                 fortune.append(line)
     except IOError as err:
-        print('Unable to find file love_fortune.txt')
         db_logger.error(err)
     return random.choice(fortune)
 
@@ -80,7 +85,6 @@ def get_career_fortune():
             for line in lines:
                 fortune.append(line)
     except IOError as err:
-        print('Unable to find file career_fortune.txt')
         db_logger.error(err)
     return random.choice(fortune)
 
@@ -94,7 +98,6 @@ def get_health_fortune():
             for line in lines:
                 fortune.append(line)
     except IOError as err:
-        print('Unable to find file health_fortune.txt')
         db_logger.error(err)
     return random.choice(fortune)
 
@@ -118,8 +121,12 @@ def get_random_fortune():
     fortune = []
     try:
         # Open multiple text files
-        with open(LOVE_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_love, open(GENERAL_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_general, open(
-                HEALTH_FORTUNE_PATH, 'r' , encoding = 'utf-8') as file_health, open(CAREER_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_career:
+        with (
+            open(LOVE_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_love,
+            open(GENERAL_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_general,
+            open(HEALTH_FORTUNE_PATH, 'r' , encoding = 'utf-8') as file_health,
+            open(CAREER_FORTUNE_PATH, 'r', encoding = 'utf-8') as file_career
+        ):
             # Read text files and split by line
             lines_love = file_love.read().splitlines()
             lines_general = file_general.read().splitlines()

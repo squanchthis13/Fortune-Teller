@@ -189,3 +189,12 @@
 2023-12-09 01:07:44,642 [INFO]: User %{username}s signed out successfully in /Users/valrud/Documents/23Fa/CMSC 495/Fortune-Teller/databasehelper.py:389
 2023-12-09 10:43:55,102 [INFO]: New registration: %(uname)s in /Users/chelseanieves/9Dec/Fortune-Teller-3/databasehelper.py:347
 2023-12-10 12:21:08,852 [INFO]: New registration: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:344
+2023-12-10 12:32:43,283 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:389
+2023-12-10 12:41:40,079 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:397
+2023-12-10 12:42:24,928 [INFO]: New registration: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:352
+2023-12-10 13:03:25,657 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391
+2023-12-10 13:04:19,699 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391
+2023-12-10 13:05:35,827 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/Fortune-Teller/databasehelper.py:413
+2023-12-10 13:05:58,548 [INFO]: New registration: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:347
+2023-12-10 13:06:10,917 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391
+2023-12-10 13:07:47,416 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/Fortune-Teller/databasehelper.py:391

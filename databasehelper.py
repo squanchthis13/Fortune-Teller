@@ -1,4 +1,4 @@
-'''
+'''Team 3: Fortune Teller Application
 Module to create db, tables, and query/output data
 '''
 import sqlite3
@@ -6,19 +6,18 @@ import string
 import re
 from datetime import date
 import tkinter as tk
-from tkinter import messagebox
 import bcrypt
 from loghandler import user_logger, db_logger
 
 SPECIAL_CHAR = string.punctuation  # special characters to validate password requirements
 DB_NAME = 'FortuneTeller.db' # Create a new database
-COMMON_PASS_PATH = 'texts/CommonPassword.txt'
-is_user_logged_in = False
-username = ''
-#active = False # var if db has been created
+COMMON_PASS_PATH = 'texts/CommonPassword.txt' # file of common pass for password input validation
+is_user_logged_in = False # global var to track user authentication state
+username = '' #global var to track username of authenticated user
 
 def read_sqlite_table():
-    '''Method to output data from User and Fortune SQLite table to console'''
+    '''TESTING METHOD
+    Method to output data from User and Fortune SQLite table to console'''
     try:
         con = sqlite3.connect(DB_NAME)
         cur = con.cursor()
@@ -38,7 +37,6 @@ def read_sqlite_table():
             print('> Hashed Pass: ', row[4])
             print('\n')
 
-        ### NEW NEW NEW
         # display records in Fortune table
         sqlite_select_query = '''SELECT * from FORTUNE'''
         cur.execute(sqlite_select_query)
@@ -69,14 +67,24 @@ def create_table():
     # create DB cursor
     cur = con.cursor()
     try:
-        cur.executescript('''
-        CREATE TABLE IF NOT EXISTS user(userId VARCHAR(20) NOT NULL PRIMARY KEY, first_name TEXT(20) NOT NULL, last_name TEXT(20) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, password BLOB);
-        CREATE TABLE IF NOT EXISTS fortune(fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, userId VARCHAR(20) NOT NULL, save_date TEXT, message TEXT, category VARCHAR(10) NOT NULL, FOREIGN KEY (userId) REFERENCES user(userId));
-        ''')
+        cur.executescript('''CREATE TABLE IF NOT EXISTS user(
+                          userId VARCHAR(20) NOT NULL PRIMARY KEY,
+                          first_name TEXT(20) NOT NULL, 
+                          last_name TEXT(20) NOT NULL,
+                          email VARCHAR(50) NOT NULL UNIQUE,
+                          password BLOB);
+                          CREATE TABLE IF NOT EXISTS fortune(
+                          fortuneId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                          userId VARCHAR(20) NOT NULL,
+                          save_date TEXT,
+                          message TEXT,
+                          category VARCHAR(10) NOT NULL,
+                          FOREIGN KEY (userId) REFERENCES user(userId));
+                        ''')
         # commit to db
         con.commit()
         # display tables to console
-        read_sqlite_table()
+        #read_sqlite_table()
     except sqlite3.Error as err:
         # log db error
         db_logger.error(err)
@@ -92,44 +100,41 @@ def validate_username(uname):
     :return: True if valid, else false'''
     while True:
         if uname == '':
-            print('ERROR: Field cannot be left blank')
+            user_logger.error('ERROR: Field cannot be left blank')
             break
         if any(char in SPECIAL_CHAR for char in uname):
-            print('ERROR: Field may not contain special characters.')
+            user_logger.error('ERROR: Field may not contain special characters.')
             break
         if len(uname) > 20:
-            print('ERROR: Length may not exceed 20 characters.')
+            user_logger.error('ERROR: Length may not exceed 20 characters.')
             break
         else:
             #input is valid
-            print(f'INFO: {uname} is valid')
             return True
     #strng is invalid
-    return False 
-
+    return False
 
 def validate_name(name):
     '''Method to validate input fname, lname
     :return: True if valid, else false'''
     while True:
         if name == '':
-            print('ERROR: Field cannot be left blank')
+            user_logger.error('ERROR: Field cannot be left blank')
             break
         if any(char in SPECIAL_CHAR for char in name):
-            print('ERROR: Field may not contain special characters.')
+            user_logger.error('ERROR: Field may not contain special characters.')
             break
-        ###NEW NEW NEW 9 DEC NIEVES,CHELSEA###
+        #NIEVES,CHELSEA
         if any(char.isdigit() for char in name):
-            print('ERROR: Field may not contain any numerical characters.')
+            user_logger.error('ERROR: Field may not contain any numerical characters.')
             break
         if len(name) > 20:
-            print('ERROR: Length may not exceed 20 characters.')
+            user_logger.error('ERROR: Length may not exceed 20 characters.')
             break
         else:
             #input is valid
-            print(f'INFO: {name} is valid')
             return True
-    #strng is invalid
+    #name is invalid
     return False
 
 def check_username_exists(input_username):
@@ -160,8 +165,7 @@ def check_username_exists(input_username):
                 con.close()
     return False
 
-# Valerie Rudich 12/5/2023
-# Chelsea Nieves 7 Dec 23 modified return statements
+# Valerie Rudich, Chelsea Nieves
 def validate_email(email):
     '''Validates user's email address
     :return: True if valid, else false'''
@@ -310,7 +314,6 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             return True
         else:
             break
-    # 2Dec Nieves, Chelsea, Valerie
     # Invalid input
     return False
 
@@ -351,8 +354,7 @@ def sign_up(uname, fname, lname, email, pass1, pass2):
                 cur.close()
                 con.close()
                 print('The SQLite connection is closed')
-
-    read_sqlite_table()
+    #read_sqlite_table()
     # return false if db query or user input invalid
     return False
 
@@ -439,14 +441,12 @@ def get_previous_fortunes(uname):
             header2 = '------------------------------------------'
             previous_fortunes.append(header1)
             previous_fortunes.append(header2)
-            print(header1)
-            print(header2)
+            #print(header1)
+            #print(header2)
             for save_date, category, message in res:
                 res_strng = f'{save_date}  :  {category}  :  {message}'
-                print(res_strng)
+                #print(res_strng)
                 previous_fortunes.append(res_strng)
-        else:
-            print('No fortunes')
     except sqlite3.Error as err:
         db_logger.error(err)
     finally:
@@ -475,7 +475,7 @@ def save_fortune_to_table(category, fortune):
             cur.execute('INSERT INTO fortune (userId, save_date, message, category) VALUES (?, ?, ?, ?)',
                         (username, formatted_date, fortune, category))
             con.commit()  # Commit the transaction
-            read_sqlite_table()
+            #read_sqlite_table()
             return True
         except sqlite3.Error as err:
             db_logger.error(err)
@@ -485,6 +485,7 @@ def save_fortune_to_table(category, fortune):
                 cur.close()
                 con.close()
     else:
-        tk.messagebox.showerror(title=None, message='Error! Please register or log in to save a fortune.')
+        tk.messagebox.showerror(title=None, message='Error!\n'
+                                'Please register or log in to save a fortune.')
         db_logger.error('The user should not be able to access this')
     return False

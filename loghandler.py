@@ -1,6 +1,6 @@
-'''
+'''Team 3: Fortune Teller Application
 Module to handle the creation and formatting of user and database loggers
-modified 9Dec23
+Modified 9Dec23
 @author: Chelsea Nieves
 '''
 import logging
