@@ -33,6 +33,7 @@ def display_rules():
 
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game\n', font='50')
     lbl.pack()
+    # Chelsea Nieves: updated rules 12/10/23
     msg = Message(rules_tk, text='> From the "Main Menu", select "Play as Guest" or "Login!" \n '
                   '> If you do not already have an account, you may register by selecting '
                   '"Register" from the "Main Menu". \n'
@@ -48,7 +49,7 @@ def display_rules():
 
     rules_tk.mainloop()
 
-# Constance Sturm 11/26/2023, 12/5/23
+# Hoi Lam Wong 11/28/2023
 def login_window():
     '''This function is used for returning users'''
     # Initialize New Window
@@ -93,8 +94,8 @@ def login_window():
             tk.messagebox.showinfo(title=None, message='Authentication Failed!')
     login_tk.mainloop()
 
-# Hoi Lam Wong 11/27/2023
-# Constance Sturm 12/5/23 added menu bar for uniformity
+# Constance 11/25/23
+# Modified by Hoi Lam Wong 11/27/2023
 def registration_window():
     ''' This function is used to create new window that holds registration from '''
 
@@ -148,7 +149,6 @@ def registration_window():
 
     btn_submit = Button(master=registration_tk, text='Submit',
                         command=lambda: user_register())
-
     btn_submit.grid(row=9, column=0)
     btn_close = Button(registration_tk, text='Close', command=registration_tk.destroy)
     btn_close.grid(row=9, column=1)
@@ -205,7 +205,6 @@ def fortune_menu():
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
-# Constance Sturm 12/5/23
 def display_fortune(category):
     ''' Method to create a new window to display user's fortune 
     based on the category they choose in fortune menu'''
@@ -259,7 +258,6 @@ def display_fortune(category):
             return
 
 # Hoi Lam Wong 12/4/2023
-# Constance Sturm 12/5/23 added menubar for uniformity
 def past_fortunes_window():
     ''' Method to create new window for displaying user's past fortunes '''
     # Check if user is logged in
@@ -308,7 +306,6 @@ def past_fortunes_window():
     previous_fortunes_tk.mainloop()
 
 # Valerie Rudich 12/4/2023
-# Constance Sturm 12/5/23 updated menubar to create uniformity
 def user_menu():
     '''New menu once user is logged in to choose new fortune or view old fortunes'''
     # Initialize New Window
@@ -355,8 +352,9 @@ def signout_window(user_menu_tk):
     else:
         return
 
-# Valerie Rudich 12/8/23
-#NEW
+
+# Constance Sturm 12/6/23
+# Edited and Completed by Valerie Rudich 12/8/23
 def menu_bar(window):
     ''' method to define menu bar '''
     # add menu bar to allow user to view rules, fortune,or exit
