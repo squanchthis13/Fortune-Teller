@@ -167,14 +167,11 @@ def validate_email(email):
     :return: True if valid, else false'''
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
 
-    while True:
-        if email == '':
-            print('Error: Email cannot be blank')
-            break
-        if re.match(email_regex, email):
-            # email is valid
-            return True
-    return False
+    if re.match(email_regex, email):
+        # email is valid
+        return True
+    else:
+        return False
 
 def check_email_exists(email):
     '''Method to check if email already exists in db

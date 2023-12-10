@@ -5,21 +5,15 @@ University of Maryland Global Campus
 CMSC 495-7382: Capstone in Computer Science
 Professor David Castillo
 November 26, 2023'''
-##NEW NEW NEW
 #Pylint
 #Wildcard import tkinter (wildcard-import)
 from tkinter import messagebox
-#NEW NEW NEW
 #Pylint
 #Wildcard import tkinter.ttk (wildcard-import)
 from tkinter.ttk import *
 import tkinter as tk
 import databasehelper as DBHelper
-#NEW NEW NEW 
-#Pylint
-#FortuneTeller/Fortune-Teller-2/fortune_teller.py:14:0: W0614: 
-# Unused import(s) random, LOVE_FORTUNE_PATH, CAREER_FORTUNE_PATH, GENERAL_FORTUNE_PATH, HEALTH_FORTUNE_PATH and db_logger from wildcard import of fthelper 
-# (unused-wildcard-import)
+### Pylint WildCard Import
 from fthelper import *
 
 # create root window
@@ -36,7 +30,7 @@ def display_rules():
 
     lbl = Label(rules_tk, text='How to Play the Fortune Teller Game\n', font='50')
     lbl.pack()
-    msg = Message(rules_tk, text='> From the main menu, select "Play as Guest" or "Login!" \n '
+    msg = Message(rules_tk, text='> From the "Main Menu", select "Play as Guest" or "Login!" \n '
                   '> If you do not already have an account, you may register by selecting '
                   '"Register" from the "Main Menu". \n'
                   '> Select "Play as Guest" or "Get a Fortune!" to arrive at the '
@@ -48,10 +42,10 @@ def display_rules():
     msg.pack()
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
-    
+
     rules_tk.mainloop()
 
-# Constance Sturm 11/26/2023, 12/5/23 
+# Constance Sturm 11/26/2023, 12/5/23
 def login_window():
     '''This function is used for returning users'''
     # Initialize New Window
@@ -85,7 +79,7 @@ def login_window():
     def user_login():
         uname = username_login_entry.get().lower().strip()
         password = password_login_entry.get().strip()
-        
+
         if DBHelper.auth_user(uname, password):
             tk.messagebox.showinfo(title=None, message='Login Successful!')
             login_tk.destroy()
@@ -94,7 +88,6 @@ def login_window():
             user_menu()
         else:
             tk.messagebox.showinfo(title=None, message='Authentication Failed!')
-   
     login_tk.mainloop()
 
 # Hoi Lam Wong 11/27/2023
@@ -170,39 +163,9 @@ def registration_window():
     # Call to create registration_tk... END of registration TK
     registration_tk.mainloop()
 
-# Hoi Lam Wong 11/27/2023
-# DELETED 8Dec Nieves, Chelsea
-'''def registration_message_window(error_message):
-    New window that show whether sign up is successful or not
-
-    submission_result_tk = Tk()
-    submission_result_tk.geometry('400x100')
-    submission_result_tk.title('User Register')
-    center_window(submission_result_tk)
-
-    # Dynamically set message to show sign up confirmation
-    message = ''
-    if error_message == '':
-        # There is no error if error message is empty
-        message = 'Registration Successful! Please Log In'
-    else:
-        # Else message to be displayed is the error message
-        message = error_message
-
-    # Create label for message
-    submission_result_label = Label(submission_result_tk, text=message)
-    submission_result_label.pack()
-
-    # Create button for closing window
-    btn_close = Button(submission_result_tk, text='Close', command=submission_result_tk.destroy)
-    btn_close.pack()
-
-    submission_result_tk.mainloop()'''
-
-# Constance 11/27/2023, 12/5/23 
+# Constance 11/27/2023, 12/5/23
 def fortune_menu():
     '''This menu will give the user the option to choose a category'''
-
     # Initialize New Window
     fortune_menu_tk = Toplevel()
     fortune_menu_tk.geometry('300x200')
@@ -213,7 +176,8 @@ def fortune_menu():
     btn_love = Button(fortune_menu_tk, text='Love', command=lambda: display_fortune('Love'))
     btn_career = Button(fortune_menu_tk, text='Career', command=lambda: display_fortune('Career'))
     btn_health = Button(fortune_menu_tk, text='Health', command=lambda: display_fortune('Health'))
-    btn_general = Button(fortune_menu_tk, text='General', command=lambda: display_fortune('General'))
+    btn_general = Button(fortune_menu_tk, text='General',
+                         command=lambda: display_fortune('General'))
     btn_random = Button(fortune_menu_tk, text='Random', command=lambda: display_fortune('Random'))
 
     lbl.pack()
@@ -226,7 +190,7 @@ def fortune_menu():
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
-# Constance Sturm 12/5/23 added menubar for uniformity 
+# Constance Sturm 12/5/23
 def display_fortune(category):
     ''' Method to create a new window to display user's fortune 
     based on the category they choose in fortune menu'''
