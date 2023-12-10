@@ -54,8 +54,10 @@ class TestInputVal(unittest.TestCase):
         '''Test if pass1 and pass2 are valid for user registration'''
         valid_pass = '1qaz!QAZ2wsx@WSX'
         #invalid input
-        #blank input
+        #blank input // pass1
         self.assertFalse(validate_pass('', valid_pass))
+        # blank input // pass2
+        self.assertFalse(validate_pass(valid_pass, ''))
         #password in contents; #len < 12; 
         self.assertFalse(validate_pass('test', 'test'))
         #no number
