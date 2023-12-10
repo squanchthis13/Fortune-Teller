@@ -55,7 +55,7 @@ class TestInputVal(unittest.TestCase):
         valid_pass = '1qaz!QAZ2wsx@WSX'
         #invalid input
         #blank input
-        self.assertFalse(validate_pass('', ''))
+        self.assertFalse(validate_pass('', valid_pass))
         #password in contents; #len < 12; 
         self.assertFalse(validate_pass('test', 'test'))
         #no number

@@ -212,3 +212,19 @@
 2023-12-10 13:16:27,126 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/Fortune-Teller/databasehelper.py:104
 2023-12-10 13:16:27,126 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:107
 2023-12-10 13:16:27,126 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/Fortune-Teller/databasehelper.py:110
+2023-12-10 15:09:48,593 [INFO]: Successful authentication, username: %(uname)s in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:398
+2023-12-10 15:09:57,618 [INFO]: User %{username}s signed out successfully in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:420
+2023-12-10 15:10:23,161 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:123
+2023-12-10 15:10:23,161 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:126
+2023-12-10 15:10:23,161 [ERROR]: ERROR: Field may not contain any numerical characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:130
+2023-12-10 15:10:23,161 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:133
+2023-12-10 15:10:31,286 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:104
+2023-12-10 15:10:31,286 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:107
+2023-12-10 15:10:31,286 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:110
+2023-12-10 15:10:43,764 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:123
+2023-12-10 15:10:43,764 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:126
+2023-12-10 15:10:43,764 [ERROR]: ERROR: Field may not contain any numerical characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:130
+2023-12-10 15:10:43,764 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:133
+2023-12-10 15:10:50,986 [ERROR]: ERROR: Field cannot be left blank in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:104
+2023-12-10 15:10:50,986 [ERROR]: ERROR: Field may not contain special characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:107
+2023-12-10 15:10:50,986 [ERROR]: ERROR: Length may not exceed 20 characters. in /Users/chelseanieves/broken menu maybe/Fortune-Teller-1/databasehelper.py:110
