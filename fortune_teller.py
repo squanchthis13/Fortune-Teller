@@ -202,7 +202,6 @@ def fortune_menu():
     btn_general.pack()
     btn_random.pack()
 
-    menu_bar(fortune_menu_tk)
     fortune_menu_tk.mainloop()
 
 # Hoi Lam Wong 11/28/2023
