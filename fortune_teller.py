@@ -30,17 +30,21 @@ def display_rules():
     ''' Create a window that displays the rules to the user'''
     # Initialize New Window
     rules_tk = Toplevel()
-    rules_tk.geometry('350x260')
+    rules_tk.geometry('500x400')
     rules_tk.title('Rules of the Fortune Teller')
     center_window(rules_tk)
 
-    lbl = Label(rules_tk, text='How to Play the Fortune Teller Game', font='50')
+    lbl = Label(rules_tk, text='How to Play the Fortune Teller Game\n', font='50')
     lbl.pack()
-    msg = Message(rules_tk, text='> Please select a category from the following buttons. \n '
-                                 '> The program will display the fortune to you automatically. \n'
-                                 '> The program will save your fortune '
-                                 '> if you are logged in as a returning user and select save from menu. \n'
-                                 '> Use the menu selection Exit to exit the program.\n')
+    msg = Message(rules_tk, text='> From the main menu, select "Play as Guest" or "Login!" \n '
+                  '> If you do not already have an account, you may register by selecting '
+                  '"Register" from the "Main Menu". \n'
+                  '> Select "Play as Guest" or "Get a Fortune!" to arrive at the '
+                  '"Fortune Menu". \n'
+                  '> Select the desired category of your fortune and '
+                  'it will magically appear! \n'
+                  '> If you are logged in, you may save your fortune to view from the '
+                  '"Past Fortunes" menu at anytime! \n')
     msg.pack()
     btn_rule_close = tk.Button(rules_tk, text='Close', bd='5', command=rules_tk.destroy)
     btn_rule_close.pack()
