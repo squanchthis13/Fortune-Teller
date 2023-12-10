@@ -262,7 +262,7 @@ def validate_pass(password1, password2):
                 return False
     except IOError:
         # file not found error
-        db_logger.ERROR('Could not find file CommonPassword.txt')
+        db_logger.error('Could not find file CommonPassword.txt')
     return True
 
 def check_all_inputs(uname, fname, lname, email, pass1, pass2):
