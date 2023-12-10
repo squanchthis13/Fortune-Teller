@@ -218,43 +218,43 @@ def validate_pass(password1, password2):
             contents = f.read()
             if password1 in contents:
                 # if password found in list of common passwords
-                error_message = 'Error: Found in list of common passwords. Please try again.'
+                error_message = 'ERROR: Password found in list of common passwords. Please try again.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if len(password1) < 12:
                 # if password length is not 12 char
-                error_message = 'Invalid length: Password must be greater than 12 characters.'
+                error_message = 'ERROR: Password must be greater than 12 characters.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if not any(char.isdigit() for char in password1):
                 # if password does not contain at least one numerical char
-                error_message = 'Error: Password must contain at least one numerical character.'
+                error_message = 'ERROR: Password must contain at least one numerical character.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if not any(char.islower() for char in password1):
                 # if password does not contain at least one lowercase char
-                error_message = 'Error: Password must contain at least one lowercase character.'
+                error_message = 'ERROR: Password must contain at least one lowercase character.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if not any(char.isupper() for char in password1):
                 # if password does not contain at least one uppercase char
-                error_message = 'Error: Password must contain at least one uppercase character.'
+                error_message = 'ERROR: Password must contain at least one uppercase character.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if not any(char in SPECIAL_CHAR for char in password1):
                 # if password does not contain at least one special char
-                error_message = 'Error: Password must contain at least one special character.'
+                error_message = 'ERROR: Password must contain at least one special character.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
             if password1 != password2:
                 # if desired password does not match confirmation field
-                error_message = 'Error: Passwords do not match.'
+                error_message = 'ERROR: Passwords do not match.'
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
@@ -297,13 +297,13 @@ def check_all_inputs(uname, fname, lname, email, pass1, pass2):
             break
         if check_email_exists(f_email):
             # if email exists in db (must be unique)
-            error_message = 'Invalid Email Address'
+            error_message = 'ERROR: Email Previously Registered.'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             break
         if not validate_email(f_email):
             #if email is not valid
-            error_message = 'Error: Invalid Email Address. \nExample: example@mail.com'
+            error_message = 'ERROR: Invalid Email Address. \nExample: example@mail.com'
             # Output error message
             tk.messagebox.showerror(title=None, message=error_message)
             print('line 266 dbhelper')
