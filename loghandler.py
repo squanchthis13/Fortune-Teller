@@ -1,5 +1,7 @@
-'''
-Module to handle the creation and formatting of loggers
+'''Team 3: Fortune Teller Application
+Module to handle the creation and formatting of user and database loggers
+Modified 9Dec23
+@author: Chelsea Nieves
 '''
 import logging
 from logging import FileHandler
@@ -42,5 +44,3 @@ db_logger_FH.setLevel(log_level)
 db_logger_FH.setFormatter(Formatter(log_format))
 # Add handler to db_logger
 db_logger.addHandler(db_logger_FH)
-    
-    
