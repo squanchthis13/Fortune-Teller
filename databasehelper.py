@@ -215,67 +215,61 @@ def validate_pass(password1, password2):
     1 special char)
     :return: True if password is valid, else False'''
     error_message = ''
-    contents = ''
     try:
         with open(COMMON_PASS_PATH, encoding='UTF-8') as f:
-            contents = f.read().splitlines
+            contents = f.read()
+            if password1 in contents:
+                # if password found in list of common passwords
+                error_message = 'ERROR: Password found in list of common passwords. Please try again.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if len(password1) < 12:
+                # if password length is not 12 char
+                error_message = 'ERROR: Password must be greater than 12 characters.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.isdigit() for char in password1):
+                # if password does not contain at least one numerical char
+                error_message = 'ERROR: Password must contain at least one numerical character.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.islower() for char in password1):
+                # if password does not contain at least one lowercase char
+                error_message = 'ERROR: Password must contain at least one lowercase character.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char.isupper() for char in password1):
+                # if password does not contain at least one uppercase char
+                error_message = 'ERROR: Password must contain at least one uppercase character.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if not any(char in SPECIAL_CHAR for char in password1):
+                # if password does not contain at least one special char
+                error_message = 'ERROR: Password must contain at least one special character.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
+            if password1 == '' or password2 == '':
+                # if password field is left blank
+                error_message = 'ERROR: Password cannot be blank.'
+                #Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False  
+            if password1 != password2:
+                # if desired password does not match confirmation field
+                error_message = 'ERROR: Passwords do not match.'
+                # Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False
     except IOError:
         # file not found error
         db_logger.error('Could not find file CommonPassword.txt')
-    
-    while True:
-        if password1 in contents:
-            # if password found in list of common passwords
-            error_message = 'ERROR: Password found in list of common passwords. Please try again.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            break
-        if len(password1) < 12:
-            # if password length is not 12 char
-            error_message = 'ERROR: Password must be greater than 12 characters.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False
-        if not any(char.isdigit() for char in password1):
-            # if password does not contain at least one numerical char
-            error_message = 'ERROR: Password must contain at least one numerical character.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False
-        if not any(char.islower() for char in password1):
-            # if password does not contain at least one lowercase char
-            error_message = 'ERROR: Password must contain at least one lowercase character.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False
-        if not any(char.isupper() for char in password1):
-            # if password does not contain at least one uppercase char
-            error_message = 'ERROR: Password must contain at least one uppercase character.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False
-        if not any(char in SPECIAL_CHAR for char in password1):
-            # if password does not contain at least one special char
-            error_message = 'ERROR: Password must contain at least one special character.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False
-        if password1 == '' or password2 == '':
-            # if password field is left blank
-            error_message = 'ERROR: Password cannot be blank.'
-            #Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            return False  
-        if password1 != password2:
-            # if desired password does not match confirmation field
-            error_message = 'ERROR: Passwords do not match.'
-            # Output error message
-            tk.messagebox.showerror(title=None, message=error_message)
-            break
-        else:
-            #input is valid
-            return True
-    return False
+    return True
 
 def check_all_inputs(uname, fname, lname, email, pass1, pass2):
     '''Method to check for validation for all registration input
