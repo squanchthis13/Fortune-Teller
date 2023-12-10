@@ -254,6 +254,12 @@ def validate_pass(password1, password2):
                 # Output error message
                 tk.messagebox.showerror(title=None, message=error_message)
                 return False
+            if password1 == '' or password2 == '':
+                # if password field is left blank
+                error_message = 'ERROR: Password cannot be blank.'
+                #Output error message
+                tk.messagebox.showerror(title=None, message=error_message)
+                return False  
             if password1 != password2:
                 # if desired password does not match confirmation field
                 error_message = 'ERROR: Passwords do not match.'
