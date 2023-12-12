@@ -1,6 +1,12 @@
 # Fortune-Teller-Exe
 
 ## Description
+This fortune teller application will reveal a fortune to you after you select if you want to login, register, or play as a guest. If you login you will be able to view past fortunes that you've saved
+
+### Specifications
+Operating System: Window 10 +, Mac Sonoma 14
+Programming Language: Python3
+Additional Libraries: bcrypt
 
 ## Installation
 To run the Fortune Teller program using the Git Command Line, run the following commands in order by typing (or copying the highlighted portion) into the terminal and pressing enter.
