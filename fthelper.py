@@ -10,8 +10,8 @@ Helper module for fortune_teller.py
 '''
 #Wildcard import tkinter (wildcard-import)
 from tkinter import *
-import random
 from loghandler import db_logger
+import secrets
 
 LOVE_FORTUNE_PATH = 'texts/love_fortune.txt'
 CAREER_FORTUNE_PATH = 'texts/career_fortune.txt'
@@ -73,7 +73,7 @@ def get_love_fortune():
                 fortune.append(line)
     except IOError as err:
         db_logger.error(err)
-    return random.choice(fortune)
+    return secrets.SystemRandom().choice(fortune)
 
 def get_career_fortune():
     '''Method to parse txt file to output fortune to user
@@ -86,7 +86,7 @@ def get_career_fortune():
                 fortune.append(line)
     except IOError as err:
         db_logger.error(err)
-    return random.choice(fortune)
+    return secrets.SystemRandom().choice(fortune)
 
 def get_health_fortune():
     '''Method to parse txt file to output fortune to user
@@ -99,7 +99,7 @@ def get_health_fortune():
                 fortune.append(line)
     except IOError as err:
         db_logger.error(err)
-    return random.choice(fortune)
+    return secrets.SystemRandom().choice(fortune)
 
 def get_general_fortune():
     '''Method to parse txt file to output fortune to user
@@ -113,7 +113,7 @@ def get_general_fortune():
     except IOError as err:
         print('Unable to find file general_fortune.txt')
         db_logger.error(err)
-    return random.choice(fortune)
+    return secrets.SystemRandom().choice(fortune)
 
 def get_random_fortune():
     '''Method to parse txt file to output fortune to user
@@ -144,4 +144,4 @@ def get_random_fortune():
                 fortune.append(line)
     except IOError as err:
         db_logger.error(err)
-    return random.choice(fortune)
+    return secrets.SystemRandom().choice(fortune)
